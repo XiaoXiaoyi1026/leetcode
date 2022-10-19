@@ -1,6 +1,5 @@
-package com.xiaoxiaoyi;
+package com.xiaoxiaoyi.graph;
 
-import com.xiaoxiaoyi.graph.*;
 import junit.framework.TestCase;
 
 import java.util.Map;

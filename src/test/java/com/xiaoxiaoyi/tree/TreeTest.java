@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi;
+package com.xiaoxiaoyi.tree;
 
 import com.xiaoxiaoyi.tree.TrieTree;
 import junit.framework.TestCase;

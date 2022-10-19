@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi;
+package com.xiaoxiaoyi.greedy;
 
 import com.xiaoxiaoyi.greedy.LessMoneySplitGold;
 import junit.framework.TestCase;
