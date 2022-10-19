@@ -6,19 +6,26 @@ import java.util.Comparator;
 /**
  * @author xiaoxiaoyi
  * 贪心
+ * 给定每一个会议的开始时间和结束时间，求从某个时间点开始，能够进行的最大会议数是多少？
  */
-public class Greedy {
+public class MaximumNumberOfMeetings {
 
     public static class Project {
+        // 会议开始时间
         public int startTime;
+        // 会议结束时间
         public int endTime;
 
+        // 初始化会议
         public Project(int startTime, int endTime) {
             this.startTime = startTime;
             this.endTime = endTime;
         }
     }
 
+    /**
+     * 会议的比较器，基于贪心策略进行制定，根据会议的结束时间进行排序
+     */
     public static class ProjectComparator implements Comparator<Project> {
 
         @Override
@@ -39,7 +46,7 @@ public class Greedy {
         Project[] thisProjects = new Project[projects.length];
         System.arraycopy(projects, 0, thisProjects, 0, projects.length);
         // 按照endTime升序排序
-        Arrays.sort(thisProjects, new Greedy.ProjectComparator());
+        Arrays.sort(thisProjects, new MaximumNumberOfMeetings.ProjectComparator());
         int result = 0;
         for (Project project : thisProjects) {
             // 如果当前时间小于等于项目的开始时间
