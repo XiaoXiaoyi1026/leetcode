@@ -1,7 +1,5 @@
 package com.xiaoxiaoyi.graph;
 
-import java.util.Objects;
-
 /**
  * 有向边
  *

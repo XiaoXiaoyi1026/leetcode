@@ -136,4 +136,23 @@ public class GraphTest extends TestCase {
         }
     }
 
+    public void testImprovedDijkstra() {
+        Integer[][] input = new Integer[][]{
+                {1, 2, 1},
+                {1, 5, 2},
+                {2, 3, 3},
+                {2, 5, 8},
+                {3, 5, 4},
+                {3, 1, 6},
+                {5, 4, 2},
+                {6, 5, 7},
+                {4, 6, 5},
+                {3, 6, 5}
+        };
+        Graph graph = GraphGenerator.createGraph(input);
+        Map<Node, Integer> distanceMap = Dijkstra.improvedDijkstra(graph.nodes.get(1), graph.nodes.size());
+        for (Map.Entry<Node, Integer> entry : distanceMap.entrySet()) {
+            System.out.println("1 -> " + entry.getKey().value + " : " + entry.getValue());
+        }
+    }
 }
