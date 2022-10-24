@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.greedy;
+package com.xiaoxiaoyi.recursion;
 
 /**
  * @author xiaoxiaoyi
