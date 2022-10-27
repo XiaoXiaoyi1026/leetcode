@@ -124,7 +124,7 @@ public class Queens {
                     limit,
                     colLimit | mostRightOne,
                     (leftLimit | mostRightOne) << 1,
-                    (rightLimit | mostRightOne) >> 1
+                    (rightLimit | mostRightOne) >>> 1
             );
         }
         return res;
