@@ -1,5 +1,6 @@
 package com.xiaoxiaoyi.greedy;
 
+import java.util.Objects;
 import java.util.PriorityQueue;
 
 /**
@@ -26,10 +27,10 @@ public class LessMoneySplitGold {
         // 记录总铜板数
         int sum = 0;
         // 每轮切割要花费的铜板数
-        int cur = 0;
+        int cur;
         // 循环进行计算
         while (pQ.size() > 1) {
-            cur = pQ.poll() + pQ.poll();
+            cur = pQ.poll() + Objects.requireNonNull(pQ.poll());
             pQ.add(cur);
             sum += cur;
         }

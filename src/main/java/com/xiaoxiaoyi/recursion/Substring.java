@@ -11,6 +11,7 @@ public class Substring {
 
     public static void substring(String str) {
         char[] chs = str.toCharArray();
+        process(chs, 0, new ArrayList<>());
         process2(chs, 0);
     }
 

@@ -1,7 +1,5 @@
 package com.xiaoxiaoyi.recursion;
 
-import java.util.Objects;
-
 /**
  * @author xiaoxiaoyi
  * 给定一个卡牌数组，规定2名玩家只能从数组两端拿牌，每个玩家都很聪明，问谁最后能够获胜

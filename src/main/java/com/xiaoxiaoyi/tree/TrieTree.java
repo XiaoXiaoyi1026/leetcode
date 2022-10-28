@@ -1,6 +1,5 @@
 package com.xiaoxiaoyi.tree;
 
-import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -68,7 +67,7 @@ public class TrieTree {
         // 经过次数+1
         curNode.pass++;
         // 记录路径下标
-        int index = 0;
+        int index;
         // 遍历字符数组
         for (char c : chars) {
             // 求出当前字符的路径下标

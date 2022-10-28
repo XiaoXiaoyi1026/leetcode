@@ -1,6 +1,7 @@
 package com.xiaoxiaoyi.hash;
 
 /**
+ * @author xiaoxiaoyi
  * 位图数据结构
  */
 public class BitMap {
@@ -28,7 +29,7 @@ public class BitMap {
     BitMap(int size) {
         // 为了针对size刚好是32的倍数的情况，所以要-1
         bits = new int[(size - 1) / 32 + 1];
-        this.size = size;
+        this.size = size * 32;
     }
 
     /**

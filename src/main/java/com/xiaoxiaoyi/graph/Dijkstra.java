@@ -93,7 +93,7 @@ public class Dijkstra {
         NodeHeap nodeHeap = new NodeHeap(size);
         // 小顶堆添加或者更新或者不更新一个节点和到它的最小距离
         nodeHeap.addOrUpdateOrIgnore(fromNode, 0);
-        Map<Node, Integer> result = new HashMap<>();
+        Map<Node, Integer> result = new HashMap<>(size);
         while (!nodeHeap.isEmpty()) {
             // 弹出小顶堆的元素，即当前距离最小的节点
             NodeRecord record = nodeHeap.pop();
@@ -276,8 +276,7 @@ public class Dijkstra {
                 // 从当前节点的位置开始向上调整堆，并且堆的大小 + 1
                 heapInsert(size++);
             }
-            // 如果进过堆但是不在堆上，则说明也不做
+            // 如果进过堆但是不在堆上，则什么也不做
         }
     }
-
 }

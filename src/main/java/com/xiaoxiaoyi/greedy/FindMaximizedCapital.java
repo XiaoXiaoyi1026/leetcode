@@ -1,6 +1,7 @@
 package com.xiaoxiaoyi.greedy;
 
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.PriorityQueue;
 
 /**
@@ -71,7 +72,7 @@ public class FindMaximizedCapital {
             }
             // 拿大根堆最上面的项目做，做完当前资金加上利润为下一轮的初始资金
             System.out.println("做了项目: c_" + maxProfitQ.peek().c + "_p_" + maxProfitQ.peek().p);
-            w += maxProfitQ.poll().p;
+            w += Objects.requireNonNull(maxProfitQ.poll()).p;
         }
 
         // 返回当前资金
