@@ -61,6 +61,45 @@ public class MinimumSpanningTree {
     }
 
     /**
+     * 使用并查集优化后的kruskal算法
+     *
+     * @param graph 图
+     * @return 边集
+     */
+    public static Set<Edge> kruskalMinimumSpanningTreeByUnionFind(Graph graph) {
+
+        Set<Edge> result = new HashSet<>();
+
+        List<Node> nodes = new ArrayList<>();
+
+        for (Map.Entry<Integer, Node> entry : graph.nodes.entrySet()) {
+            nodes.add(entry.getValue());
+        }
+
+        // 初始化并查集，存储图中每个节点
+        UnionFind<Node> unionFind = new UnionFind<>(nodes);
+        // 获取边的比较器
+        EdgeComparator edgeComparator = EdgeComparator.getMyComparator();
+        // 构造小根堆
+        PriorityQueue<Edge> edgePriorityQueue = new PriorityQueue<>(edgeComparator);
+        // 将所有边放入小根堆排序
+        edgePriorityQueue.addAll(graph.edges);
+        // 遍历小根堆
+        while (!edgePriorityQueue.isEmpty()) {
+            // 选出最小的那条边
+            Edge edge = edgePriorityQueue.poll();
+            // 判断这条边的from和to节点是否在同一个set中
+            if (!unionFind.isSameSet(edge.from, edge.to)) {
+                // 如果不在，则将该边加入到result中
+                result.add(edge);
+                // 合并from和to的set
+                unionFind.union(edge.from, edge.to);
+            }
+        }
+        return result;
+    }
+
+    /**
      * kruskal 最小生成树
      *
      * @param graph graph

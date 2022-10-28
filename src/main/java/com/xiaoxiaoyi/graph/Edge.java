@@ -19,6 +19,15 @@ public class Edge {
      */
     public Node to;
 
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "weight=" + weight +
+                ", from=" + from +
+                ", to=" + to +
+                '}';
+    }
+
     /**
      * 构造边
      *
