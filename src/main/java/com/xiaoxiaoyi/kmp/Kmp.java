@@ -6,6 +6,9 @@ package com.xiaoxiaoyi.kmp;
  */
 public class Kmp {
 
+    /**
+     * @return str2在str1中出现的位置
+     */
     public static int getIndexOf(String str1, String str2) {
         if (str1 == null || str2 == null || str2.length() < 1 || str1.length() < str2.length()) {
             return -1;
