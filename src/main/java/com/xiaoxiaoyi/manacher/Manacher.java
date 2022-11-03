@@ -22,10 +22,11 @@ public class Manacher {
      * @return 处理过后的串
      */
     public static char[] manacherString(String str) {
-        char[] strChar = str.toCharArray();
+        char[] strChars = str.toCharArray();
         char[] res = new char[2 * str.length() + 1];
         for (int i = 0; i < res.length; i++) {
-            res[i] = (i & 1) == 0 ? '#' : strChar[i >> 1];
+            // 偶数位置插入#
+            res[i] = (i & 1) == 0 ? '#' : strChars[i >> 1];
         }
         return res;
     }
@@ -46,15 +47,15 @@ public class Manacher {
         int[] palindromicRadiusArray = new int[afterProcessingStr.length];
         // 初始回文中心
         int center = -1;
-        // 初始回文右边界的再右一个位置，真正的回文右边界为R-1
+        // 初始回文右边界的再右一个位置，真正的回文右边界为 right-1
         int right = -1;
-        // 扩出来的最大值
+        // 扩出来的最大回文半径值
         int max = Integer.MIN_VALUE;
         // 求每个位置的回文半径
         for (int cur = 0; cur != afterProcessingStr.length; cur++) {
             // 当前位置cur > right时，p[i]至少为1,
-            // i在right内时, p[i]至少为right - cur或者p[center - (cur - center)]对称点中的最小值
-            // 这里就是求p[i]的最小值
+            // cur在right内时, p[cur]至少为right - cur或者p[center - (cur - center)]对称点中的最小值
+            // 这里就是求p[cur]的最小值
             palindromicRadiusArray[cur] = right > cur ?
                     Math.min(palindromicRadiusArray[(center << 1) - cur]
                             , right - cur) : 1;
@@ -78,7 +79,8 @@ public class Manacher {
                     right = cur + curPalindromicRadius;
                     center = cur;
                 }
-                // 记录一下最大的回文半径
+
+                // 记录下最大的回文半径
                 max = Math.max(max, palindromicRadiusArray[cur]);
             }
         }
