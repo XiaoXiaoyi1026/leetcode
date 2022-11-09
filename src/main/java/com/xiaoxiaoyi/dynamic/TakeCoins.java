@@ -9,6 +9,7 @@ import java.util.Arrays;
 public class TakeCoins {
 
     /**
+     * 获取随机硬币数组
      *
      * @param len 硬币数量
      * @param max 硬币最大面额
@@ -163,6 +164,7 @@ public class TakeCoins {
     }
 
     /**
+     * 动态规划
      *
      * @param coins 硬币数组
      * @param money 目标钱数
@@ -224,7 +226,7 @@ public class TakeCoins {
                 }
             }
         }
-        // 返回要求的结果
+        // 返回要求的结果, 即从0开始拿硬币, 拿到目标硬币值的最小值
         return dp[0][money];
     }
 }
