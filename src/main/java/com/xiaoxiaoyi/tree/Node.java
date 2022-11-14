@@ -4,29 +4,33 @@ package com.xiaoxiaoyi.tree;
  * @author xiaoxiaoyi
  * 树节点
  */
-public class Node<T> {
-    private final T val;
-    private Node<T> left;
-    private Node<T> right;
+public class Node {
+    private final Object val;
+    private Node left;
+    private Node right;
 
-    Node(T val) {
+    Node(Object val) {
         this.val = val;
         this.left = this.right = null;
     }
 
-    public Node<T> getLeft() {
+    public Node getLeft() {
         return left;
     }
 
-    public Node<T> getRight() {
+    public Node getRight() {
         return right;
     }
 
-    public void setLeft(Node<T> left) {
+    public Object getVal() {
+        return val;
+    }
+
+    public void setLeft(Node left) {
         this.left = left;
     }
 
-    public void setRight(Node<T> right) {
+    public void setRight(Node right) {
         this.right = right;
     }
 

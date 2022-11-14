@@ -4,13 +4,13 @@ import junit.framework.TestCase;
 
 public class MorrisTest extends TestCase {
 
-    Node<Object> node1 = new Node<>(1);
-    Node<Object> node2 = new Node<>(2);
-    Node<Object> node3 = new Node<>(3);
-    Node<Object> node4 = new Node<>(4);
-    Node<Object> node5 = new Node<>(5);
-    Node<Object> node6 = new Node<>(6);
-    Node<Object> node7 = new Node<>(7);
+    Node node1 = new Node(1);
+    Node node2 = new Node(2);
+    Node node3 = new Node(3);
+    Node node4 = new Node(4);
+    Node node5 = new Node(5);
+    Node node6 = new Node(6);
+    Node node7 = new Node(7);
 
     public void createTree() {
         node1.setLeft(node2);
