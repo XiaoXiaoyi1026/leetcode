@@ -8,27 +8,71 @@ import java.util.Comparator;
  */
 public class SearchBinaryTree {
 
-    private Node root;
-    private final Comparator<Node> comparator;
+    public static class SearchBinaryTreeNode extends Node {
+        private SearchBinaryTreeNode left;
+        private SearchBinaryTreeNode right;
+        private SearchBinaryTreeNode parent;
 
-    SearchBinaryTree(Comparator<Node> comparator) {
+        SearchBinaryTreeNode(Object val) {
+            super(val);
+            this.left = this.right = this.parent = null;
+        }
+
+        @Override
+        public SearchBinaryTreeNode getLeft() {
+            return left;
+        }
+
+        public void setLeft(SearchBinaryTreeNode left) {
+            this.left = left;
+        }
+
+        @Override
+        public SearchBinaryTreeNode getRight() {
+            return right;
+        }
+
+        public void setRight(SearchBinaryTreeNode right) {
+            this.right = right;
+        }
+
+        public SearchBinaryTreeNode getParent() {
+            return parent;
+        }
+
+        public void setParent(SearchBinaryTreeNode parent) {
+            this.parent = parent;
+        }
+
+        @Override
+        public String toString() {
+            return "SearchBinaryTreeNode{" +
+                    "val=" + super.getVal() +
+                    '}';
+        }
+    }
+
+    private SearchBinaryTreeNode root;
+    private final Comparator<SearchBinaryTreeNode> comparator;
+
+    SearchBinaryTree(Comparator<SearchBinaryTreeNode> comparator) {
         root = null;
         this.comparator = comparator;
     }
 
-    public Node getRoot() {
+    public SearchBinaryTreeNode getRoot() {
         return root;
     }
 
-    public void setRoot(Node node) {
+    public void setRoot(SearchBinaryTreeNode node) {
         root = node;
     }
 
-    public void addNode(Node node) {
+    public void addNode(SearchBinaryTreeNode node) {
         if (root == null) {
             root = node;
-        } else {
-            Node curNode = root;
+        } else if (findNode(node) == null) {
+            SearchBinaryTreeNode curNode = root;
             while (curNode != null) {
                 if (comparator.compare(node, curNode) > 0) {
                     // node > curNode, 往右边滑
@@ -36,6 +80,7 @@ public class SearchBinaryTree {
                         curNode = curNode.getRight();
                     } else {
                         curNode.setRight(node);
+                        node.setParent(curNode);
                         return;
                     }
                 } else if (comparator.compare(node, curNode) < 0) {
@@ -44,21 +89,19 @@ public class SearchBinaryTree {
                         curNode = curNode.getLeft();
                     } else {
                         curNode.setLeft(node);
+                        node.setParent(curNode);
                         return;
                     }
-                } else {
-                    // node == curNode, 直接返回
-                    return;
                 }
             }
         }
     }
 
-    public Node findNode(Node node) {
+    public SearchBinaryTreeNode findNode(SearchBinaryTreeNode node) {
         if (root == null) {
             return null;
         } else {
-            Node curNode = root;
+            SearchBinaryTreeNode curNode = root;
             while (curNode != null) {
                 if (comparator.compare(node, curNode) > 0) {
                     // node > curNode, 往右边滑
@@ -76,38 +119,14 @@ public class SearchBinaryTree {
         }
     }
 
-    public Node findNodeParent(Node node) {
-        if (root == null) {
-            return null;
-        } else {
-            Node curNode = root, parent = null;
-            while (curNode != null) {
-                if (comparator.compare(node, curNode) > 0) {
-                    // node > curNode, 往右边滑
-                    parent = curNode;
-                    curNode = curNode.getRight();
-                } else if (comparator.compare(node, curNode) < 0) {
-                    // node < curNode, 往左边滑
-                    parent = curNode;
-                    curNode = curNode.getLeft();
-                } else {
-                    // node == curNode, 退出循环
-                    break;
-                }
-            }
-            // 返回父节点
-            return parent;
-        }
-    }
-
-    public void removeNode(Node node) {
-        Node findNode = findNode(node);
+    public void removeNode(SearchBinaryTreeNode node) {
+        SearchBinaryTreeNode findNode = findNode(node);
         if (findNode == null) {
             // 节点不存在, 直接返回
             return;
         }
         // 找其父节点
-        Node nodeParent = findNodeParent(node);
+        SearchBinaryTreeNode nodeParent = node.getParent();
         if (findNode.getLeft() == null && findNode.getRight() == null) {
             // 左右子树都为空
             if (nodeParent == null) {
@@ -152,7 +171,7 @@ public class SearchBinaryTree {
             }
         } else {
             // 左右子树都不为空, 找到左子树的最右节点或者右子树的最左节点, 放到当前的位置上
-            Node mostRight = findNode.getLeft();
+            SearchBinaryTreeNode mostRight = findNode.getLeft();
             while (mostRight.getLeft() != null || mostRight.getRight() != null) {
                 if (mostRight.getRight() != null) {
                     mostRight = mostRight.getRight();

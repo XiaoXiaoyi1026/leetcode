@@ -13,21 +13,23 @@ public class RotateTreeTest extends TestCase {
                 Comparator.comparingInt(o -> (Integer) o.getVal())
         );
         for (int i : input) {
-            searchBinaryTree.addNode(new Node(i));
+            searchBinaryTree.addNode(new SearchBinaryTree.SearchBinaryTreeNode(i));
         }
     }
 
     public void testRotateLeft() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        RotateTree.rotateLeft(searchBinaryTree);
+        searchBinaryTree.setRoot(RotateTree.rotateLeft(searchBinaryTree.getRoot()));
+        Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
         System.out.println(searchBinaryTree.getRoot());
     }
 
     public void testRotateRight() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        RotateTree.rotateRight(searchBinaryTree);
+        searchBinaryTree.setRoot(RotateTree.rotateRight(searchBinaryTree.getRoot()));
+        Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
         System.out.println(searchBinaryTree.getRoot());
     }
 }

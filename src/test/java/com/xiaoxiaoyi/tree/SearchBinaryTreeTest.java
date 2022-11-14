@@ -13,7 +13,7 @@ public class SearchBinaryTreeTest extends TestCase {
                 Comparator.comparingInt(o -> (Integer) o.getVal())
         );
         for (int i : input) {
-            searchBinaryTree.addNode(new Node(i));
+            searchBinaryTree.addNode(new SearchBinaryTree.SearchBinaryTreeNode(i));
         }
     }
 
@@ -26,7 +26,7 @@ public class SearchBinaryTreeTest extends TestCase {
     public void testRemoveNode() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        Node node = new Node(3);
+        SearchBinaryTree.SearchBinaryTreeNode node = new SearchBinaryTree.SearchBinaryTreeNode(3);
         searchBinaryTree.removeNode(node);
         Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
     }
