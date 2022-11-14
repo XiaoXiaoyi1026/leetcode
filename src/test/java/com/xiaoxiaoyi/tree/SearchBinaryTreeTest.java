@@ -26,8 +26,12 @@ public class SearchBinaryTreeTest extends TestCase {
     public void testRemoveNode() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
+        Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
+        System.out.println("=====================");
         SearchBinaryTree.SearchBinaryTreeNode node = new SearchBinaryTree.SearchBinaryTreeNode(3);
         searchBinaryTree.removeNode(node);
+        System.out.println(searchBinaryTree.getRoot());
+        System.out.println("==================");
         Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
     }
 

@@ -20,7 +20,10 @@ public class RotateTreeTest extends TestCase {
     public void testRotateLeft() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        searchBinaryTree.setRoot(RotateTree.rotateLeft(searchBinaryTree.getRoot()));
+        Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
+        searchBinaryTree.setRoot(
+                RotateTree.rotateLeft(searchBinaryTree.getRoot())
+        );
         Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
         System.out.println(searchBinaryTree.getRoot());
     }
@@ -28,7 +31,9 @@ public class RotateTreeTest extends TestCase {
     public void testRotateRight() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        searchBinaryTree.setRoot(RotateTree.rotateRight(searchBinaryTree.getRoot()));
+        searchBinaryTree.setRoot(
+                RotateTree.rotateRight(searchBinaryTree.getRoot())
+        );
         Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
         System.out.println(searchBinaryTree.getRoot());
     }
