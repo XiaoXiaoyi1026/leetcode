@@ -20,6 +20,10 @@ public class SearchBinaryTree {
         return root;
     }
 
+    public void setRoot(Node node) {
+        root = node;
+    }
+
     public void addNode(Node node) {
         if (root == null) {
             root = node;
@@ -159,7 +163,8 @@ public class SearchBinaryTree {
             // 找到了左子树的最右节点
             mostRight.setLeft(findNode.getLeft());
             mostRight.setRight(findNode.getRight());
-            if (findNodeParent(findNode) == null) {
+            if (nodeParent == null) {
+                // 如果删除的是根节点, 则根节点重新指向mostRight
                 root = mostRight;
             }
             findNode.setLeft(null);
