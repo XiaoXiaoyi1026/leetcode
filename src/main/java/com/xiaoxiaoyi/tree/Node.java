@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree;
 
+import java.util.Objects;
+
 /**
  * @author xiaoxiaoyi
  * 树节点
@@ -14,24 +16,41 @@ public class Node {
         this.left = this.right = null;
     }
 
-    public Node getLeft() {
+    protected Node getLeft() {
         return left;
     }
 
-    public Node getRight() {
+    protected Node getRight() {
         return right;
     }
 
-    public Object getVal() {
+    protected Object getVal() {
         return val;
     }
 
-    public void setLeft(Node left) {
+    protected void setLeft(Node left) {
         this.left = left;
     }
 
-    public void setRight(Node right) {
+    protected void setRight(Node right) {
         this.right = right;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Node node = (Node) o;
+        return Objects.equals(val, node.val);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(val);
     }
 
     @Override

@@ -6,35 +6,42 @@ import java.util.Comparator;
 
 public class RotateTreeTest extends TestCase {
 
-    private SearchBinaryTree searchBinaryTree;
+    private RotateSearchTree rotateTree;
 
     public void createTree(int[] input) {
-        searchBinaryTree = new SearchBinaryTree(
+        rotateTree = new RotateSearchTree(
                 Comparator.comparingInt(o -> (Integer) o.getVal())
         );
         for (int i : input) {
-            searchBinaryTree.addNode(new SearchBinaryTree.SearchBinaryTreeNode(i));
+            rotateTree.insert(new BinarySearchTree.SearchBinaryTreeNode(i));
         }
     }
 
     public void testRotateLeft() {
-        int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
+        int[] input = new int[]{3, 5, 2, 7, 4, 7, 6, 3, 8, 1, 0};
         createTree(input);
-        Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
-        searchBinaryTree.setRoot(
-                RotateTree.rotateLeft(searchBinaryTree.getRoot())
+        // 原来的根节点的右节点
+        System.out.println(rotateTree.getRoot().getRight());
+        rotateTree.setRoot(
+                rotateTree.rotateLeft(rotateTree.getRoot())
         );
-        Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
-        System.out.println(searchBinaryTree.getRoot());
+        System.out.println("======================");
+        Morris.morrisInorderTraversal(rotateTree.getRoot());
+        System.out.println("======================");
+        // 旋转后的根节点(应该等于原根节点的右节点)
+        System.out.println(rotateTree.getRoot());
     }
 
     public void testRotateRight() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        searchBinaryTree.setRoot(
-                RotateTree.rotateRight(searchBinaryTree.getRoot())
+        System.out.println(rotateTree.getRoot().getLeft());
+        rotateTree.setRoot(
+                rotateTree.rotateRight(rotateTree.getRoot())
         );
-        Morris.morrisInorderTraversal(searchBinaryTree.getRoot());
-        System.out.println(searchBinaryTree.getRoot());
+        System.out.println("======================");
+        Morris.morrisInorderTraversal(rotateTree.getRoot());
+        System.out.println("======================");
+        System.out.println(rotateTree.getRoot());
     }
 }
