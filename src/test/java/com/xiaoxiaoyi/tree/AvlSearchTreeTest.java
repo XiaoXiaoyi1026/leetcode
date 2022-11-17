@@ -8,7 +8,7 @@ public class AvlSearchTreeTest extends TestCase {
 
     private AvlSearchTree avlSearchTree;
 
-    public void createTree(int[] input) {
+    private void createTree(int[] input) {
         avlSearchTree = new AvlSearchTree(
                 Comparator.comparingInt(o -> (Integer) o.getVal())
         );

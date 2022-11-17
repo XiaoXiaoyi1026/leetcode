@@ -8,7 +8,7 @@ public class RotateTreeTest extends TestCase {
 
     private RotateSearchTree rotateTree;
 
-    public void createTree(int[] input) {
+    private void createTree(int[] input) {
         rotateTree = new RotateSearchTree(
                 Comparator.comparingInt(o -> (Integer) o.getVal())
         );
