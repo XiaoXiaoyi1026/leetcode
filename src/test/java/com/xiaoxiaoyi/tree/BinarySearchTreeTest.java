@@ -10,29 +10,34 @@ public class BinarySearchTreeTest extends TestCase {
 
     public void createTree(int[] input) {
         binarySearchTree = new BinarySearchTree(
-                Comparator.comparingInt(o -> (Integer) o.getVal())
+                Comparator.comparingInt(o -> (Integer) o.element)
         );
         for (int i : input) {
-            binarySearchTree.insert(new BinarySearchTree.SearchBinaryTreeNode(i));
+            binarySearchTree.insert(i);
         }
     }
 
     public void testAddNode() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        Morris.morrisInorderTraversal(binarySearchTree.getRoot());
+        Morris.morrisInorderTraversal(binarySearchTree.root);
     }
 
     public void testRemoveNode() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        Morris.morrisInorderTraversal(binarySearchTree.getRoot());
+        Morris.morrisInorderTraversal(binarySearchTree.root);
         System.out.println("=====================");
-        BinarySearchTree.SearchBinaryTreeNode node = new BinarySearchTree.SearchBinaryTreeNode(3);
-        binarySearchTree.removeNode(node);
-        System.out.println(binarySearchTree.getRoot());
+        binarySearchTree.remove(3);
+        System.out.println(binarySearchTree.root);
         System.out.println("==================");
-        Morris.morrisInorderTraversal(binarySearchTree.getRoot());
+        Morris.morrisInorderTraversal(binarySearchTree.root);
+    }
+
+    public void testGetMaximum() {
+        int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
+        createTree(input);
+        System.out.println(binarySearchTree.getMaximum(binarySearchTree.root));
     }
 
 }

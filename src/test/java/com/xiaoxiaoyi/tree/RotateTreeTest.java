@@ -10,10 +10,10 @@ public class RotateTreeTest extends TestCase {
 
     private void createTree(int[] input) {
         rotateTree = new RotateSearchTree(
-                Comparator.comparingInt(o -> (Integer) o.getVal())
+                Comparator.comparingInt(o -> (Integer) o.element)
         );
         for (int i : input) {
-            rotateTree.insert(new BinarySearchTree.SearchBinaryTreeNode(i));
+            rotateTree.insert(i);
         }
     }
 
@@ -21,27 +21,26 @@ public class RotateTreeTest extends TestCase {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6, 3, 8, 1, 0};
         createTree(input);
         // 原来的根节点的右节点
-        System.out.println(rotateTree.getRoot().getRight());
-        rotateTree.setRoot(
-                rotateTree.rotateLeft(rotateTree.getRoot())
+        System.out.println(rotateTree.root.getRight());
+        rotateTree.root = (
+                rotateTree.rotateLeft(rotateTree.root)
         );
         System.out.println("======================");
-        Morris.morrisInorderTraversal(rotateTree.getRoot());
+        Morris.morrisInorderTraversal(rotateTree.root);
         System.out.println("======================");
         // 旋转后的根节点(应该等于原根节点的右节点)
-        System.out.println(rotateTree.getRoot());
+        System.out.println(rotateTree.root);
     }
 
     public void testRotateRight() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        System.out.println(rotateTree.getRoot().getLeft());
-        rotateTree.setRoot(
-                rotateTree.rotateRight(rotateTree.getRoot())
-        );
+        System.out.println(rotateTree.root.getLeft());
+        rotateTree.root =
+                rotateTree.rotateRight(rotateTree.root);
         System.out.println("======================");
-        Morris.morrisInorderTraversal(rotateTree.getRoot());
+        Morris.morrisInorderTraversal(rotateTree.root);
         System.out.println("======================");
-        System.out.println(rotateTree.getRoot());
+        System.out.println(rotateTree.root);
     }
 }

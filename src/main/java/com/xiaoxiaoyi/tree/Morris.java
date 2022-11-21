@@ -27,10 +27,10 @@ public class Morris {
         }
         // 1 第1次到达该节点
         System.out.println("第1次: " + curNode);
-        process(curNode.getLeft());
+        process(curNode.left);
         // 2 第2次到达该节点
         System.out.println("第2次: " + curNode);
-        process(curNode.getRight());
+        process(curNode.left);
         // 3 第3次到达该节点
         System.out.println("第3次: " + curNode);
     }
@@ -52,33 +52,33 @@ public class Morris {
         // 当cur指向null时遍历结束
         while (cur != null) {
             // 一开始mostRight应该指向cur的左孩子
-            mostRight = cur.getLeft();
+            mostRight = cur.left;
             // 判断当前节点有无左孩子
             if (mostRight != null) {
                 // 有左孩子, 分2种情况, 先获得左子树上的最右节点
-                while (mostRight.getRight() != null && mostRight.getRight() != cur) {
+                while (mostRight.right != null && mostRight.right != cur) {
                     // 第2个条件是为了防止遍历错误, 万一是改过的节点也会退出
-                    mostRight = mostRight.getRight();
+                    mostRight = mostRight.right;
                 }
                 // mostRight此时会指向左子树上的最右节点
-                if (mostRight.getRight() == null) {
+                if (mostRight.right == null) {
                     // 第1次到达cur(有左孩子的节点)
                     System.out.println("第1次: " + cur);
-                    mostRight.setRight(cur);
+                    mostRight.right = cur;
                     // 进入左子树
-                    cur = cur.getLeft();
+                    cur = cur.left;
                     continue;
                 } else {
                     // 第2次到达cur(有左孩子的节点)
                     System.out.println("第2次: " + cur);
-                    mostRight.setRight(null);
+                    mostRight.right = null;
                 }
             } else {
                 // 第1次到达cur(叶节点, 只会到达1次)
                 System.out.println("第1次: " + cur);
             }
             // 当前节点无左孩子或者第2次到达cur, 则遍历右边
-            cur = cur.getRight();
+            cur = cur.right;
         }
     }
 
@@ -99,31 +99,31 @@ public class Morris {
         // 当cur指向null时遍历结束
         while (cur != null) {
             // 一开始mostRight应该指向cur的左孩子
-            mostRight = cur.getLeft();
+            mostRight = cur.left;
             // 判断当前节点有无左孩子
             if (mostRight != null) {
                 // 有左孩子, 分2种情况, 先获得左子树上的最右节点
-                while (mostRight.getRight() != null && mostRight.getRight() != cur) {
+                while (mostRight.right != null && mostRight.right != cur) {
                     // 第2个条件是为了防止遍历错误, 万一是改过的节点也会退出
-                    mostRight = mostRight.getRight();
+                    mostRight = mostRight.right;
                 }
                 // mostRight此时会指向左子树上的最右节点
-                if (mostRight.getRight() == null) {
+                if (mostRight.right == null) {
                     // 第1次到达cur(有左孩子的节点)
                     System.out.println("第1次: " + cur);
-                    mostRight.setRight(cur);
+                    mostRight.right = cur;
                     // 进入左子树
-                    cur = cur.getLeft();
+                    cur = cur.left;
                     continue;
                 } else {
-                    mostRight.setRight(null);
+                    mostRight.right = null;
                 }
             } else {
                 // 第1次到达cur(叶节点, 只会到达1次)
                 System.out.println("第1次: " + cur);
             }
             // 当前节点无左孩子或者第2次到达cur, 则遍历右边
-            cur = cur.getRight();
+            cur = cur.right;
         }
     }
 
@@ -144,28 +144,28 @@ public class Morris {
         // 当cur指向null时遍历结束
         while (cur != null) {
             // 一开始mostRight应该指向cur的左孩子
-            mostRight = cur.getLeft();
+            mostRight = cur.left;
             // 判断当前节点有无左孩子
             if (mostRight != null) {
                 // 有左孩子, 分2种情况, 先获得左子树上的最右节点
-                while (mostRight.getRight() != null && mostRight.getRight() != cur) {
+                while (mostRight.right != null && mostRight.right != cur) {
                     // 第2个条件是为了防止遍历错误, 万一是改过的节点也会退出
-                    mostRight = mostRight.getRight();
+                    mostRight = mostRight.right;
                 }
                 // mostRight此时会指向左子树上的最右节点
-                if (mostRight.getRight() == null) {
-                    mostRight.setRight(cur);
+                if (mostRight.right == null) {
+                    mostRight.right = cur;
                     // 进入左子树
-                    cur = cur.getLeft();
+                    cur = cur.left;
                     continue;
                 } else {
-                    mostRight.setRight(null);
+                    mostRight.right = null;
                 }
             }
             // 第2次到达或者没有左子树的节点会被打印
             System.out.println(cur);
             // 当前节点无左孩子或者第2次到达cur, 遍历右边
-            cur = cur.getRight();
+            cur = cur.right;
         }
     }
 
@@ -184,28 +184,28 @@ public class Morris {
         // 当cur指向null时遍历结束
         while (cur != null) {
             // 一开始mostRight应该指向cur的左孩子
-            mostRight = cur.getLeft();
+            mostRight = cur.left;
             // 判断当前节点有无左孩子
             if (mostRight != null) {
                 // 有左孩子, 分2种情况, 先获得左子树上的最右节点
-                while (mostRight.getRight() != null && mostRight.getRight() != cur) {
+                while (mostRight.right != null && mostRight.right != cur) {
                     // 第2个条件是为了防止遍历错误, 万一是改过的节点也会退出
-                    mostRight = mostRight.getRight();
+                    mostRight = mostRight.right;
                 }
                 // mostRight此时会指向左子树上的最右节点
-                if (mostRight.getRight() == null) {
-                    mostRight.setRight(cur);
+                if (mostRight.right == null) {
+                    mostRight.right = cur;
                     // 进入左子树
-                    cur = cur.getLeft();
+                    cur = cur.left;
                     continue;
                 } else {
-                    mostRight.setRight(null);
+                    mostRight.right = null;
                     // 第2次到达cur, 逆序打印左子树的右边界
-                    printReverse(cur.getLeft());
+                    printReverse(cur.left);
                 }
             }
             // 当前节点无左孩子或者第2次到达cur, 则遍历右边
-            cur = cur.getRight();
+            cur = cur.right;
         }
         // 遍历完成逆序打印整个树的右边界
         printReverse(root);
@@ -213,6 +213,7 @@ public class Morris {
 
     /**
      * 逆序打印以root为根节点的右边界
+     *
      * @param root 根节点
      */
     private static void printReverse(Node root) {
@@ -220,7 +221,7 @@ public class Morris {
         Node tail = reverse(root), cur = tail;
         while (cur != null) {
             System.out.println(cur);
-            cur = cur.getRight();
+            cur = cur.right;
         }
         // 把右边界逆序回去
         reverse(tail);
@@ -228,14 +229,15 @@ public class Morris {
 
     /**
      * 将右边界逆序
+     *
      * @param cur 当前节点
      */
     private static Node reverse(Node cur) {
         // pre记录cur的前一个结点, next指向cur的后一个节点
         Node pre = null, next;
         while (cur != null) {
-            next = cur.getRight();
-            cur.setRight(pre);
+            next = cur.right;
+            cur.right = pre;
             pre = cur;
             cur = next;
         }

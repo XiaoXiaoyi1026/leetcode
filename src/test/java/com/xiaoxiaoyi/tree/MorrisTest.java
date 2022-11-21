@@ -13,12 +13,12 @@ public class MorrisTest extends TestCase {
     Node node7 = new Node(7);
 
     public void createTree() {
-        node1.setLeft(node2);
-        node1.setRight(node3);
-        node2.setLeft(node4);
-        node2.setRight(node5);
-        node3.setLeft(node6);
-        node3.setRight(node7);
+        node1.left = node2;
+        node1.right = node3;
+        node2.left = node4;
+        node2.right = node5;
+        node3.left = node6;
+        node3.right = node7;
     }
 
     public void testProcess() {

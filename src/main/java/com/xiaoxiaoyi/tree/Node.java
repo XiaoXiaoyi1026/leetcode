@@ -7,33 +7,13 @@ import java.util.Objects;
  * 树节点
  */
 public class Node {
-    private final Object val;
-    private Node left;
-    private Node right;
+    protected final Object element;
+    protected Node left;
+    protected Node right;
 
-    Node(Object val) {
-        this.val = val;
-        this.left = this.right = null;
-    }
-
-    protected Node getLeft() {
-        return left;
-    }
-
-    protected Node getRight() {
-        return right;
-    }
-
-    protected Object getVal() {
-        return val;
-    }
-
-    protected void setLeft(Node left) {
-        this.left = left;
-    }
-
-    protected void setRight(Node right) {
-        this.right = right;
+    Node(Object element) {
+        this.element = element;
+        left = right = null;
     }
 
     @Override
@@ -45,18 +25,18 @@ public class Node {
             return false;
         }
         Node node = (Node) o;
-        return Objects.equals(val, node.val);
+        return Objects.equals(element, node.element);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(val);
+        return Objects.hash(element);
     }
 
     @Override
     public String toString() {
         return "Node{" +
-                "val=" + val +
+                "element=" + element +
                 '}';
     }
 }

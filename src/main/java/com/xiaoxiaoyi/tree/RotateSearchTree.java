@@ -12,72 +12,72 @@ public class RotateSearchTree extends BinarySearchTree {
         super(comparator);
     }
 
-    public SearchBinaryTreeNode rotateLeft(SearchBinaryTreeNode node) {
+    protected BinarySearchTreeNode rotateLeft(BinarySearchTreeNode node) {
         if (node.getRight() != null) {
-            // nodeRight 指向原来节点的右节点
-            SearchBinaryTreeNode nodeRight = node.getRight();
+            // temp 指向原来节点的右节点
+            BinarySearchTreeNode temp = node.getRight();
             // 右节点的父亲节点变成node的父节点
-            nodeRight.setParent(node.getParent());
+            temp.parent = node.parent;
             // 原节点的右节点变为右节点的左节点
-            node.setRight(nodeRight.getLeft());
+            node.right = temp.getLeft();
             // 更新右结点的左节点父节点
             if (node.getRight() != null) {
-                node.getRight().setParent(node);
+                node.getRight().parent = node;
             }
             // 右结点的左子树指向原来的根节点
-            nodeRight.setLeft(node);
+            temp.left = node;
             // 更新根节点的父亲
-            node.setParent(nodeRight);
+            node.parent = temp;
 
-            if (nodeRight.getParent() != null) {
-                if (node.equals(nodeRight.getParent().getLeft())) {
+            if (temp.parent != null) {
+                if (node.equals(temp.parent.getLeft())) {
                     // 如果旋转前的节点是父节点的左节点
-                    nodeRight.getParent().setLeft(nodeRight);
+                    temp.parent.left = temp;
                 } else {
-                    nodeRight.getParent().setRight(nodeRight);
+                    temp.parent.right = temp;
                 }
             } else {
                 // 否则说明是根节点
-                setRoot(nodeRight);
+                root = temp;
             }
 
             // 返回旋转后的根节点
-            return nodeRight;
+            return temp;
         }
         return null;
     }
 
-    public SearchBinaryTreeNode rotateRight(SearchBinaryTreeNode node) {
+    protected BinarySearchTreeNode rotateRight(BinarySearchTreeNode node) {
         if (node.getLeft() != null) {
             // nodeRight 指向原来节点的右节点
-            SearchBinaryTreeNode nodeLeft = node.getLeft();
+            BinarySearchTreeNode temp = node.getLeft();
             // 右节点的父亲节点变成node的父节点
-            nodeLeft.setParent(node.getParent());
+            temp.parent = node.parent;
             // 原节点的右节点变为右节点的左节点
-            node.setLeft(nodeLeft.getRight());
+            node.left = temp.getRight();
             // 更新右结点的左节点父节点
             if (node.getLeft() != null) {
-                node.getLeft().setParent(node);
+                node.getLeft().parent = node;
             }
             // 右结点的左子树指向原来的根节点
-            nodeLeft.setRight(node);
+            temp.right = node;
             // 更新根节点的父亲
-            node.setParent(nodeLeft);
+            node.parent = temp;
 
-            if (nodeLeft.getParent() != null) {
-                if (node.equals(nodeLeft.getParent().getLeft())) {
+            if (temp.parent != null) {
+                if (node.equals(temp.parent.getLeft())) {
                     // 如果旋转前的节点是父节点的左节点
-                    nodeLeft.getParent().setLeft(nodeLeft);
+                    temp.parent.left = temp;
                 } else {
-                    nodeLeft.getParent().setRight(nodeLeft);
+                    temp.parent.right = temp;
                 }
             } else {
                 // 否则说明是根节点
-                setRoot(nodeLeft);
+                root = temp;
             }
 
             // 返回旋转后的根节点
-            return nodeLeft;
+            return temp;
         }
         return null;
     }
