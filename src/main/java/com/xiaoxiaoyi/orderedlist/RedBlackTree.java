@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.tree;
+package com.xiaoxiaoyi.orderedlist;
 
 import java.util.Comparator;
 
@@ -11,61 +11,15 @@ public class RedBlackTree extends RotateSearchTree {
     /**
      * 根节点
      */
-    private final RedBlackTreeNode nilNode;
+    public final RedBlackTreeNode nilNode;
 
-    /**
-     * 节点颜色
-     */
-    protected enum ColorEnum {
-        // 红
-        RED,
-        // 黑
-        BLACK
-    }
-
-    /**
-     * 红黑树节点, 继承自旋转搜索树
-     */
-    protected static class RedBlackTreeNode extends BinarySearchTreeNode {
-
-        // 节点颜色
-        protected ColorEnum color;
-
-        RedBlackTreeNode(Object element, ColorEnum color) {
-            super(element);
-            this.color = color;
-        }
-
-        @Override
-        protected RedBlackTreeNode getLeft() {
-            return (RedBlackTreeNode) super.left;
-        }
-
-        @Override
-        protected RedBlackTreeNode getRight() {
-            return (RedBlackTreeNode) super.right;
-        }
-
-        protected RedBlackTreeNode getParent() {
-            return (RedBlackTreeNode) super.parent;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "element=" + element +
-                    "color=" + color +
-                    '}';
-        }
-    }
-
-    RedBlackTree(Comparator<Node> comparator) {
+    public RedBlackTree(Comparator<BinarySearchTreeNode> comparator) {
         super(comparator);
         // 保证红黑树的根节点为黑色(零节点, 黑色节点)
         nilNode = new RedBlackTreeNode(null, ColorEnum.BLACK);
     }
 
-    protected RedBlackTreeNode getRoot() {
+    public RedBlackTreeNode getRoot() {
         return (RedBlackTreeNode) root;
     }
 
@@ -77,7 +31,7 @@ public class RedBlackTree extends RotateSearchTree {
      */
     @Override
     public RedBlackTreeNode insert(Object element) {
-        RedBlackTreeNode newNode = new RedBlackTreeNode(element, ColorEnum.BLACK);
+        RedBlackTreeNode newNode = (RedBlackTreeNode) super.insert(element);
         // 红黑树初始化节点的时候左右和父亲都要指向零节点
         newNode.left = nilNode;
         newNode.right = nilNode;
@@ -88,7 +42,7 @@ public class RedBlackTree extends RotateSearchTree {
     }
 
     @Override
-    protected RedBlackTreeNode remove(Object element) {
+    public RedBlackTreeNode remove(Object element) {
         // 跟踪节点, 要移除的节点
         RedBlackTreeNode replaceNode = null, removeNode = findNode(element);
         if (removeNode != null && !removeNode.equals(nilNode)) {
@@ -133,12 +87,12 @@ public class RedBlackTree extends RotateSearchTree {
     }
 
     @Override
-    protected RedBlackTreeNode findNode(Object element) {
+    public RedBlackTreeNode findNode(Object element) {
         return (RedBlackTreeNode) super.findNode(element);
     }
 
     @Override
-    protected RedBlackTreeNode getMinimum(Node node) {
+    public RedBlackTreeNode getMinimum(BinarySearchTreeNode node) {
         RedBlackTreeNode cur = (RedBlackTreeNode) node;
         // 当前节点不为根节点
         while (!nilNode.equals(cur.getLeft())) {
@@ -148,7 +102,7 @@ public class RedBlackTree extends RotateSearchTree {
     }
 
     @Override
-    protected RedBlackTreeNode getMaximum(Node node) {
+    public RedBlackTreeNode getMaximum(BinarySearchTreeNode node) {
         RedBlackTreeNode cur = (RedBlackTreeNode) node;
         // 当前节点不为根节点
         while (!nilNode.equals(cur.getRight())) {
@@ -228,7 +182,7 @@ public class RedBlackTree extends RotateSearchTree {
      * 类似于BinarySearchTree中的节点移植方法，但使用nilNode而不使用null
      */
     @Override
-    protected RedBlackTreeNode nodeTransplant(BinarySearchTreeNode replaceNode, BinarySearchTreeNode node) {
+    public RedBlackTreeNode nodeTransplant(BinarySearchTreeNode replaceNode, BinarySearchTreeNode node) {
         RedBlackTreeNode nodeToReplace = (RedBlackTreeNode) replaceNode, newNode = (RedBlackTreeNode) node;
         if (nodeToReplace.getParent().equals(nilNode)) {
             // 替换的节点是根节点
@@ -246,7 +200,7 @@ public class RedBlackTree extends RotateSearchTree {
         return newNode;
     }
 
-    protected void adjustAfterDeletingNode(RedBlackTreeNode node) {
+    public void adjustAfterDeletingNode(RedBlackTreeNode node) {
         while (!node.equals(getRoot()) && isBlack(node)) {
             // 当节点不为根节点且颜色为黑时
 
@@ -319,11 +273,11 @@ public class RedBlackTree extends RotateSearchTree {
         }
     }
 
-    protected boolean isBlack(RedBlackTreeNode node) {
+    public boolean isBlack(RedBlackTreeNode node) {
         return node != null && node.color == ColorEnum.BLACK;
     }
 
-    protected boolean isRed(RedBlackTreeNode node) {
+    public boolean isRed(RedBlackTreeNode node) {
         return node != null && node.color == ColorEnum.RED;
     }
 
@@ -332,7 +286,7 @@ public class RedBlackTree extends RotateSearchTree {
      * 1. root节点变成红色
      * 2. 根节点为红色那么子节点必须为黑色
      */
-    protected void adjustAfterInsertingNode(RedBlackTreeNode currentNode) {
+    public void adjustAfterInsertingNode(RedBlackTreeNode currentNode) {
         // currentNode为红色, 如果父节点也为红色, 那么需要调整, 否则退出
         while (!getRoot().equals(currentNode.getParent()) && currentNode.getParent().color == ColorEnum.RED) {
             RedBlackTreeNode parent = currentNode.getParent();

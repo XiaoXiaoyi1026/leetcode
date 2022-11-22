@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.tree;
+package com.xiaoxiaoyi.orderedlist;
 
 import junit.framework.TestCase;
 
@@ -20,18 +20,18 @@ public class BinarySearchTreeTest extends TestCase {
     public void testAddNode() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        Morris.morrisInorderTraversal(binarySearchTree.root);
+        binarySearchTree.printTree();
     }
 
     public void testRemoveNode() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        Morris.morrisInorderTraversal(binarySearchTree.root);
+        binarySearchTree.printTree();
         System.out.println("=====================");
         binarySearchTree.remove(3);
         System.out.println(binarySearchTree.root);
         System.out.println("==================");
-        Morris.morrisInorderTraversal(binarySearchTree.root);
+        binarySearchTree.printTree();
     }
 
     public void testGetMaximum() {

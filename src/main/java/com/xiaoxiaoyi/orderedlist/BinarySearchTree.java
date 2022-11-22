@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.tree;
+package com.xiaoxiaoyi.orderedlist;
 
 import java.util.Comparator;
 
@@ -8,37 +8,20 @@ import java.util.Comparator;
  */
 public class BinarySearchTree {
 
-    protected int size;
-    protected BinarySearchTreeNode root;
-    protected final Comparator<Node> comparator;
+    public int size;
+    public BinarySearchTreeNode root;
+    public final Comparator<BinarySearchTreeNode> comparator;
 
-    protected static class BinarySearchTreeNode extends Node {
-        protected BinarySearchTreeNode parent;
-
-        BinarySearchTreeNode(Object element) {
-            super(element);
-            parent = null;
-        }
-
-        protected BinarySearchTreeNode getLeft() {
-            return (BinarySearchTreeNode) super.left;
-        }
-
-        protected BinarySearchTreeNode getRight() {
-            return (BinarySearchTreeNode) super.right;
-        }
-    }
-
-    BinarySearchTree(Comparator<Node> comparator) {
+    public BinarySearchTree(Comparator<BinarySearchTreeNode> comparator) {
         root = null;
         this.comparator = comparator;
     }
 
-    protected BinarySearchTreeNode insert(Object element) {
+    public BinarySearchTreeNode insert(Object element) {
         return insert(new BinarySearchTreeNode(element));
     }
 
-    protected BinarySearchTreeNode insert(BinarySearchTreeNode node) {
+    public BinarySearchTreeNode insert(BinarySearchTreeNode node) {
         if (root == null) {
             size++;
             root = node;
@@ -48,10 +31,10 @@ public class BinarySearchTree {
                 parent = curNode;
                 if (comparator.compare(node, curNode) > 0) {
                     // node > curNode, 往右边滑
-                    curNode = curNode.getRight();
+                    curNode = curNode.right;
                 } else if (comparator.compare(node, curNode) < 0) {
                     // node < curNode, 往左边滑
-                    curNode = curNode.getLeft();
+                    curNode = curNode.left;
                 } else {
                     // 发现相同元素, 直接退出
                     return curNode;
@@ -68,11 +51,11 @@ public class BinarySearchTree {
         return node;
     }
 
-    protected BinarySearchTreeNode findNode(Object element) {
+    public BinarySearchTreeNode findNode(Object element) {
         return findNode(new BinarySearchTreeNode(element));
     }
 
-    protected BinarySearchTreeNode findNode(BinarySearchTreeNode node) {
+    public BinarySearchTreeNode findNode(BinarySearchTreeNode node) {
         if (root == null) {
             return null;
         } else {
@@ -80,10 +63,10 @@ public class BinarySearchTree {
             while (curNode != null) {
                 if (comparator.compare(node, curNode) > 0) {
                     // node > curNode, 往右边滑
-                    curNode = curNode.getRight();
+                    curNode = curNode.right;
                 } else if (comparator.compare(node, curNode) < 0) {
                     // node < curNode, 往左边滑
-                    curNode = curNode.getLeft();
+                    curNode = curNode.left;
                 } else {
                     // node == curNode, 退出循环
                     break;
@@ -94,36 +77,36 @@ public class BinarySearchTree {
         }
     }
 
-    protected BinarySearchTreeNode remove(Object element) {
+    public BinarySearchTreeNode remove(Object element) {
         return remove(new BinarySearchTreeNode(element));
     }
 
-    protected BinarySearchTreeNode remove(BinarySearchTreeNode node) {
+    public BinarySearchTreeNode remove(BinarySearchTreeNode node) {
         node = findNode(node);
         BinarySearchTreeNode nodeToReturn = null;
         if (node != null) {
             // 如果要删除的节点存在
-            if (node.getLeft() == null) {
+            if (node.left == null) {
                 // 如果左子树为空, 则用节点的右子树替代该节点即可
-                nodeToReturn = nodeTransplant(node, node.getRight());
-            } else if (node.getRight() == null) {
+                nodeToReturn = nodeTransplant(node, node.right);
+            } else if (node.right == null) {
                 // 如果右子树为空, 则用节点的左子树替代该节点即可
-                nodeToReturn = nodeTransplant(node, node.getLeft());
+                nodeToReturn = nodeTransplant(node, node.left);
             } else {
                 // 左右子树都不为空, 后继结点为其右子树的最小节点
-                BinarySearchTreeNode successorNode = getMinimum(node.getRight());
+                BinarySearchTreeNode successorNode = getMinimum(node.right);
                 if (!successorNode.parent.equals(node)) {
                     // 如果后继结点不是node的直接子节点, 将后继结点替换成其右子节点
-                    nodeTransplant(successorNode, successorNode.getRight());
+                    nodeTransplant(successorNode, successorNode.right);
                     // 后继结点接管原节点的右子树
-                    successorNode.right = (node.getRight());
-                    successorNode.getRight().parent = successorNode;
+                    successorNode.right = (node.right);
+                    successorNode.right.parent = successorNode;
                 }
                 // 后继结点替换掉当前节点
                 nodeTransplant(node, successorNode);
                 // 后继结点接管原节点的左子树
                 successorNode.left = node.left;
-                successorNode.getLeft().parent = node.getRight();
+                successorNode.left.parent = node.right;
             }
         }
         return nodeToReturn;
@@ -132,11 +115,11 @@ public class BinarySearchTree {
     /**
      * 替换nodeToReplace为newNode
      */
-    protected BinarySearchTreeNode nodeTransplant(BinarySearchTreeNode nodeToReplace, BinarySearchTreeNode newNode) {
+    public BinarySearchTreeNode nodeTransplant(BinarySearchTreeNode nodeToReplace, BinarySearchTreeNode newNode) {
         if (nodeToReplace.parent == null) {
             // 替换根节点
             root = newNode;
-        } else if (nodeToReplace.equals(nodeToReplace.parent.getLeft())) {
+        } else if (nodeToReplace.equals(nodeToReplace.parent.left)) {
             // 如果被替换掉的是父节点的左边节点
             nodeToReplace.parent.left = newNode;
         } else {
@@ -153,24 +136,64 @@ public class BinarySearchTree {
     /**
      * 获取以node为根的搜索树上最小值的节点
      */
-    protected BinarySearchTreeNode getMinimum(Node node) {
+    public BinarySearchTreeNode getMinimum(BinarySearchTreeNode node) {
         while (node.left != null) {
             node = node.left;
         }
-        return (BinarySearchTreeNode) node;
+        return node;
     }
 
     /**
      * 获取以node为根的搜索树上最大值的节点
      */
-    protected BinarySearchTreeNode getMaximum(Node node) {
+    public BinarySearchTreeNode getMaximum(BinarySearchTreeNode node) {
         while (node.right != null) {
             node = node.right;
         }
-        return (BinarySearchTreeNode) node;
+        return node;
     }
 
     public int getSize() {
         return size;
+    }
+
+    public void printTree() {
+        printSubtree(root);
+    }
+
+    public void printSubtree(BinarySearchTreeNode node) {
+        if (node.right != null) {
+            printTree(node.right, true, "");
+        }
+        printNodeValue(node);
+        if (node.left != null) {
+            printTree(node.left, false, "");
+        }
+    }
+
+    public void printTree(BinarySearchTreeNode node, boolean isRight, String indent) {
+        if (node.right != null) {
+            printTree(node.right, true, indent + (isRight ? "        " : " |      "));
+        }
+        System.out.print(indent);
+        if (isRight) {
+            System.out.print(" /");
+        } else {
+            System.out.print(" \\");
+        }
+        System.out.print("----- ");
+        printNodeValue(node);
+        if (node.left != null) {
+            printTree(node.left, false, indent + (isRight ? " |      " : "        "));
+        }
+    }
+
+    public void printNodeValue(BinarySearchTreeNode node) {
+        if (node.element == null) {
+            System.out.print("<null>");
+        } else {
+            System.out.print(node.element);
+        }
+        System.out.println();
     }
 }

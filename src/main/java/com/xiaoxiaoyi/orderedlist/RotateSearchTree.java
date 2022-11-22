@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.tree;
+package com.xiaoxiaoyi.orderedlist;
 
 import java.util.Comparator;
 
@@ -8,21 +8,21 @@ import java.util.Comparator;
  */
 public class RotateSearchTree extends BinarySearchTree {
 
-    RotateSearchTree(Comparator<Node> comparator) {
+    public RotateSearchTree(Comparator<BinarySearchTreeNode> comparator) {
         super(comparator);
     }
 
-    protected BinarySearchTreeNode rotateLeft(BinarySearchTreeNode node) {
-        if (node.getRight() != null) {
+    public BinarySearchTreeNode rotateLeft(BinarySearchTreeNode node) {
+        if (node.right != null) {
             // temp 指向原来节点的右节点
-            BinarySearchTreeNode temp = node.getRight();
+            BinarySearchTreeNode temp = node.right;
             // 右节点的父亲节点变成node的父节点
             temp.parent = node.parent;
             // 原节点的右节点变为右节点的左节点
-            node.right = temp.getLeft();
+            node.right = temp.left;
             // 更新右结点的左节点父节点
-            if (node.getRight() != null) {
-                node.getRight().parent = node;
+            if (node.right != null) {
+                node.right.parent = node;
             }
             // 右结点的左子树指向原来的根节点
             temp.left = node;
@@ -30,7 +30,7 @@ public class RotateSearchTree extends BinarySearchTree {
             node.parent = temp;
 
             if (temp.parent != null) {
-                if (node.equals(temp.parent.getLeft())) {
+                if (node.equals(temp.parent.left)) {
                     // 如果旋转前的节点是父节点的左节点
                     temp.parent.left = temp;
                 } else {
@@ -47,17 +47,17 @@ public class RotateSearchTree extends BinarySearchTree {
         return null;
     }
 
-    protected BinarySearchTreeNode rotateRight(BinarySearchTreeNode node) {
-        if (node.getLeft() != null) {
+    public BinarySearchTreeNode rotateRight(BinarySearchTreeNode node) {
+        if (node.left != null) {
             // nodeRight 指向原来节点的右节点
-            BinarySearchTreeNode temp = node.getLeft();
+            BinarySearchTreeNode temp = node.left;
             // 右节点的父亲节点变成node的父节点
             temp.parent = node.parent;
             // 原节点的右节点变为右节点的左节点
-            node.left = temp.getRight();
+            node.left = temp.right;
             // 更新右结点的左节点父节点
-            if (node.getLeft() != null) {
-                node.getLeft().parent = node;
+            if (node.left != null) {
+                node.left.parent = node;
             }
             // 右结点的左子树指向原来的根节点
             temp.right = node;
@@ -65,7 +65,7 @@ public class RotateSearchTree extends BinarySearchTree {
             node.parent = temp;
 
             if (temp.parent != null) {
-                if (node.equals(temp.parent.getLeft())) {
+                if (node.equals(temp.parent.left)) {
                     // 如果旋转前的节点是父节点的左节点
                     temp.parent.left = temp;
                 } else {

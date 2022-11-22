@@ -1,6 +1,8 @@
-package com.xiaoxiaoyi.tree;
+package com.xiaoxiaoyi.orderedlist;
 
-public class SkipListTest extends TreeTest{
+import com.xiaoxiaoyi.tree.TreeTest;
+
+public class SkipListTest extends TreeTest {
 
     private SkipListMap.SkipList<String, String> skipList;
 

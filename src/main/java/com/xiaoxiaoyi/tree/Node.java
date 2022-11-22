@@ -7,11 +7,11 @@ import java.util.Objects;
  * 树节点
  */
 public class Node {
-    protected final Object element;
-    protected Node left;
-    protected Node right;
+    public final Object element;
+    public Node left;
+    public Node right;
 
-    Node(Object element) {
+    public Node(Object element) {
         this.element = element;
         left = right = null;
     }

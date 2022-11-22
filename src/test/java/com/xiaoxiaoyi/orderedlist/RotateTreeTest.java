@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.tree;
+package com.xiaoxiaoyi.orderedlist;
 
 import junit.framework.TestCase;
 
@@ -15,32 +15,27 @@ public class RotateTreeTest extends TestCase {
         for (int i : input) {
             rotateTree.insert(i);
         }
+        rotateTree.printTree();
     }
 
     public void testRotateLeft() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6, 3, 8, 1, 0};
         createTree(input);
-        // 原来的根节点的右节点
-        System.out.println(rotateTree.root.getRight());
         rotateTree.root = (
                 rotateTree.rotateLeft(rotateTree.root)
         );
         System.out.println("======================");
-        Morris.morrisInorderTraversal(rotateTree.root);
+        rotateTree.printTree();
         System.out.println("======================");
-        // 旋转后的根节点(应该等于原根节点的右节点)
-        System.out.println(rotateTree.root);
     }
 
     public void testRotateRight() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        System.out.println(rotateTree.root.getLeft());
         rotateTree.root =
                 rotateTree.rotateRight(rotateTree.root);
         System.out.println("======================");
-        Morris.morrisInorderTraversal(rotateTree.root);
+        rotateTree.printTree();
         System.out.println("======================");
-        System.out.println(rotateTree.root);
     }
 }

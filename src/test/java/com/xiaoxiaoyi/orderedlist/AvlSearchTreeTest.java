@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.tree;
+package com.xiaoxiaoyi.orderedlist;
 
 import junit.framework.TestCase;
 
@@ -20,27 +20,27 @@ public class AvlSearchTreeTest extends TestCase {
     public void testAddNode() {
         int[] input = new int[]{3, 4, 1, 2, 5, 6, 0};
         createTree(input);
-        Morris.morrisInorderTraversal(avlSearchTree.root);
+        avlSearchTree.printTree();
         System.out.println("=====================");
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.insert(new AvlSearchTree.AvlSearchTreeNode(7));
+        avlSearchTree.insert(new AvlSearchTreeNode(7));
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        Morris.morrisInorderTraversal(avlSearchTree.root);
+        avlSearchTree.printTree();
     }
 
     public void testRemoveNode() {
         int[] input = new int[]{3, 4, 1, 2, 5, 6, 0};
         createTree(input);
-        Morris.morrisInorderTraversal(avlSearchTree.root);
+        avlSearchTree.printTree();
         System.out.println("=====================");
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.remove(new AvlSearchTree.AvlSearchTreeNode(4));
+        avlSearchTree.remove(new AvlSearchTreeNode(4));
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        Morris.morrisInorderTraversal(avlSearchTree.root);
+        avlSearchTree.printTree();
     }
 
 }
