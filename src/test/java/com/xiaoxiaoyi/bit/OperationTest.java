@@ -20,7 +20,7 @@ public class OperationTest extends TestCase {
     }
 
     public void testDiv() {
-        int a = -20, b = -1;
+        int a = 7, b = -3;
         System.out.println(Operation.div(a, b));
     }
 

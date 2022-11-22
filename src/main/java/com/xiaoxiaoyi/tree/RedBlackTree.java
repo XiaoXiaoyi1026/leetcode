@@ -77,7 +77,7 @@ public class RedBlackTree extends RotateSearchTree {
      */
     @Override
     public RedBlackTreeNode insert(Object element) {
-        RedBlackTreeNode newNode = (RedBlackTreeNode) super.insert(element);
+        RedBlackTreeNode newNode = new RedBlackTreeNode(element, ColorEnum.BLACK);
         // 红黑树初始化节点的时候左右和父亲都要指向零节点
         newNode.left = nilNode;
         newNode.right = nilNode;
