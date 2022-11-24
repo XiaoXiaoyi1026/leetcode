@@ -11,6 +11,7 @@ public class AvlSearchTree extends RotateSearchTree {
         super(comparator);
     }
 
+
     @Override
     public AvlSearchTreeNode insert(Object element) {
         AvlSearchTreeNode newNode = (AvlSearchTreeNode) super.insert(element);
@@ -190,5 +191,27 @@ public class AvlSearchTree extends RotateSearchTree {
             return node.getLeft().height;
         }
         return -1;
+    }
+
+    /**
+     * @author 20609
+     */
+    public static class AvlSearchTreeNode extends BinarySearchTreeNode {
+
+        public int height;
+
+        public AvlSearchTreeNode(Object element) {
+            super(element);
+            // 初始化节点的高度为0
+            height = 0;
+        }
+
+        public AvlSearchTreeNode getLeft() {
+            return (AvlSearchTreeNode) super.left;
+        }
+
+        public AvlSearchTreeNode getRight() {
+            return (AvlSearchTreeNode) super.right;
+        }
     }
 }

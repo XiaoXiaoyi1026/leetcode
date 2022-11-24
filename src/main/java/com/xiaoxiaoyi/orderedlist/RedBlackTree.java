@@ -341,4 +341,52 @@ public class RedBlackTree extends RotateSearchTree {
             }
         }
     }
+
+    /**
+     * 节点颜色
+     * @author xiaoxiaoyi
+     */
+    public enum ColorEnum {
+        // 红
+        RED,
+        // 黑
+        BLACK
+    }
+
+    /**
+     * @author xiaoxiaoyi
+     * 红黑树节点, 继承自旋转搜索树
+     */
+    public static class RedBlackTreeNode extends BinarySearchTreeNode {
+
+        /**
+         * 节点颜色
+         */
+        public ColorEnum color;
+
+        public RedBlackTreeNode(Object element, ColorEnum color) {
+            super(element);
+            this.color = color;
+        }
+
+        public RedBlackTreeNode getLeft() {
+            return (RedBlackTreeNode) super.left;
+        }
+
+        public RedBlackTreeNode getRight() {
+            return (RedBlackTreeNode) super.right;
+        }
+
+        public RedBlackTreeNode getParent() {
+            return (RedBlackTreeNode) super.parent;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "element=" + element +
+                    "color=" + color +
+                    '}';
+        }
+    }
 }

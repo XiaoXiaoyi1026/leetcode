@@ -15,14 +15,14 @@ public class RotateSearchTree extends BinarySearchTree {
     public BinarySearchTreeNode rotateLeft(BinarySearchTreeNode node) {
         if (node.right != null) {
             // temp 指向原来节点的右节点
-            BinarySearchTreeNode temp = node.right;
+            BinarySearchTreeNode temp = node.getRight();
             // 右节点的父亲节点变成node的父节点
             temp.parent = node.parent;
             // 原节点的右节点变为右节点的左节点
             node.right = temp.left;
             // 更新右结点的左节点父节点
             if (node.right != null) {
-                node.right.parent = node;
+                node.getRight().parent = node;
             }
             // 右结点的左子树指向原来的根节点
             temp.left = node;
@@ -50,14 +50,14 @@ public class RotateSearchTree extends BinarySearchTree {
     public BinarySearchTreeNode rotateRight(BinarySearchTreeNode node) {
         if (node.left != null) {
             // nodeRight 指向原来节点的右节点
-            BinarySearchTreeNode temp = node.left;
+            BinarySearchTreeNode temp = node.getLeft();
             // 右节点的父亲节点变成node的父节点
             temp.parent = node.parent;
             // 原节点的右节点变为右节点的左节点
             node.left = temp.right;
             // 更新右结点的左节点父节点
             if (node.left != null) {
-                node.left.parent = node;
+                node.getLeft().parent = node;
             }
             // 右结点的左子树指向原来的根节点
             temp.right = node;

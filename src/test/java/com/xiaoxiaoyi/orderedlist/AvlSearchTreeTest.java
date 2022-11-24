@@ -24,7 +24,7 @@ public class AvlSearchTreeTest extends TestCase {
         System.out.println("=====================");
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.insert(new AvlSearchTreeNode(7));
+        avlSearchTree.insert(new AvlSearchTree.AvlSearchTreeNode(7));
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
         avlSearchTree.printTree();
@@ -37,7 +37,7 @@ public class AvlSearchTreeTest extends TestCase {
         System.out.println("=====================");
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.remove(new AvlSearchTreeNode(4));
+        avlSearchTree.remove(new AvlSearchTree.AvlSearchTreeNode(4));
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
         avlSearchTree.printTree();
