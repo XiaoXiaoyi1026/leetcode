@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi;
+package com.xiaoxiaoyi.other;
 
 import com.xiaoxiaoyi.graph.EdgeComparator;
 import junit.framework.TestCase;
