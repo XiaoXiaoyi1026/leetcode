@@ -32,8 +32,30 @@ public class RandomRange {
         do {
             ans = (f2() << 2) | (f2() << 1) | f2();
             // 0~6
-        } while (ans == 7 || ans == 8);
+        } while (ans > 6);
         return ans + 1;
+    }
+
+    /**
+     * 0.83概率返回0, 0.17返回1
+     * 使用这个不公平随机加工出公平随机
+     */
+    public static int rand01p() {
+        double p = 0.83;
+        return Math.random() < p ? 0 : 1;
+    }
+
+    /**
+     * 从rand01p加工出等概率01发生器
+     */
+    public static int rand01() {
+        int ans1, ans2;
+        do {
+            ans1 = rand01p();
+            ans2 = rand01p();
+        } while ((ans1 ^ ans2) == 0);
+        // 只可能产生10或者01, 10返回1, 01返回0
+        return ans1;
     }
 
 }

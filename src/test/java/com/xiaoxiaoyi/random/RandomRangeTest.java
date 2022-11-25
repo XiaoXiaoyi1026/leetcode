@@ -15,4 +15,22 @@ public class RandomRangeTest extends TestCase {
         System.out.println(Arrays.toString(ans));
     }
 
+    public void testRandP() {
+        int testTimes = 10000;
+        int[] ans = new int[2];
+        for (int i = 0; i < testTimes; i++) {
+            ans[RandomRange.rand01p()]++;
+        }
+        System.out.println(Arrays.toString(ans));
+    }
+
+    public void testRand() {
+        int testTimes = 10000;
+        int[] ans = new int[2];
+        for (int i = 0; i < testTimes; i++) {
+            ans[RandomRange.rand01()]++;
+        }
+        System.out.println(Arrays.toString(ans));
+    }
+
 }
