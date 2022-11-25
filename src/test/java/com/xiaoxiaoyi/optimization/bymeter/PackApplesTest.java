@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.optimization.greedy;
+package com.xiaoxiaoyi.optimization.bymeter;
 
 import junit.framework.TestCase;
 
