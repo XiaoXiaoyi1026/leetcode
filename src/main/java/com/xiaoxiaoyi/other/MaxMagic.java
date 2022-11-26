@@ -1,9 +1,6 @@
 package com.xiaoxiaoyi.other;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author xiaoxiaoyi
@@ -13,79 +10,71 @@ import java.util.Set;
  */
 public class MaxMagic {
 
-    public static int maxMagic(Set<Integer> set1, Set<Integer> set2) {
-        int sum1 = sum(set1), sum2 = sum(set2);
-        double avg1 = sum1 / (double) set1.size(), avg2 = sum2 / (double) set2.size();
+    /**
+     * 保证set1和set2非空且无重复
+     */
+    public static int maxMagic(int[] nums1, int[] nums2) {
+        int sum1 = sum(nums1), sum2 = sum(nums2);
+        double avg1 = avg(sum1, nums1.length), avg2 = avg(sum2, nums2.length);
         if (avg1 == avg2) {
             // 集合平均值相等时无法用magic操作, 因为无论如何移动都无法满足平均值上升
             return 0;
         }
-        int magic = 0;
         if (avg1 < avg2) {
             // avg1指向较大的
-            double tmp = avg1;
+            double tmp1 = avg1;
             avg1 = avg2;
-            avg2 = tmp;
-            // set1指向平均值较大的set
-            Set<Integer> tmpSet = set1;
-            set1 = set2;
-            set2 = tmpSet;
+            avg2 = tmp1;
+            // nums1指向平均值较大的
+            int[] tmp2 = nums1;
+            nums1 = nums2;
+            nums2 = tmp2;
             // sum1指向较大平均值的set
-            tmp = sum1;
+            tmp1 = sum1;
             sum1 = sum2;
-            sum2 = (int) tmp;
+            sum2 = (int) tmp1;
         }
-        System.out.println(set1);
-        System.out.println(set2);
+        Set<Integer> maxSet = new HashSet<>(), minSet = new HashSet<>();
+        // 对较大平均值的数组排序, 方便后续遍历
+        Arrays.sort(nums1);
+        for (int num : nums1) {
+            maxSet.add(num);
+        }
+        for (int num : nums2) {
+            minSet.add(num);
+        }
+        System.out.println(maxSet);
+        System.out.println(minSet);
         System.out.println(avg1);
         System.out.println(avg2);
-        // 只可能从大平均值的集合往小平均值的集合拿数字
-        int[] betweenTwoAvg = getBetweenTwoAvg(set1, avg1, avg2);
-        // 有没有进行过magic操作
-        boolean flag = true;
-        // 如果上一轮进行过magic操作而且还有可以操作的数字
-        while (flag && betweenTwoAvg.length > 0) {
-            for (int num : betweenTwoAvg) {
-                flag = false;
-                if (set2.contains(num)) {
-                    // 如果小集合中已经有改数字, 则跳过
-                    continue;
-                }
+        int magic = 0;
+        for (int num : nums1) {
+            if (num < avg1 && num > avg2 && !minSet.contains(num)) {
+                System.out.println("=========================");
                 System.out.println("move " + num);
-                set1.remove(num);
-                set2.add(num);
-                avg1 = (sum1 - num) / (double) set1.size();
-                avg2 = (sum2 + num) / (double) set2.size();
-                magic++;
-                flag = true;
-                System.out.println(set1);
-                System.out.println(set2);
+                maxSet.remove(num);
+                minSet.add(num);
+                sum1 -= num;
+                sum2 += num;
+                avg1 = avg(sum1, maxSet.size());
+                avg2 = avg(sum2, minSet.size());
+                System.out.println(maxSet);
+                System.out.println(minSet);
                 System.out.println(avg1);
                 System.out.println(avg2);
-                betweenTwoAvg = getBetweenTwoAvg(set1, avg1, avg2);
+                magic++;
             }
         }
         return magic;
     }
 
-    private static int[] getBetweenTwoAvg(Set<Integer> maxSet, double maxAvg, double minAvg) {
-        List<Integer> tmp = new ArrayList<>();
-        for (Integer num : maxSet) {
-            if (num > minAvg && num < maxAvg) {
-                tmp.add(num);
-            }
-        }
-        int[] res = new int[tmp.size()];
-        for (int i = 0; i < res.length; i++) {
-            res[i] = tmp.get(i);
-        }
-        Arrays.sort(res);
-        return res;
+    private static double avg(int sum, int size) {
+        return sum / (double) size;
     }
 
-    private static int sum(Set<Integer> set) {
+    private static int sum(int[] nums) {
         int res = 0;
-        for (Integer num : set) {
+        for (Integer num : nums) {
             res += num;
         }
         return res;

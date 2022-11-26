@@ -15,11 +15,20 @@ public class MaxMagicTest extends TestCase {
         return res;
     }
 
+    private int[] setToArray(Set<Integer> set) {
+        int[] res = new int[set.size()];
+        int i = 0;
+        for (Integer num : set) {
+            res[i++] = num;
+        }
+        return res;
+    }
+
     public void testMaxMagic() {
-        int length = 10, max = 50;
-        Set<Integer> set1 = generateRandomSet((int) (Math.random() * length) + 3, max);
-        Set<Integer> set2 = generateRandomSet((int) (Math.random() * length) + 3, max);
-        System.out.println(MaxMagic.maxMagic(set1, set2));
+        int length = 10;
+        Set<Integer> set1 = generateRandomSet((int) (Math.random() * length) + 3, 50);
+        Set<Integer> set2 = generateRandomSet((int) (Math.random() * length) + 3, 10);
+        System.out.println(MaxMagic.maxMagic(setToArray(set1), setToArray(set2)));
     }
 
 }
