@@ -14,53 +14,56 @@ import java.util.Set;
 public class MaxMagic {
 
     public static int maxMagic(Set<Integer> set1, Set<Integer> set2) {
-        double sum1 = sum(set1), sum2 = sum(set2), avg1 = 0, avg2 = 0;
-        if (set1.size() != 0) {
-            avg1 = sum1 / set1.size();
-        }
-        if (set2.size() != 0) {
-            avg2 = sum2 / set2.size();
-        }
+        int sum1 = sum(set1), sum2 = sum(set2);
+        double avg1 = sum1 / (double) set1.size(), avg2 = sum2 / (double) set2.size();
         if (avg1 == avg2) {
             // 集合平均值相等时无法用magic操作, 因为无论如何移动都无法满足平均值上升
             return 0;
         }
-        if (sum1 < sum2) {
-            double tmp = sum1;
-            sum1 = sum2;
-            sum2 = tmp;
-        }
         int magic = 0;
-        Set<Integer> maxSet = avg1 >= avg2 ? set1 : set2;
-        Set<Integer> minSet = avg1 >= avg2 ? set2 : set1;
         if (avg1 < avg2) {
+            // avg1指向较大的
             double tmp = avg1;
             avg1 = avg2;
             avg2 = tmp;
+            // set1指向平均值较大的set
+            Set<Integer> tmpSet = set1;
+            set1 = set2;
+            set2 = tmpSet;
+            // sum1指向较大平均值的set
+            tmp = sum1;
+            sum1 = sum2;
+            sum2 = (int) tmp;
         }
+        System.out.println(set1);
+        System.out.println(set2);
+        System.out.println(avg1);
+        System.out.println(avg2);
         // 只可能从大平均值的集合往小平均值的集合拿数字
-        int[] betweenTwoAvg = getBetweenTwoAvg(maxSet, avg1, avg2);
+        int[] betweenTwoAvg = getBetweenTwoAvg(set1, avg1, avg2);
         // 有没有进行过magic操作
         boolean flag = true;
         // 如果上一轮进行过magic操作而且还有可以操作的数字
         while (flag && betweenTwoAvg.length > 0) {
             for (int num : betweenTwoAvg) {
                 flag = false;
-                if (minSet.contains(num)) {
+                if (set2.contains(num)) {
                     // 如果小集合中已经有改数字, 则跳过
                     continue;
                 }
                 System.out.println("move " + num);
-                maxSet.remove(num);
-                minSet.add(num);
-                System.out.println(maxSet);
-                System.out.println(minSet);
+                set1.remove(num);
+                set2.add(num);
+                avg1 = (sum1 - num) / (double) set1.size();
+                avg2 = (sum2 + num) / (double) set2.size();
                 magic++;
                 flag = true;
-                avg1 = (sum1 - num) / maxSet.size();
-                avg2 = (sum2 - num) / minSet.size();
+                System.out.println(set1);
+                System.out.println(set2);
+                System.out.println(avg1);
+                System.out.println(avg2);
+                betweenTwoAvg = getBetweenTwoAvg(set1, avg1, avg2);
             }
-            betweenTwoAvg = getBetweenTwoAvg(maxSet, avg1, avg2);
         }
         return magic;
     }
@@ -80,12 +83,11 @@ public class MaxMagic {
         return res;
     }
 
-    private static double sum(Set<Integer> set) {
-        double res = 0;
+    private static int sum(Set<Integer> set) {
+        int res = 0;
         for (Integer num : set) {
             res += num;
         }
         return res;
     }
-
 }

@@ -16,11 +16,9 @@ public class MaxMagicTest extends TestCase {
     }
 
     public void testMaxMagic() {
-        int length = 10, max = 10;
+        int length = 10, max = 50;
         Set<Integer> set1 = generateRandomSet((int) (Math.random() * length) + 3, max);
         Set<Integer> set2 = generateRandomSet((int) (Math.random() * length) + 3, max);
-        System.out.println(set1);
-        System.out.println(set2);
         System.out.println(MaxMagic.maxMagic(set1, set2));
     }
 
