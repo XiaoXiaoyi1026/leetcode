@@ -6,12 +6,12 @@ import java.util.Objects;
  * @author xiaoxiaoyi
  * 树节点
  */
-public class Node {
-    public final Object element;
-    public Node left;
-    public Node right;
+public class Node<T> {
+    public final T element;
+    public Node<T> left;
+    public Node<T> right;
 
-    public Node(Object element) {
+    public Node(T element) {
         this.element = element;
         left = right = null;
     }
@@ -24,8 +24,8 @@ public class Node {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Node node = (Node) o;
-        return Objects.equals(element, node.element);
+        Node<?> node = (Node<?>) o;
+        return element.equals(node.element);
     }
 
     @Override

@@ -6,11 +6,11 @@ import java.util.Comparator;
 
 public class RotateTreeTest extends TestCase {
 
-    private RotateSearchTree rotateTree;
+    private RotateSearchTree<Integer> rotateTree;
 
     private void createTree(int[] input) {
-        rotateTree = new RotateSearchTree(
-                Comparator.comparingInt(o -> (Integer) o.element)
+        rotateTree = new RotateSearchTree<>(
+                Comparator.comparingInt(o -> o.element)
         );
         for (int i : input) {
             rotateTree.insert(i);

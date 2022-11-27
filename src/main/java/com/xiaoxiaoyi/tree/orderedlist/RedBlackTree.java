@@ -6,21 +6,21 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  * 红黑树
  */
-public class RedBlackTree extends RotateSearchTree {
+public class RedBlackTree<T> extends RotateSearchTree<T> {
 
     /**
      * 根节点
      */
-    public final RedBlackTreeNode nilNode;
+    public final RedBlackTreeNode<T> nilNode;
 
-    public RedBlackTree(Comparator<BinarySearchTreeNode> comparator) {
+    public RedBlackTree(Comparator<BinarySearchTreeNode<T>> comparator) {
         super(comparator);
         // 保证红黑树的根节点为黑色(零节点, 黑色节点)
-        nilNode = new RedBlackTreeNode(null, ColorEnum.BLACK);
+        nilNode = new RedBlackTreeNode<>(null, ColorEnum.BLACK);
     }
 
-    public RedBlackTreeNode getRoot() {
-        return (RedBlackTreeNode) root;
+    public RedBlackTreeNode<T> getRoot() {
+        return (RedBlackTreeNode<T>) root;
     }
 
     /**
@@ -30,8 +30,8 @@ public class RedBlackTree extends RotateSearchTree {
      * @return 新创建的节点
      */
     @Override
-    public RedBlackTreeNode insert(Object element) {
-        RedBlackTreeNode newNode = (RedBlackTreeNode) super.insert(element);
+    public RedBlackTreeNode<T> insert(T element) {
+        RedBlackTreeNode<T> newNode = (RedBlackTreeNode<T>) super.insert(element);
         // 红黑树初始化节点的时候左右和父亲都要指向零节点
         newNode.left = nilNode;
         newNode.right = nilNode;
@@ -42,12 +42,12 @@ public class RedBlackTree extends RotateSearchTree {
     }
 
     @Override
-    public RedBlackTreeNode remove(Object element) {
+    public RedBlackTreeNode<T> remove(T element) {
         // 跟踪节点, 要移除的节点
-        RedBlackTreeNode replaceNode = null, removeNode = findNode(element);
+        RedBlackTreeNode<T> replaceNode = null, removeNode = findNode(element);
         if (removeNode != null && !removeNode.equals(nilNode)) {
             // 要删除的节点不为空且节点不为零节点
-            RedBlackTreeNode removedOrMovedNode = removeNode;
+            RedBlackTreeNode<T> removedOrMovedNode = removeNode;
             ColorEnum removedOrMovedNodeColor = removedOrMovedNode.color;
 
             if (removeNode.getLeft().equals(nilNode)) {
@@ -87,13 +87,13 @@ public class RedBlackTree extends RotateSearchTree {
     }
 
     @Override
-    public RedBlackTreeNode findNode(Object element) {
-        return (RedBlackTreeNode) super.findNode(element);
+    public RedBlackTreeNode<T> findNode(T element) {
+        return (RedBlackTreeNode<T>) super.findNode(element);
     }
 
     @Override
-    public RedBlackTreeNode getMinimum(BinarySearchTreeNode node) {
-        RedBlackTreeNode cur = (RedBlackTreeNode) node;
+    public RedBlackTreeNode<T> getMinimum(BinarySearchTreeNode<T> node) {
+        RedBlackTreeNode<T> cur = (RedBlackTreeNode<T>) node;
         // 当前节点不为根节点
         while (!nilNode.equals(cur.getLeft())) {
             cur = cur.getLeft();
@@ -102,8 +102,8 @@ public class RedBlackTree extends RotateSearchTree {
     }
 
     @Override
-    public RedBlackTreeNode getMaximum(BinarySearchTreeNode node) {
-        RedBlackTreeNode cur = (RedBlackTreeNode) node;
+    public RedBlackTreeNode<T> getMaximum(BinarySearchTreeNode<T> node) {
+        RedBlackTreeNode<T> cur = (RedBlackTreeNode<T>) node;
         // 当前节点不为根节点
         while (!nilNode.equals(cur.getRight())) {
             cur = cur.getRight();
@@ -112,9 +112,9 @@ public class RedBlackTree extends RotateSearchTree {
     }
 
     @Override
-    public RedBlackTreeNode rotateLeft(BinarySearchTreeNode node) {
-        RedBlackTreeNode rotateNode = (RedBlackTreeNode) node;
-        RedBlackTreeNode temp = rotateNode.getRight();
+    public RedBlackTreeNode<T> rotateLeft(BinarySearchTreeNode<T> node) {
+        RedBlackTreeNode<T> rotateNode = (RedBlackTreeNode<T>) node;
+        RedBlackTreeNode<T> temp = rotateNode.getRight();
         // 设置根节点(rotateNode)的右孩子(temp)的parent指向根节点的parent
         temp.parent = rotateNode.getParent();
 
@@ -144,10 +144,10 @@ public class RedBlackTree extends RotateSearchTree {
     }
 
     @Override
-    public RedBlackTreeNode rotateRight(BinarySearchTreeNode node) {
-        RedBlackTreeNode rotateNode = (RedBlackTreeNode) node;
+    public RedBlackTreeNode<T> rotateRight(BinarySearchTreeNode<T> node) {
+        RedBlackTreeNode<T> rotateNode = (RedBlackTreeNode<T>) node;
         // 记录根节点的左孩子
-        RedBlackTreeNode temp = rotateNode.getLeft();
+        RedBlackTreeNode<T> temp = rotateNode.getLeft();
         // 左孩子的父亲更新为根节点(node)的父亲
         temp.parent = rotateNode.getParent();
 
@@ -182,8 +182,8 @@ public class RedBlackTree extends RotateSearchTree {
      * 类似于BinarySearchTree中的节点移植方法，但使用nilNode而不使用null
      */
     @Override
-    public RedBlackTreeNode nodeTransplant(BinarySearchTreeNode replaceNode, BinarySearchTreeNode node) {
-        RedBlackTreeNode nodeToReplace = (RedBlackTreeNode) replaceNode, newNode = (RedBlackTreeNode) node;
+    public RedBlackTreeNode<T> nodeTransplant(BinarySearchTreeNode<T> replaceNode, BinarySearchTreeNode<T> node) {
+        RedBlackTreeNode<T> nodeToReplace = (RedBlackTreeNode<T>) replaceNode, newNode = (RedBlackTreeNode<T>) node;
         if (nodeToReplace.getParent().equals(nilNode)) {
             // 替换的节点是根节点
             root = newNode;
@@ -200,13 +200,13 @@ public class RedBlackTree extends RotateSearchTree {
         return newNode;
     }
 
-    public void adjustAfterDeletingNode(RedBlackTreeNode node) {
+    public void adjustAfterDeletingNode(RedBlackTreeNode<T> node) {
         while (!node.equals(getRoot()) && isBlack(node)) {
             // 当节点不为根节点且颜色为黑时
 
             if (node.equals(node.getParent().getLeft())) {
                 // 如果是左子树, 获取它的兄弟结点(右子树)
-                RedBlackTreeNode brother = node.getParent().getRight();
+                RedBlackTreeNode<T> brother = node.getParent().getRight();
                 if (isRed(brother)) {
                     // 兄弟节点是红色, 变为黑色
                     brother.color = ColorEnum.BLACK;
@@ -242,7 +242,7 @@ public class RedBlackTree extends RotateSearchTree {
                     node = node.getParent();
                 }
             } else {
-                RedBlackTreeNode brother = node.getParent().getLeft();
+                RedBlackTreeNode<T> brother = node.getParent().getLeft();
                 if (isRed(brother)) {
                     brother.color = ColorEnum.BLACK;
                     node.getParent().color = ColorEnum.RED;
@@ -273,11 +273,11 @@ public class RedBlackTree extends RotateSearchTree {
         }
     }
 
-    public boolean isBlack(RedBlackTreeNode node) {
+    public boolean isBlack(RedBlackTreeNode<T> node) {
         return node != null && node.color == ColorEnum.BLACK;
     }
 
-    public boolean isRed(RedBlackTreeNode node) {
+    public boolean isRed(RedBlackTreeNode<T> node) {
         return node != null && node.color == ColorEnum.RED;
     }
 
@@ -286,13 +286,13 @@ public class RedBlackTree extends RotateSearchTree {
      * 1. root节点变成红色
      * 2. 根节点为红色那么子节点必须为黑色
      */
-    public void adjustAfterInsertingNode(RedBlackTreeNode currentNode) {
+    public void adjustAfterInsertingNode(RedBlackTreeNode<T> currentNode) {
         // currentNode为红色, 如果父节点也为红色, 那么需要调整, 否则退出
         while (!getRoot().equals(currentNode.getParent()) && currentNode.getParent().color == ColorEnum.RED) {
-            RedBlackTreeNode parent = currentNode.getParent();
-            RedBlackTreeNode grandParent = parent.getParent();
+            RedBlackTreeNode<T> parent = currentNode.getParent();
+            RedBlackTreeNode<T> grandParent = parent.getParent();
             if (parent.equals(grandParent.getLeft())) {
-                RedBlackTreeNode uncle = grandParent.getRight();
+                RedBlackTreeNode<T> uncle = grandParent.getRight();
                 // 情况1: 叔叔节点(父节点的兄弟节点) 和父节点都是红色
                 // 将他们的颜色都变成黑色
                 if (uncle.color == ColorEnum.RED) {
@@ -315,7 +315,7 @@ public class RedBlackTree extends RotateSearchTree {
                     rotateRight(grandParent);
                 }
             } else if (parent.equals(grandParent.getRight())) {
-                RedBlackTreeNode uncle = grandParent.getLeft();
+                RedBlackTreeNode<T> uncle = grandParent.getLeft();
                 // 情况1: 叔叔和父亲都为红色, 变为黑色
                 if (uncle.color == ColorEnum.RED) {
                     parent.color = ColorEnum.BLACK;
@@ -344,6 +344,7 @@ public class RedBlackTree extends RotateSearchTree {
 
     /**
      * 节点颜色
+     *
      * @author xiaoxiaoyi
      */
     public enum ColorEnum {
@@ -357,28 +358,28 @@ public class RedBlackTree extends RotateSearchTree {
      * @author xiaoxiaoyi
      * 红黑树节点, 继承自旋转搜索树
      */
-    public static class RedBlackTreeNode extends BinarySearchTreeNode {
+    public static class RedBlackTreeNode<T> extends BinarySearchTreeNode<T> {
 
         /**
          * 节点颜色
          */
         public ColorEnum color;
 
-        public RedBlackTreeNode(Object element, ColorEnum color) {
+        public RedBlackTreeNode(T element, ColorEnum color) {
             super(element);
             this.color = color;
         }
 
-        public RedBlackTreeNode getLeft() {
-            return (RedBlackTreeNode) super.left;
+        public RedBlackTreeNode<T> getLeft() {
+            return (RedBlackTreeNode<T>) super.left;
         }
 
-        public RedBlackTreeNode getRight() {
-            return (RedBlackTreeNode) super.right;
+        public RedBlackTreeNode<T> getRight() {
+            return (RedBlackTreeNode<T>) super.right;
         }
 
-        public RedBlackTreeNode getParent() {
-            return (RedBlackTreeNode) super.parent;
+        public RedBlackTreeNode<T> getParent() {
+            return (RedBlackTreeNode<T>) super.parent;
         }
 
         @Override

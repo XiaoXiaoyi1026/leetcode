@@ -6,11 +6,11 @@ import java.util.Comparator;
 
 public class BinarySearchTreeTest extends TestCase {
 
-    private BinarySearchTree binarySearchTree;
+    private BinarySearchTree<Integer> binarySearchTree;
 
     public void createTree(int[] input) {
-        binarySearchTree = new BinarySearchTree(
-                Comparator.comparingInt(o -> (Integer) o.element)
+        binarySearchTree = new BinarySearchTree<>(
+                Comparator.comparingInt(o -> o.element)
         );
         for (int i : input) {
             binarySearchTree.insert(i);

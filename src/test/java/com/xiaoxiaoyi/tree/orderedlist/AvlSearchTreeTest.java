@@ -6,11 +6,11 @@ import java.util.Comparator;
 
 public class AvlSearchTreeTest extends TestCase {
 
-    private AvlSearchTree avlSearchTree;
+    private AvlSearchTree<Integer> avlSearchTree;
 
     private void createTree(int[] input) {
-        avlSearchTree = new AvlSearchTree(
-                Comparator.comparingInt(o -> (Integer) o.element)
+        avlSearchTree = new AvlSearchTree<>(
+                Comparator.comparingInt(o -> o.element)
         );
         for (int i : input) {
             avlSearchTree.insert(i);
@@ -24,7 +24,7 @@ public class AvlSearchTreeTest extends TestCase {
         System.out.println("=====================");
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.insert(new AvlSearchTree.AvlSearchTreeNode(7));
+        avlSearchTree.insert(new AvlSearchTree.AvlSearchTreeNode<>(7));
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
         avlSearchTree.printTree();
@@ -37,7 +37,7 @@ public class AvlSearchTreeTest extends TestCase {
         System.out.println("=====================");
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.remove(new AvlSearchTree.AvlSearchTreeNode(4));
+        avlSearchTree.remove(new AvlSearchTree.AvlSearchTreeNode<>(4));
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
         avlSearchTree.printTree();

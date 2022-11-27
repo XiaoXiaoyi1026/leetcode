@@ -4,8 +4,8 @@ import java.util.Comparator;
 
 public class RedBlackTreeTest extends BinarySearchTreeTest {
 
-    private final RedBlackTree redBlackTree = new RedBlackTree(
-            Comparator.comparingInt(o -> (Integer) o.element)
+    private final RedBlackTree<Integer> redBlackTree = new RedBlackTree<>(
+            Comparator.comparingInt(o -> o.element)
     );
 
     public void testInsertNode() {

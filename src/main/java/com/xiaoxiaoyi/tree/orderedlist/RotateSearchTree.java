@@ -6,16 +6,16 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  * 旋转树, 提供树的左旋和右旋操作
  */
-public class RotateSearchTree extends BinarySearchTree {
+public class RotateSearchTree<T> extends BinarySearchTree<T> {
 
-    public RotateSearchTree(Comparator<BinarySearchTreeNode> comparator) {
+    public RotateSearchTree(Comparator<BinarySearchTreeNode<T>> comparator) {
         super(comparator);
     }
 
-    public BinarySearchTreeNode rotateLeft(BinarySearchTreeNode node) {
+    public BinarySearchTreeNode<T> rotateLeft(BinarySearchTreeNode<T> node) {
         if (node.right != null) {
             // temp 指向原来节点的右节点
-            BinarySearchTreeNode temp = node.getRight();
+            BinarySearchTreeNode<T> temp = node.getRight();
             // 右节点的父亲节点变成node的父节点
             temp.parent = node.parent;
             // 原节点的右节点变为右节点的左节点
@@ -47,10 +47,10 @@ public class RotateSearchTree extends BinarySearchTree {
         return null;
     }
 
-    public BinarySearchTreeNode rotateRight(BinarySearchTreeNode node) {
+    public BinarySearchTreeNode<T> rotateRight(BinarySearchTreeNode<T> node) {
         if (node.left != null) {
             // nodeRight 指向原来节点的右节点
-            BinarySearchTreeNode temp = node.getLeft();
+            BinarySearchTreeNode<T> temp = node.getLeft();
             // 右节点的父亲节点变成node的父节点
             temp.parent = node.parent;
             // 原节点的右节点变为右节点的左节点
