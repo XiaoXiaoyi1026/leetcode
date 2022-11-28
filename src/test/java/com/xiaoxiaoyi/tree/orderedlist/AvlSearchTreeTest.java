@@ -1,5 +1,6 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import com.xiaoxiaoyi.tree.Tree;
 import junit.framework.TestCase;
 
 import java.util.Comparator;
@@ -20,27 +21,27 @@ public class AvlSearchTreeTest extends TestCase {
     public void testAddNode() {
         int[] input = new int[]{3, 4, 1, 2, 5, 6, 0};
         createTree(input);
-        avlSearchTree.printTree();
+        Tree.printTree(avlSearchTree.root);
         System.out.println("=====================");
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.insert(new AvlSearchTree.AvlSearchTreeNode<>(7));
+        avlSearchTree.insert(7);
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.printTree();
+        Tree.printTree(avlSearchTree.root);
     }
 
     public void testRemoveNode() {
         int[] input = new int[]{3, 4, 1, 2, 5, 6, 0};
         createTree(input);
-        avlSearchTree.printTree();
+        Tree.printTree(avlSearchTree.root);
         System.out.println("=====================");
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
         avlSearchTree.remove(new AvlSearchTree.AvlSearchTreeNode<>(4));
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.printTree();
+        Tree.printTree(avlSearchTree.root);
     }
 
 }

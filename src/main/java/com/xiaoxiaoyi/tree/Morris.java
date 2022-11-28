@@ -20,7 +20,7 @@ public class Morris {
     /**
      * 普通遍历: 使用系统自动压栈来辅助遍历, 每个节点都可以到达3次
      */
-    public static void process(Node curNode) {
+    public static void process(Tree.Node<Integer> curNode) {
         if (curNode == null) {
             // base case
             return;
@@ -40,15 +40,15 @@ public class Morris {
      *
      * @param root 根节点
      */
-    public static void morris(Node root) {
+    public static void morris(Tree.Node<Integer> root) {
         if (root == null) {
             // cur为空时, 退出遍历
             return;
         }
         // 申请一个cur指针指向当前遍历到的节点
-        Node cur = root;
+        Tree.Node<Integer> cur = root;
         // 申请一个mostRight指针指向cur的左子树上的底层最右节点
-        Node mostRight;
+        Tree.Node<Integer> mostRight;
         // 当cur指向null时遍历结束
         while (cur != null) {
             // 一开始mostRight应该指向cur的左孩子
@@ -87,15 +87,15 @@ public class Morris {
      *
      * @param root 根节点
      */
-    public static void morrisPreorderTraversal(Node root) {
+    public static void morrisPreorderTraversal(Tree.Node<Integer> root) {
         if (root == null) {
             // cur为空时, 退出遍历
             return;
         }
         // 申请一个cur指针指向当前遍历到的节点
-        Node cur = root;
+        Tree.Node<Integer> cur = root;
         // 申请一个mostRight指针指向cur的左子树上的底层最右节点
-        Node mostRight;
+        Tree.Node<Integer> mostRight;
         // 当cur指向null时遍历结束
         while (cur != null) {
             // 一开始mostRight应该指向cur的左孩子
@@ -132,15 +132,15 @@ public class Morris {
      *
      * @param root 根节点
      */
-    public static void morrisInorderTraversal(Node root) {
+    public static void morrisInorderTraversal(Tree.Node<Integer> root) {
         if (root == null) {
             // cur为空时, 退出遍历
             return;
         }
         // 申请一个cur指针指向当前遍历到的节点
-        Node cur = root;
+        Tree.Node<Integer> cur = root;
         // 申请一个mostRight指针指向cur的左子树上的底层最右节点
-        Node mostRight;
+        Tree.Node<Integer> mostRight;
         // 当cur指向null时遍历结束
         while (cur != null) {
             // 一开始mostRight应该指向cur的左孩子
@@ -172,15 +172,15 @@ public class Morris {
     /**
      * morris后序遍历实现
      */
-    public static void morrisPostorderTraversal(Node root) {
+    public static void morrisPostorderTraversal(Tree.Node<Integer> root) {
         if (root == null) {
             // cur为空时, 退出遍历
             return;
         }
         // 申请一个cur指针指向当前遍历到的节点
-        Node cur = root;
+        Tree.Node<Integer> cur = root;
         // 申请一个mostRight指针指向cur的左子树上的底层最右节点
-        Node mostRight;
+        Tree.Node<Integer> mostRight;
         // 当cur指向null时遍历结束
         while (cur != null) {
             // 一开始mostRight应该指向cur的左孩子
@@ -216,9 +216,9 @@ public class Morris {
      *
      * @param root 根节点
      */
-    private static void printReverse(Node root) {
+    private static void printReverse(Tree.Node<Integer> root) {
         // 逆序右边界, tail指向右边界的尾结点, 即逆序后的头结点, cur 指向 tail
-        Node tail = reverse(root), cur = tail;
+        Tree.Node<Integer> tail = reverse(root), cur = tail;
         while (cur != null) {
             System.out.println(cur);
             cur = cur.right;
@@ -232,9 +232,9 @@ public class Morris {
      *
      * @param cur 当前节点
      */
-    private static Node reverse(Node cur) {
+    private static Tree.Node<Integer> reverse(Tree.Node<Integer> cur) {
         // pre记录cur的前一个结点, next指向cur的后一个节点
-        Node pre = null, next;
+        Tree.Node<Integer> pre = null, next;
         while (cur != null) {
             next = cur.right;
             cur.right = pre;

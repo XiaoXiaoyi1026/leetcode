@@ -11,8 +11,16 @@ public class AvlSearchTree<T> extends RotateSearchTree<T> {
         super(comparator);
     }
 
+    @Override
     public AvlSearchTreeNode<T> insert(T element) {
-        AvlSearchTreeNode<T> newNode = (AvlSearchTreeNode<T>) super.insert(element);
+        AvlSearchTreeNode<T> newNode = insert(new AvlSearchTreeNode<>(element));
+        // 调整
+        rebalance(newNode);
+        return newNode;
+    }
+
+    public AvlSearchTreeNode<T> insert(AvlSearchTreeNode<T> newNode) {
+        super.insert(newNode);
         // 调整
         rebalance(newNode);
         return newNode;

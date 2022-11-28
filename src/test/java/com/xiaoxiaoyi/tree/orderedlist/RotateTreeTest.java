@@ -1,5 +1,6 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import com.xiaoxiaoyi.tree.Tree;
 import junit.framework.TestCase;
 
 import java.util.Comparator;
@@ -15,17 +16,17 @@ public class RotateTreeTest extends TestCase {
         for (int i : input) {
             rotateTree.insert(i);
         }
-        rotateTree.printTree();
+        Tree.printTree(rotateTree.root);
     }
 
     public void testRotateLeft() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6, 3, 8, 1, 0};
         createTree(input);
         rotateTree.root = (
-                rotateTree.rotateLeft(rotateTree.root)
+                rotateTree.rotateLeft(rotateTree.getRoot())
         );
         System.out.println("======================");
-        rotateTree.printTree();
+        Tree.printTree(rotateTree.root);
         System.out.println("======================");
     }
 
@@ -33,9 +34,9 @@ public class RotateTreeTest extends TestCase {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
         rotateTree.root =
-                rotateTree.rotateRight(rotateTree.root);
+                rotateTree.rotateRight(rotateTree.getRoot());
         System.out.println("======================");
-        rotateTree.printTree();
+        Tree.printTree(rotateTree.root);
         System.out.println("======================");
     }
 }

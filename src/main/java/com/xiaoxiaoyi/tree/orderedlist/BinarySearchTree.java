@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
-import com.xiaoxiaoyi.tree.Node;
+import com.xiaoxiaoyi.tree.Tree;
 
 import java.util.Comparator;
 
@@ -8,15 +8,18 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  * 搜索二叉树
  */
-public class BinarySearchTree<T> {
+public class BinarySearchTree<T> extends Tree<T> {
 
     public int size;
-    public BinarySearchTreeNode<T> root;
     public final Comparator<BinarySearchTreeNode<T>> comparator;
 
     public BinarySearchTree(Comparator<BinarySearchTreeNode<T>> comparator) {
         root = null;
         this.comparator = comparator;
+    }
+
+    public BinarySearchTreeNode<T> getRoot() {
+        return (BinarySearchTreeNode<T>) root;
     }
 
     public BinarySearchTreeNode<T> insert(T element) {
@@ -25,11 +28,11 @@ public class BinarySearchTree<T> {
 
     public BinarySearchTreeNode<T> insert(BinarySearchTreeNode<T> node) {
         if (root == null) {
-            size++;
             root = node;
         } else {
-            BinarySearchTreeNode<T> curNode = root, parent = null;
-            while (curNode != null) {
+            BinarySearchTreeNode<T> curNode = getRoot(), parent = null;
+            // 判断element不为空是为了红黑树
+            while (curNode != null && curNode.element != null) {
                 parent = curNode;
                 if (comparator.compare(node, curNode) > 0) {
                     // node > curNode, 往右边滑
@@ -61,7 +64,7 @@ public class BinarySearchTree<T> {
         if (root == null) {
             return null;
         } else {
-            BinarySearchTreeNode<T> curNode = root;
+            BinarySearchTreeNode<T> curNode = getRoot();
             while (curNode != null) {
                 if (comparator.compare(node, curNode) > 0) {
                     // node > curNode, 往右边滑
@@ -159,51 +162,11 @@ public class BinarySearchTree<T> {
         return size;
     }
 
-    public void printTree() {
-        printSubtree(root);
-    }
-
-    public void printSubtree(BinarySearchTreeNode<T> node) {
-        if (node.right != null) {
-            printTree(node.getRight(), true, "");
-        }
-        printNodeValue(node);
-        if (node.left != null) {
-            printTree(node.getLeft(), false, "");
-        }
-    }
-
-    public void printTree(BinarySearchTreeNode<T> node, boolean isRight, String indent) {
-        if (node.right != null) {
-            printTree(node.getRight(), true, indent + (isRight ? "        " : " |      "));
-        }
-        System.out.print(indent);
-        if (isRight) {
-            System.out.print(" /");
-        } else {
-            System.out.print(" \\");
-        }
-        System.out.print("----- ");
-        printNodeValue(node);
-        if (node.left != null) {
-            printTree(node.getLeft(), false, indent + (isRight ? " |      " : "        "));
-        }
-    }
-
-    public void printNodeValue(BinarySearchTreeNode<T> node) {
-        if (node.element == null) {
-            System.out.print("<null>");
-        } else {
-            System.out.print(node.element);
-        }
-        System.out.println();
-    }
-
     /**
      * @author 20609
      * 二分搜索树的节点定义
      */
-    public static class BinarySearchTreeNode<T> extends Node<T> {
+    public static class BinarySearchTreeNode<T> extends Tree.Node<T> {
         public BinarySearchTreeNode<T> parent;
 
         public BinarySearchTreeNode(T element) {
