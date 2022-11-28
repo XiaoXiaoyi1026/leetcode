@@ -31,4 +31,25 @@ public class LongestPath {
         }
     }
 
+    public static int longestPath2(Tree.Node<Integer> root) {
+        return process2(root);
+    }
+
+    /**
+     * 套路解, 向左右子树要信息然后汇总返回
+     */
+    public static int process2(Tree.Node<Integer> cur) {
+        if (cur.left == null && cur.right == null) {
+            return cur.element;
+        }
+        int ans = Integer.MIN_VALUE;
+        if (cur.left != null) {
+            ans = process2(cur.left);
+        }
+        if (cur.right != null) {
+            ans = Math.max(ans, process2(cur.right));
+        }
+        return cur.element + ans;
+    }
+
 }

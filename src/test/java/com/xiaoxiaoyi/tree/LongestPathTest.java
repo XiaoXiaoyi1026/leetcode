@@ -26,6 +26,7 @@ public class LongestPathTest extends TestCase {
         Tree.printTree(root);
         System.out.println("==================");
         System.out.println(LongestPath.longestPath(root));
+        System.out.println(LongestPath.longestPath2(root));
     }
 
 }
