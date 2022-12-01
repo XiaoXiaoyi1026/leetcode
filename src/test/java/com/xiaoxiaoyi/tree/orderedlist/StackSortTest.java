@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.other;
+package com.xiaoxiaoyi.tree.orderedlist;
 
 import junit.framework.TestCase;
 

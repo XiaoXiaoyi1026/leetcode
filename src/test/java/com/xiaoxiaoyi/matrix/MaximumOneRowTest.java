@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.other;
+package com.xiaoxiaoyi.matrix;
 
 import junit.framework.TestCase;
 

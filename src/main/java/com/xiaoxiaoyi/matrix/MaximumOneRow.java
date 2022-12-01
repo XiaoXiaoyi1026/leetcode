@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.other;
+package com.xiaoxiaoyi.matrix;
 
 import java.util.ArrayList;
 import java.util.List;
