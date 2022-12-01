@@ -2,7 +2,7 @@ package com.xiaoxiaoyi.matrix;
 
 import junit.framework.TestCase;
 
-public class SpiralPrintMatrixTest extends TestCase {
+public class SpiralMatrixTest extends TestCase {
 
     public void testSpiralPrintMatrix() {
         int[][] matrix = {
