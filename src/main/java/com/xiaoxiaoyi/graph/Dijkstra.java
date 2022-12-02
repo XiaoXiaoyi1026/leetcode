@@ -209,9 +209,9 @@ public class Dijkstra {
          * @param index 当前节点的下标
          * @param size  堆大小
          */
-        public void heapIfy(int index, int size) {
+        public void heapify(int index, int size) {
             // 当前节点左孩子的下标
-            int left = index / 2 + 1;
+            int left = (index << 1) + 1;
             // 保证下标不越界
             while (left < size) {
                 // 比较左右两个孩子的大小，获取最小孩子的下标
@@ -250,7 +250,7 @@ public class Dijkstra {
             // 删除这个节点(断连)
             nodes[size - 1] = null;
             // 从现在的根节点处开始向下调整堆
-            heapIfy(0, --size);
+            heapify(0, --size);
             return nodeRecord;
         }
 
