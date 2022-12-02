@@ -80,10 +80,12 @@ public class TopStrings {
     }
 
     private void heapInsert(int location) {
-        if (location > 1) {
-            while (wordFrequency.get(smallRootHeap[location]) > wordFrequency.get(smallRootHeap[(location - 1) >> 1])) {
-                swap(location, (location - 1) >> 1);
-                location = (location - 1) >> 1;
+        // 防止越界
+        if (location > 0) {
+            int parent = (location - 1) >> 1;
+            while (wordFrequency.get(smallRootHeap[location]) > wordFrequency.get(smallRootHeap[parent])) {
+                swap(location, parent);
+                location = parent;
             }
         }
     }
@@ -91,10 +93,13 @@ public class TopStrings {
     private void heapify(int location, int heapSize) {
         int left = (location << 1) + 1;
         while (left < heapSize) {
-            int smallest = wordFrequency.get(smallRootHeap[left]) <= wordFrequency.get(smallRootHeap[left + 1]) ?
-                    left : left + 1;
-            smallest = wordFrequency.get(smallRootHeap[location]) <= wordFrequency.get(smallRootHeap[smallest]) ?
-                    location : smallest;
+            int smallest = wordFrequency.get(smallRootHeap[location]) <= wordFrequency.get(smallRootHeap[left]) ?
+                    location : left;
+            // 防治越界
+            if (left + 1 < heapSize) {
+                smallest = wordFrequency.get(smallRootHeap[left]) <= wordFrequency.get(smallRootHeap[left + 1]) ?
+                        left : left + 1;
+            }
             if (smallest == location) {
                 break;
             }
