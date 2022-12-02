@@ -237,35 +237,4 @@ public class SizeBalancedTree2 {
         }
     }
 
-    public static void main(String[] args) {
-        SizeBalancedTreeMap<String, Integer> sbt = new SizeBalancedTreeMap<>(10000);
-
-        sbt.put("pos", 512);
-        sbt.put("zyp", 7123);
-        sbt.put("unz", 542);
-        sbt.put("abc", 5113);
-        sbt.put("yzk", 665);
-        sbt.put("fgi", 38776);
-        sbt.put("bke", 2500540);
-        sbt.put("lmn", 44334);
-        sbt.put("abc", 11);
-        sbt.put("abc", 111);
-
-        for (int i = 0; i < sbt.size(); i++) {
-            System.out.println(sbt.getIndexKey(i) + " , " + sbt.getIndexValue(i));
-        }
-        System.out.println(sbt.get("abc"));
-        System.out.println(sbt.firstKey());
-        System.out.println(sbt.lastKey());
-        System.out.println(sbt.floorKey("bke"));
-        System.out.println(sbt.ceilingKey("bke"));
-        System.out.println(sbt.floorKey("ooo"));
-        System.out.println(sbt.ceilingKey("ooo"));
-        System.out.println(sbt.floorKey("aaa"));
-        System.out.println(sbt.ceilingKey("aaa"));
-        System.out.println(sbt.floorKey("zzz"));
-        System.out.println(sbt.ceilingKey("zzz"));
-
-    }
-
 }
