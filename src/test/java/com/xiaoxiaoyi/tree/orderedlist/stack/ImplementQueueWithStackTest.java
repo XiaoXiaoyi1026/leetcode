@@ -11,11 +11,11 @@ public class ImplementQueueWithStackTest extends TestCase {
         myQueue.add(3);
         myQueue.add(4);
         myQueue.add(5);
-        System.out.println(myQueue.pop());
-        System.out.println(myQueue.pop());
-        System.out.println(myQueue.pop());
-        System.out.println(myQueue.pop());
-        System.out.println(myQueue.pop());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
+        System.out.println(myQueue.poll());
     }
 
 }

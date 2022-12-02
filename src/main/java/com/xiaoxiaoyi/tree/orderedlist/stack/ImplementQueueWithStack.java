@@ -21,7 +21,7 @@ public class ImplementQueueWithStack {
             pushStack.push(element);
         }
 
-        public T pop() {
+        public T poll() {
             if (popStack.isEmpty()) {
                 while (!pushStack.isEmpty()) {
                     popStack.push(pushStack.pop());
