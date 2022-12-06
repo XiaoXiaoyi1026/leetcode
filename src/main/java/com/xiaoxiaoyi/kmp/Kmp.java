@@ -39,25 +39,33 @@ public class Kmp {
         return j == arr2.length ? i - j : -1;
     }
 
+    /**
+     * 获取字符串的next数组
+     */
     private static int[] getNextArray(char[] arr) {
         if (arr.length == 1) {
+            // 如果字符串长度等于1, 则直接返回-1, 因为0~i-1位置没有字符
             return new int[]{-1};
         }
-        int[] next = new int[arr.length];
+        int n = arr.length;
+        // 要返回的next数组, 长度等于原字符串的长度
+        int[] next = new int[n];
+        // 代表以第1个字符为开头的最长相等前后缀长度为-1
         next[0] = -1;
+        // 以第2个字符开头的最长相等前后缀长度为0
         next[1] = 0;
-        // i代表求的是0~i-1上的next, cn记录的是最长前后缀重复字符串的长度
-        int i = 2, cn = 0;
-        while (i < arr.length) {
-            if (arr[i - 1] == arr[cn]) {
-                // 如果i - 1位置和cn位置的相等，则i位置的最大相等前后缀长度为当前位置的cn+1
-                next[i++] = ++cn;
-            } else if (cn > 0) {
-                // i - 1和cn不匹配，且当cn还可以往前取最长前后缀相等的字符串长度，就往前尝试
-                cn = next[cn];
+        // cur代表求的是0~cur-1上的next值, length记录的是最长前后缀重复字符串的长度
+        int cur = 2, length = 0;
+        while (cur < n) {
+            if (arr[cur - 1] == arr[length]) {
+                // 如果cur - 1位置和length位置的相等，则i位置的最大相等前后缀长度为当前位置的length+1
+                next[cur++] = ++length;
+            } else if (length > 0) {
+                // cur - 1和length不匹配，且当length还可以往前取最长前后缀相等的字符串长度，就往前尝试
+                length = next[length];
             } else {
-                // cn不能再往前取最长前后缀相等的字符串长度时，说明i位置的最长相等前后缀长度为0
-                next[i++] = 0;
+                // length不能再往前取最长前后缀相等的字符串长度时，说明i位置的最长相等前后缀长度为0
+                next[cur++] = 0;
             }
         }
         return next;
