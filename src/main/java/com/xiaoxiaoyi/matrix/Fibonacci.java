@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.other;
+package com.xiaoxiaoyi.matrix;
 
 /**
  * @author xiaoxiaoyi
@@ -27,7 +27,7 @@ public class Fibonacci {
     /**
      * 求matrix的power次方
      */
-    private static int[][] matrixPower(int[][] matrix, int power) {
+    protected static int[][] matrixPower(int[][] matrix, int power) {
         int n = matrix.length;
         int m = matrix[0].length;
         int[][] res = new int[n][m];
@@ -54,7 +54,7 @@ public class Fibonacci {
     /**
      * 如果两个矩阵规模不大, 复杂度接近O(1)
      */
-    private static int[][] multiplyMatrix(int[][] matrix1, int[][] matrix2) {
+    protected static int[][] multiplyMatrix(int[][] matrix1, int[][] matrix2) {
         int n = matrix1.length;
         int m = matrix2[0].length;
         int[][] res = new int[n][m];
