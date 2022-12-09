@@ -2,7 +2,7 @@ package com.xiaoxiaoyi.dynamic;
 
 import junit.framework.TestCase;
 
-public class IsNumberTest extends TestCase {
+public class ConvertStringToNumberTest extends TestCase {
 
     private String generateRandomString(int length) {
         StringBuilder stringBuilder = new StringBuilder(length);
@@ -24,8 +24,18 @@ public class IsNumberTest extends TestCase {
         for (int i = 0; i < 20; i++) {
             str = generateRandomString((int) (Math.random() *10));
             System.out.println(str);
-            System.out.println(IsNumber.isNumber(str));
+            boolean ans = ConvertStringToNumber.isNumber(str);
+            System.out.println("ans: " + ans);
+            if (ans) {
+                try {
+                    System.out.println("convert: " + ConvertStringToNumber.convertToInt(str));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        System.out.println(ConvertStringToNumber.convertToInt(String.valueOf(Integer.MIN_VALUE)));
+        System.out.println(ConvertStringToNumber.convertToInt("2147483648"));
     }
 
 }
