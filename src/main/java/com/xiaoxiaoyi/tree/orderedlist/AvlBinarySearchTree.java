@@ -5,9 +5,9 @@ import java.util.Comparator;
 /**
  * @author xiaoxiaoyi
  */
-public class AvlSearchTree<T> extends RotateSearchTree<T> {
+public class AvlBinarySearchTree<T> extends RotateBinarySearchTree<T> {
 
-    public AvlSearchTree(Comparator<BinarySearchTreeNode<T>> comparator) {
+    public AvlBinarySearchTree(Comparator<Node<T>> comparator) {
         super(comparator);
     }
 
@@ -32,27 +32,27 @@ public class AvlSearchTree<T> extends RotateSearchTree<T> {
     }
 
     @Override
-    public AvlSearchTreeNode<T> nodeTransplant(BinarySearchTreeNode<T> nodeToReplace, BinarySearchTreeNode<T> newNode) {
+    public AvlSearchTreeNode<T> nodeTransplant(Node<T> nodeToReplace, Node<T> newNode) {
         return (AvlSearchTreeNode<T>) super.nodeTransplant(nodeToReplace, newNode);
     }
 
     @Override
-    public AvlSearchTreeNode<T> getMinimum(BinarySearchTreeNode<T> node) {
+    public AvlSearchTreeNode<T> getMinimum(Node<T> node) {
         return (AvlSearchTreeNode<T>) super.getMinimum(node);
     }
 
     @Override
-    public AvlSearchTreeNode<T> getMaximum(BinarySearchTreeNode<T> node) {
+    public AvlSearchTreeNode<T> getMaximum(Node<T> node) {
         return (AvlSearchTreeNode<T>) super.getMaximum(node);
     }
 
     @Override
-    public AvlSearchTreeNode<T> rotateLeft(BinarySearchTreeNode<T> node) {
+    public AvlSearchTreeNode<T> rotateLeft(Node<T> node) {
         return (AvlSearchTreeNode<T>) super.rotateLeft(node);
     }
 
     @Override
-    public AvlSearchTreeNode<T> rotateRight(BinarySearchTreeNode<T> node) {
+    public AvlSearchTreeNode<T> rotateRight(Node<T> node) {
         return (AvlSearchTreeNode<T>) super.rotateRight(node);
     }
 
@@ -94,7 +94,7 @@ public class AvlSearchTree<T> extends RotateSearchTree<T> {
     private void rebalance(AvlSearchTreeNode<T> node) {
         while (node != null) {
             // afterRotateRoot指向旋转后的根节点, 未旋转之前指向node
-            BinarySearchTreeNode<T> parent = node.parent;
+            Node<T> parent = node.parent;
             // 空节点高度为-1
             int leftHeight = node.getLeft() == null ? -1 : node.getLeft().height;
             int rightHeight = node.getRight() == null ? -1 : node.getRight().height;
@@ -202,7 +202,7 @@ public class AvlSearchTree<T> extends RotateSearchTree<T> {
     /**
      * @author 20609
      */
-    public static class AvlSearchTreeNode<T> extends BinarySearchTreeNode<T> {
+    public static class AvlSearchTreeNode<T> extends Node<T> {
 
         public int height;
 

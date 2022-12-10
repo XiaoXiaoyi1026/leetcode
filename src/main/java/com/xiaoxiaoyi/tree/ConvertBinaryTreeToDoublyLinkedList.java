@@ -12,11 +12,11 @@ public class ConvertBinaryTreeToDoublyLinkedList {
      */
     public static class Info {
         // 节点里存整数, 代表子树转换为双链表后的头结点
-        public BinarySearchTree.BinarySearchTreeNode<Integer> start;
+        public BinarySearchTree.Node<Integer> start;
         // 代表子树转换为双链表后的尾结点
-        public BinarySearchTree.BinarySearchTreeNode<Integer> end;
+        public BinarySearchTree.Node<Integer> end;
 
-        public Info(BinarySearchTree.BinarySearchTreeNode<Integer> start, BinarySearchTree.BinarySearchTreeNode<Integer> end) {
+        public Info(BinarySearchTree.Node<Integer> start, BinarySearchTree.Node<Integer> end) {
             this.start = start;
             this.end = end;
         }
@@ -25,14 +25,14 @@ public class ConvertBinaryTreeToDoublyLinkedList {
     /**
      * 将二叉搜索树转换为双链表
      */
-    public static BinarySearchTree.BinarySearchTreeNode<Integer> convert(BinarySearchTree<Integer> binarySearchTree) {
+    public static BinarySearchTree.Node<Integer> convert(BinarySearchTree<Integer> binarySearchTree) {
         return convert(binarySearchTree.getRoot());
     }
 
     /**
      * 将以head开头的二叉搜索树转换为双链表
      */
-    public static BinarySearchTree.BinarySearchTreeNode<Integer> convert(BinarySearchTree.BinarySearchTreeNode<Integer> head) {
+    public static BinarySearchTree.Node<Integer> convert(BinarySearchTree.Node<Integer> head) {
         // 转换后的start即为整个双链表的头结点
         return convertProcess(head).start;
     }
@@ -40,7 +40,7 @@ public class ConvertBinaryTreeToDoublyLinkedList {
     /**
      * 转换的过程
      */
-    public static Info convertProcess(BinarySearchTree.BinarySearchTreeNode<Integer> head) {
+    public static Info convertProcess(BinarySearchTree.Node<Integer> head) {
         if (head == null) {
             // base case 递归终止条件, 遍历到null节点直接返回
             return new Info(null, null);
@@ -72,7 +72,7 @@ public class ConvertBinaryTreeToDoublyLinkedList {
                 rightInfo.end == null ? head : rightInfo.end);
     }
 
-    public static void printDoublyLinkedList(BinarySearchTree.BinarySearchTreeNode<Integer> head) {
+    public static void printDoublyLinkedList(BinarySearchTree.Node<Integer> head) {
         System.out.print(head.element);
         if (head.right != null) {
             System.out.print(" -> ");

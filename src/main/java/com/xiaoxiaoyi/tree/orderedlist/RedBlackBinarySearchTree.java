@@ -6,14 +6,14 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  * 红黑树
  */
-public class RedBlackTree<T> extends RotateSearchTree<T> {
+public class RedBlackBinarySearchTree<T> extends RotateBinarySearchTree<T> {
 
     /**
      * 根节点
      */
     public final RedBlackTreeNode<T> nilNode;
 
-    public RedBlackTree(Comparator<BinarySearchTreeNode<T>> comparator) {
+    public RedBlackBinarySearchTree(Comparator<Node<T>> comparator) {
         super(comparator);
         // 保证红黑树的根节点为黑色(零节点, 黑色节点)
         nilNode = new RedBlackTreeNode<>(null, ColorEnum.BLACK);
@@ -90,7 +90,7 @@ public class RedBlackTree<T> extends RotateSearchTree<T> {
     }
 
     @Override
-    public RedBlackTreeNode<T> getMinimum(BinarySearchTreeNode<T> node) {
+    public RedBlackTreeNode<T> getMinimum(Node<T> node) {
         RedBlackTreeNode<T> cur = (RedBlackTreeNode<T>) node;
         // 当前节点不为根节点
         while (!cur.getLeft().equals(nilNode)) {
@@ -100,7 +100,7 @@ public class RedBlackTree<T> extends RotateSearchTree<T> {
     }
 
     @Override
-    public RedBlackTreeNode<T> getMaximum(BinarySearchTreeNode<T> node) {
+    public RedBlackTreeNode<T> getMaximum(Node<T> node) {
         RedBlackTreeNode<T> cur = (RedBlackTreeNode<T>) node;
         // 当前节点不为根节点
         while (!cur.getRight().equals(nilNode)) {
@@ -110,7 +110,7 @@ public class RedBlackTree<T> extends RotateSearchTree<T> {
     }
 
     @Override
-    public RedBlackTreeNode<T> rotateLeft(BinarySearchTreeNode<T> node) {
+    public RedBlackTreeNode<T> rotateLeft(Node<T> node) {
         RedBlackTreeNode<T> rotateNode = (RedBlackTreeNode<T>) node;
         RedBlackTreeNode<T> temp = rotateNode.getRight();
         // 设置根节点(rotateNode)的右孩子(temp)的parent指向根节点的parent
@@ -138,7 +138,7 @@ public class RedBlackTree<T> extends RotateSearchTree<T> {
     }
 
     @Override
-    public RedBlackTreeNode<T> rotateRight(BinarySearchTreeNode<T> node) {
+    public RedBlackTreeNode<T> rotateRight(Node<T> node) {
         RedBlackTreeNode<T> rotateNode = (RedBlackTreeNode<T>) node;
         // 记录根节点的左孩子
         RedBlackTreeNode<T> temp = rotateNode.getLeft();
@@ -172,7 +172,7 @@ public class RedBlackTree<T> extends RotateSearchTree<T> {
      * 类似于BinarySearchTree中的节点移植方法，但使用nilNode而不使用null
      */
     @Override
-    public RedBlackTreeNode<T> nodeTransplant(BinarySearchTreeNode<T> replaceNode, BinarySearchTreeNode<T> node) {
+    public RedBlackTreeNode<T> nodeTransplant(Node<T> replaceNode, Node<T> node) {
         RedBlackTreeNode<T> nodeToReplace = (RedBlackTreeNode<T>) replaceNode, newNode = (RedBlackTreeNode<T>) node;
         if (nodeToReplace.getParent().equals(nilNode)) {
             // 替换的节点是根节点
@@ -347,7 +347,7 @@ public class RedBlackTree<T> extends RotateSearchTree<T> {
      * @author xiaoxiaoyi
      * 红黑树节点, 继承自旋转搜索树
      */
-    public static class RedBlackTreeNode<T> extends BinarySearchTreeNode<T> {
+    public static class RedBlackTreeNode<T> extends Node<T> {
 
         /**
          * 节点颜色

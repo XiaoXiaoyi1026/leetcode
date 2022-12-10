@@ -1,9 +1,8 @@
 package com.xiaoxiaoyi.tree;
 
-import com.xiaoxiaoyi.tree.TrieTree;
 import junit.framework.TestCase;
 
-public class TreeTest extends TestCase {
+public class TrieTreeTest extends TestCase {
 
     public void testTrieTree() {
         TrieTree trieTree = new TrieTree();

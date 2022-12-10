@@ -11,26 +11,26 @@ import java.util.Comparator;
 public class BinarySearchTree<T> extends Tree<T> {
 
     public int size;
-    public final Comparator<BinarySearchTreeNode<T>> comparator;
+    public final Comparator<Node<T>> comparator;
 
-    public BinarySearchTree(Comparator<BinarySearchTreeNode<T>> comparator) {
+    public BinarySearchTree(Comparator<Node<T>> comparator) {
         root = null;
         this.comparator = comparator;
     }
 
-    public BinarySearchTreeNode<T> getRoot() {
-        return (BinarySearchTreeNode<T>) root;
+    public Node<T> getRoot() {
+        return (Node<T>) root;
     }
 
-    public BinarySearchTreeNode<T> insert(T element) {
-        return insert(new BinarySearchTreeNode<>(element));
+    public Node<T> insert(T element) {
+        return insert(new Node<>(element));
     }
 
-    public BinarySearchTreeNode<T> insert(BinarySearchTreeNode<T> node) {
+    public Node<T> insert(Node<T> node) {
         if (root == null) {
             root = node;
         } else {
-            BinarySearchTreeNode<T> curNode = getRoot(), parent = null;
+            Node<T> curNode = getRoot(), parent = null;
             // 判断element不为空是为了红黑树
             while (curNode != null && curNode.element != null) {
                 parent = curNode;
@@ -56,15 +56,15 @@ public class BinarySearchTree<T> extends Tree<T> {
         return node;
     }
 
-    public BinarySearchTreeNode<T> findNode(T element) {
-        return findNode(new BinarySearchTreeNode<>(element));
+    public Node<T> findNode(T element) {
+        return findNode(new Node<>(element));
     }
 
-    public BinarySearchTreeNode<T> findNode(BinarySearchTreeNode<T> node) {
+    public Node<T> findNode(Node<T> node) {
         if (root == null) {
             return null;
         } else {
-            BinarySearchTreeNode<T> curNode = getRoot();
+            Node<T> curNode = getRoot();
             while (curNode != null) {
                 if (comparator.compare(node, curNode) > 0) {
                     // node > curNode, 往右边滑
@@ -82,13 +82,13 @@ public class BinarySearchTree<T> extends Tree<T> {
         }
     }
 
-    public BinarySearchTreeNode<T> remove(T element) {
-        return remove(new BinarySearchTreeNode<>(element));
+    public Node<T> remove(T element) {
+        return remove(new Node<>(element));
     }
 
-    public BinarySearchTreeNode<T> remove(BinarySearchTreeNode<T> node) {
+    public Node<T> remove(Node<T> node) {
         node = findNode(node);
-        BinarySearchTreeNode<T> nodeToReturn = null;
+        Node<T> nodeToReturn = null;
         if (node != null) {
             // 如果要删除的节点存在
             if (node.left == null) {
@@ -99,7 +99,7 @@ public class BinarySearchTree<T> extends Tree<T> {
                 nodeToReturn = nodeTransplant(node, node.getLeft());
             } else {
                 // 左右子树都不为空, 后继结点为其右子树的最小节点
-                BinarySearchTreeNode<T> successorNode = getMinimum(node.getRight());
+                Node<T> successorNode = getMinimum(node.getRight());
                 if (!successorNode.parent.equals(node)) {
                     // 如果后继结点不是node的直接子节点, 将后继结点替换成其右子节点
                     nodeTransplant(successorNode, successorNode.getRight());
@@ -120,7 +120,7 @@ public class BinarySearchTree<T> extends Tree<T> {
     /**
      * 替换nodeToReplace为newNode
      */
-    public BinarySearchTreeNode<T> nodeTransplant(BinarySearchTreeNode<T> nodeToReplace, BinarySearchTreeNode<T> newNode) {
+    public Node<T> nodeTransplant(Node<T> nodeToReplace, Node<T> newNode) {
         if (nodeToReplace.parent == null) {
             // 替换根节点
             root = newNode;
@@ -141,7 +141,7 @@ public class BinarySearchTree<T> extends Tree<T> {
     /**
      * 获取以node为根的搜索树上最小值的节点
      */
-    public BinarySearchTreeNode<T> getMinimum(BinarySearchTreeNode<T> node) {
+    public Node<T> getMinimum(Node<T> node) {
         while (node.left != null) {
             node = node.getLeft();
         }
@@ -151,7 +151,7 @@ public class BinarySearchTree<T> extends Tree<T> {
     /**
      * 获取以node为根的搜索树上最大值的节点
      */
-    public BinarySearchTreeNode<T> getMaximum(BinarySearchTreeNode<T> node) {
+    public Node<T> getMaximum(Node<T> node) {
         while (node.right != null) {
             node = node.getRight();
         }
@@ -166,20 +166,20 @@ public class BinarySearchTree<T> extends Tree<T> {
      * @author 20609
      * 二分搜索树的节点定义
      */
-    public static class BinarySearchTreeNode<T> extends Tree.Node<T> {
-        public BinarySearchTreeNode<T> parent;
+    public static class Node<T> extends com.xiaoxiaoyi.tree.Tree.Node<T> {
+        public Node<T> parent;
 
-        public BinarySearchTreeNode(T element) {
+        public Node(T element) {
             super(element);
             parent = null;
         }
 
-        public BinarySearchTreeNode<T> getLeft() {
-            return (BinarySearchTreeNode<T>) super.left;
+        public Node<T> getLeft() {
+            return (Node<T>) super.left;
         }
 
-        public BinarySearchTreeNode<T> getRight() {
-            return (BinarySearchTreeNode<T>) super.right;
+        public Node<T> getRight() {
+            return (Node<T>) super.right;
         }
 
         @Override

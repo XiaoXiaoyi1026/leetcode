@@ -49,6 +49,10 @@ public class Tree<T> {
     }
 
 
+    public static void printTree(Tree<?> tree) {
+        printTree(tree.root);
+    }
+
     public static void printTree(Node<?> node) {
         printSubtree(node);
     }

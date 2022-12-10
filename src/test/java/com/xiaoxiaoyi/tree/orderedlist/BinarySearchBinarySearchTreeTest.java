@@ -1,11 +1,10 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
-import com.xiaoxiaoyi.tree.Tree;
 import junit.framework.TestCase;
 
 import java.util.Comparator;
 
-public class BinarySearchTreeTest extends TestCase {
+public class BinarySearchBinarySearchTreeTest extends TestCase {
 
     protected BinarySearchTree<Integer> binarySearchTree;
 
@@ -21,18 +20,18 @@ public class BinarySearchTreeTest extends TestCase {
     public void testAddNode() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        Tree.printTree(binarySearchTree.root);
+        BinarySearchTree.printTree(binarySearchTree.root);
     }
 
     public void testRemoveNode() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        Tree.printTree(binarySearchTree.root);
+        BinarySearchTree.printTree(binarySearchTree.root);
         System.out.println("=====================");
         binarySearchTree.remove(3);
         System.out.println(binarySearchTree.root);
         System.out.println("==================");
-        Tree.printTree(binarySearchTree.root);
+        BinarySearchTree.printTree(binarySearchTree.root);
     }
 
     public void testGetMaximum() {

@@ -1,16 +1,16 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
 import com.xiaoxiaoyi.tree.Tree;
+import junit.framework.TestCase;
 
 import java.util.Comparator;
 
-public class RedBlackTreeTest extends BinarySearchTreeTest {
+public class RedBlackTreeTest extends TestCase {
 
-    private RedBlackTree<Integer> redBlackTree;
+    private RedBlackBinarySearchTree<Integer> redBlackTree;
 
-    @Override
     public void createTree(int[] input) {
-        redBlackTree = new RedBlackTree<>(
+        redBlackTree = new RedBlackBinarySearchTree<>(
                 Comparator.comparingInt(o -> o.element)
         );
         for (int i : input) {

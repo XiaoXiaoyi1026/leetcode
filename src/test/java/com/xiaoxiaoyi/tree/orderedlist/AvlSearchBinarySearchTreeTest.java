@@ -5,12 +5,12 @@ import junit.framework.TestCase;
 
 import java.util.Comparator;
 
-public class AvlSearchTreeTest extends TestCase {
+public class AvlSearchBinarySearchTreeTest extends TestCase {
 
-    private AvlSearchTree<Integer> avlSearchTree;
+    private AvlBinarySearchTree<Integer> avlSearchTree;
 
     private void createTree(int[] input) {
-        avlSearchTree = new AvlSearchTree<>(
+        avlSearchTree = new AvlBinarySearchTree<>(
                 Comparator.comparingInt(o -> o.element)
         );
         for (int i : input) {
@@ -38,7 +38,7 @@ public class AvlSearchTreeTest extends TestCase {
         System.out.println("=====================");
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
-        avlSearchTree.remove(new AvlSearchTree.AvlSearchTreeNode<>(4));
+        avlSearchTree.remove(new AvlBinarySearchTree.AvlSearchTreeNode<>(4));
         System.out.println(avlSearchTree.root);
         System.out.println("=====================");
         Tree.printTree(avlSearchTree.root);

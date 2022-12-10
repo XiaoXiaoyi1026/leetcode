@@ -7,10 +7,10 @@ import java.util.Comparator;
 
 public class RotateTreeTest extends TestCase {
 
-    private RotateSearchTree<Integer> rotateTree;
+    private RotateBinarySearchTree<Integer> rotateTree;
 
     private void createTree(int[] input) {
-        rotateTree = new RotateSearchTree<>(
+        rotateTree = new RotateBinarySearchTree<>(
                 Comparator.comparingInt(o -> o.element)
         );
         for (int i : input) {
