@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 public class BinarySearchTreeTest extends TestCase {
 
-    private BinarySearchTree<Integer> binarySearchTree;
+    protected BinarySearchTree<Integer> binarySearchTree;
 
     public void createTree(int[] input) {
         binarySearchTree = new BinarySearchTree<>(
