@@ -23,6 +23,7 @@ public class MaximumSearchSubtreeTest extends TestCase {
         Tree.printTree(tree);
         Tree.Node<Integer> maximumSearchSubtreeHead = MaximumSearchSubtree.maximumSearchSubtreeRoot(tree);
         System.out.println(maximumSearchSubtreeHead);
+        Tree.printTree(maximumSearchSubtreeHead);
     }
 
 }
