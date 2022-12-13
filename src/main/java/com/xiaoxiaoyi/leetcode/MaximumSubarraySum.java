@@ -3,6 +3,7 @@ package com.xiaoxiaoyi.leetcode;
 /**
  * @author xiaoxiaoyi
  * 求一个数组的最大子数组和
+ * 解题关键在于假设解的形式
  */
 public class MaximumSubarraySum {
 
