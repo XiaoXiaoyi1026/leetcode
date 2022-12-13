@@ -6,14 +6,14 @@ package com.xiaoxiaoyi.other;
  */
 public class PrintIntegerInEnglish {
 
-    public static String print(int num) {
-        if (num == 0) {
+    public static String print(int number) {
+        if (number == 0) {
             return "Zero";
         }
         StringBuilder res = new StringBuilder();
-        if (num < 0) {
+        if (number < 0) {
             res.append("Navigate ");
-            if (num == Integer.MIN_VALUE) {
+            if (number == Integer.MIN_VALUE) {
                 // 如果是系统最小值
                 String max = print(Integer.MAX_VALUE);
                 return String.valueOf(
@@ -23,18 +23,18 @@ public class PrintIntegerInEnglish {
                 );
             }
             // 将num变为正数
-            num = -num;
+            number = -number;
         }
         // java最大整型21亿, billion = 10亿
         int high = 1000000000, highIndex = 0;
         String[] names = {"Billion", "Million", "Thousand", ""};
-        while (num != 0) {
-            int cur = num / high;
-            num %= high;
+        while (number != 0) {
+            int cur = number / high;
+            number %= high;
             if (cur != 0) {
                 res.append(print1To999(cur))
                         .append(names[highIndex])
-                        .append(num == 0 ? " " : ", ");
+                        .append(number == 0 ? "" : ", ");
             }
             high /= 1000;
             highIndex++;
@@ -42,8 +42,8 @@ public class PrintIntegerInEnglish {
         return String.valueOf(res);
     }
 
-    public static String print1To19(int num) {
-        if (num < 1 || num > 19) {
+    public static String print1To19(int number) {
+        if (number < 1 || number > 19) {
             return "";
         }
         StringBuilder res = new StringBuilder();
@@ -53,39 +53,39 @@ public class PrintIntegerInEnglish {
                 "Twelve", "Thirteen", "Fourteen", "Fifteen",
                 "Sixteen", "Seventeen", "Eighteen", "Nineteen"
         };
-        return String.valueOf(res.append(names[num - 1])
+        return String.valueOf(res.append(names[number - 1])
                 .append(" "));
     }
 
-    public static String print1To99(int num) {
-        if (num < 1 || num > 99) {
+    public static String print1To99(int number) {
+        if (number < 1 || number > 99) {
             return "";
         }
-        if (num < 20) {
-            return print1To19(num);
+        if (number < 20) {
+            return print1To19(number);
         }
         StringBuilder res = new StringBuilder();
         // 数字的十位
-        int decade = num / 10;
+        int decade = number / 10;
         String[] decadeNames = {
                 "Twenty", "Thirty", "Forty", "Fifty",
                 "Sixty", "Seventy", "Eighty", "Ninety"
         };
         return String.valueOf(res.append(decadeNames[decade - 2])
-                .append(" ").append(print1To19(num % 10)));
+                .append(" ").append(print1To19(number % 10)));
     }
 
-    public static String print1To999(int num) {
-        if (num < 1 || num > 999) {
+    public static String print1To999(int number) {
+        if (number < 1 || number > 999) {
             return "";
         }
-        if (num < 100) {
-            return print1To99(num);
+        if (number < 100) {
+            return print1To99(number);
         }
         StringBuilder res = new StringBuilder();
-        int hundreds = num / 100;
+        int hundreds = number / 100;
         return String.valueOf(res.append(print1To19(hundreds))
                 .append("Hundred and ")
-                .append(print1To99(num % 100)));
+                .append(print1To99(number % 100)));
     }
 }
