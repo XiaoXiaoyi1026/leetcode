@@ -6,21 +6,21 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  * 红黑树
  */
-public class RedBlackBinarySearchTree<T> extends RotateBinarySearchTree<T> {
+public class RedBlackTree<T extends Comparable<T>> extends SelfBalancingBinaryTree<T> {
 
     /**
      * 根节点
      */
     public final RedBlackTreeNode<T> nilNode;
 
-    public RedBlackBinarySearchTree(Comparator<Node<T>> comparator) {
+    public RedBlackTree(Comparator<Node<T>> comparator) {
         super(comparator);
         // 保证红黑树的根节点为黑色(零节点, 黑色节点)
         nilNode = new RedBlackTreeNode<>(null, ColorEnum.BLACK);
     }
 
     public RedBlackTreeNode<T> getRoot() {
-        return (RedBlackTreeNode<T>) root;
+        return (RedBlackTreeNode<T>) super.getRoot();
     }
 
     @Override
@@ -360,11 +360,11 @@ public class RedBlackBinarySearchTree<T> extends RotateBinarySearchTree<T> {
         }
 
         public RedBlackTreeNode<T> getLeft() {
-            return (RedBlackTreeNode<T>) super.left;
+            return (RedBlackTreeNode<T>) super.getLeft();
         }
 
         public RedBlackTreeNode<T> getRight() {
-            return (RedBlackTreeNode<T>) super.right;
+            return (RedBlackTreeNode<T>) super.getRight();
         }
 
         public RedBlackTreeNode<T> getParent() {

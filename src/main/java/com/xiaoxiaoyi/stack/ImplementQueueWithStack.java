@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi.tree.orderedlist.stack;
+package com.xiaoxiaoyi.stack;
 
 import java.util.Stack;
 

@@ -1,6 +1,4 @@
-package com.xiaoxiaoyi.tree.orderedlist;
-
-import com.xiaoxiaoyi.tree.Tree;
+package com.xiaoxiaoyi.tree;
 
 import java.util.Comparator;
 
@@ -8,18 +6,19 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  * 搜索二叉树
  */
-public class BinarySearchTree<T> extends Tree<T> {
+public class BinarySearchTree<T extends Comparable<T>> extends ElementBinaryTree<T> {
 
     public int size;
     public final Comparator<Node<T>> comparator;
 
     public BinarySearchTree(Comparator<Node<T>> comparator) {
+        super();
         root = null;
         this.comparator = comparator;
     }
 
     public Node<T> getRoot() {
-        return (Node<T>) root;
+        return (Node<T>) super.getRoot();
     }
 
     public Node<T> insert(T element) {
@@ -166,7 +165,7 @@ public class BinarySearchTree<T> extends Tree<T> {
      * @author 20609
      * 二分搜索树的节点定义
      */
-    public static class Node<T> extends com.xiaoxiaoyi.tree.Tree.Node<T> {
+    public static class Node<T> extends ElementBinaryTree.Node<T> {
         public Node<T> parent;
 
         public Node(T element) {
@@ -175,16 +174,16 @@ public class BinarySearchTree<T> extends Tree<T> {
         }
 
         public Node<T> getLeft() {
-            return (Node<T>) super.left;
+            return (Node<T>) super.getLeft();
         }
 
         public Node<T> getRight() {
-            return (Node<T>) super.right;
+            return (Node<T>) super.getRight();
         }
 
         @Override
         public String toString() {
-            return "BinarySearchTreeNode{" +
+            return "Node{" +
                     "element=" + element +
                     '}';
         }

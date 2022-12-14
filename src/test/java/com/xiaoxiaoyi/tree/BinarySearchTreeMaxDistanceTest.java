@@ -2,7 +2,7 @@ package com.xiaoxiaoyi.tree;
 
 import junit.framework.TestCase;
 
-public class TreeMaxDistanceTest extends TestCase {
+public class BinarySearchTreeMaxDistanceTest extends TestCase {
 
     public void testTreeDp() {
         TreeMaxDistance.Node node1 = new TreeMaxDistance.Node();

@@ -4,26 +4,26 @@ import junit.framework.TestCase;
 
 public class LongestPathTest extends TestCase {
 
-    private Tree.Node<Integer> createTree() {
-        Tree.Node<Integer> node1 = new Tree.Node<>(2);
-        Tree.Node<Integer> node2 = new Tree.Node<>(5);
-        Tree.Node<Integer> node3 = new Tree.Node<>(3);
-        Tree.Node<Integer> node4 = new Tree.Node<>(1);
-        Tree.Node<Integer> node5 = new Tree.Node<>(7);
-        Tree.Node<Integer> node6 = new Tree.Node<>(8);
-        Tree.Node<Integer> node7 = new Tree.Node<>(10);
-        node1.left = node2;
-        node1.right = node3;
-        node2.left = node4;
-        node2.right = node5;
-        node3.left = node6;
-        node3.right = node7;
-        return node1;
+    private BinarySearchTree.Node<Integer> createTree() {
+        BinarySearchTree.Node<Integer> Node1 = new BinarySearchTree.Node<>(2);
+        BinarySearchTree.Node<Integer> Node2 = new BinarySearchTree.Node<>(5);
+        BinarySearchTree.Node<Integer> Node3 = new BinarySearchTree.Node<>(3);
+        BinarySearchTree.Node<Integer> Node4 = new BinarySearchTree.Node<>(1);
+        BinarySearchTree.Node<Integer> Node5 = new BinarySearchTree.Node<>(7);
+        BinarySearchTree.Node<Integer> Node6 = new BinarySearchTree.Node<>(8);
+        BinarySearchTree.Node<Integer> Node7 = new BinarySearchTree.Node<>(10);
+        Node1.left = Node2;
+        Node1.right = Node3;
+        Node2.left = Node4;
+        Node2.right = Node5;
+        Node3.left = Node6;
+        Node3.right = Node7;
+        return Node1;
     }
 
     public void testLongestPath() {
-        Tree.Node<Integer> root = createTree();
-        Tree.printTree(root);
+        BinarySearchTree.Node<Integer> root = createTree();
+        BinarySearchTree.print(root);
         System.out.println("==================");
         System.out.println(LongestPath.longestPath(root));
         System.out.println(LongestPath.longestPath2(root));

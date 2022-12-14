@@ -1,22 +1,23 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
-import com.xiaoxiaoyi.tree.Tree;
 import junit.framework.TestCase;
 
 import java.util.Comparator;
 
-public class RotateTreeTest extends TestCase {
+import static com.xiaoxiaoyi.tree.BinarySearchTree.print;
 
-    private RotateBinarySearchTree<Integer> rotateTree;
+public class SelfBalancingBinaryTreeTest extends TestCase {
+
+    private SelfBalancingBinaryTree<Integer> rotateTree;
 
     private void createTree(int[] input) {
-        rotateTree = new RotateBinarySearchTree<>(
+        rotateTree = new SelfBalancingBinaryTree<>(
                 Comparator.comparingInt(o -> o.element)
         );
         for (int i : input) {
             rotateTree.insert(i);
         }
-        Tree.printTree(rotateTree.root);
+        print(rotateTree.getRoot());
     }
 
     public void testRotateLeft() {
@@ -26,7 +27,7 @@ public class RotateTreeTest extends TestCase {
                 rotateTree.rotateLeft(rotateTree.getRoot())
         );
         System.out.println("======================");
-        Tree.printTree(rotateTree.root);
+        print(rotateTree.getRoot());
         System.out.println("======================");
     }
 
@@ -36,7 +37,7 @@ public class RotateTreeTest extends TestCase {
         rotateTree.root =
                 rotateTree.rotateRight(rotateTree.getRoot());
         System.out.println("======================");
-        Tree.printTree(rotateTree.root);
+        print(rotateTree.getRoot());
         System.out.println("======================");
     }
 }

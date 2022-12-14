@@ -1,14 +1,16 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import com.xiaoxiaoyi.tree.BinarySearchTree;
+
 import java.util.Comparator;
 
 /**
  * @author xiaoxiaoyi
- * 旋转树, 提供树的左旋和右旋操作
+ * 自平衡二叉树, 可以进行左旋和右旋操作
  */
-public class RotateBinarySearchTree<T> extends BinarySearchTree<T> {
+public class SelfBalancingBinaryTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 
-    public RotateBinarySearchTree(Comparator<Node<T>> comparator) {
+    public SelfBalancingBinaryTree(Comparator<Node<T>> comparator) {
         super(comparator);
     }
 

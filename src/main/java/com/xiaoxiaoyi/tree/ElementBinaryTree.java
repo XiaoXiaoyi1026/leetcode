@@ -4,23 +4,26 @@ import java.util.Objects;
 
 /**
  * @author xiaoxiaoyi
+ * 树(节点含有元素)
  */
-public class Tree<T> {
+public class ElementBinaryTree<T extends Comparable<T>> extends BinaryTree {
 
-    public Node<T> root = null;
-
-    /**
-     * @author xiaoxiaoyi
-     * 树节点
-     */
-    public static class Node<T> {
+    public static class Node<T> extends BinaryTree.Node {
         public final T element;
-        public Node<T> left;
-        public Node<T> right;
 
         public Node(T element) {
+            super();
             this.element = element;
-            left = right = null;
+        }
+
+        @SuppressWarnings("unchecked")
+        public Node<T> getLeft() {
+            return (Node<T>) this.left;
+        }
+
+        @SuppressWarnings("unchecked")
+        public Node<T> getRight() {
+            return (Node<T>) this.right;
         }
 
         @Override
@@ -48,28 +51,18 @@ public class Tree<T> {
         }
     }
 
-
-    public static void printTree(Tree<?> tree) {
-        printTree(tree.root);
+    @SuppressWarnings("unchecked")
+    public Node<T> getRoot() {
+        return (Node<T>) root;
     }
 
-    public static void printTree(Node<?> node) {
-        printSubtree(node);
+    public static void print(ElementBinaryTree<?> tree) {
+        print(tree.getRoot());
     }
 
-    public static void printSubtree(Node<?> node) {
+    public static void print(Node<?> node, boolean isRight, String indent) {
         if (node.right != null) {
-            printTree(node.right, true, "");
-        }
-        printNodeValue(node);
-        if (node.left != null) {
-            printTree(node.left, false, "");
-        }
-    }
-
-    public static void printTree(Node<?> node, boolean isRight, String indent) {
-        if (node.right != null) {
-            printTree(node.right, true, indent + (isRight ? "        " : " |      "));
+            print(node.getRight(), true, indent + (isRight ? "        " : " |      "));
         }
         System.out.print(indent);
         if (isRight) {
@@ -78,13 +71,23 @@ public class Tree<T> {
             System.out.print(" \\");
         }
         System.out.print("----- ");
-        printNodeValue(node);
+        printNodeElement(node);
         if (node.left != null) {
-            printTree(node.left, false, indent + (isRight ? " |      " : "        "));
+            print(node.getLeft(), false, indent + (isRight ? " |      " : "        "));
         }
     }
 
-    public static void printNodeValue(Node<?> node) {
+    public static void print(Node<?> node) {
+        if (node.right != null) {
+            print(node.getRight(), true, "");
+        }
+        printNodeElement(node);
+        if (node.left != null) {
+            print(node.getLeft(), false, "");
+        }
+    }
+
+    public static void printNodeElement(Node<?> node) {
         if (node.element == null) {
             System.out.print("<null>");
         } else {
@@ -92,4 +95,5 @@ public class Tree<T> {
         }
         System.out.println();
     }
+
 }

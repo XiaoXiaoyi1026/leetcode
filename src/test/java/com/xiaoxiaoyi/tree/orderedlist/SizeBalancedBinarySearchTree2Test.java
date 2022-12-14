@@ -2,7 +2,7 @@ package com.xiaoxiaoyi.tree.orderedlist;
 
 import junit.framework.TestCase;
 
-public class SizeBalancedTree2Test extends TestCase {
+public class SizeBalancedBinarySearchTree2Test extends TestCase {
 
     private SizeBalancedTree2.SizeBalancedTreeMap<String, Integer> sizeBalancedTree2;
 

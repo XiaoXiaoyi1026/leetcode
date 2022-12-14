@@ -1,8 +1,8 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
-import com.xiaoxiaoyi.tree.TrieTreeTest;
+import com.xiaoxiaoyi.tree.TrieBinarySearchTreeTest;
 
-public class SkipListTest extends TrieTreeTest {
+public class SkipListTest extends TrieBinarySearchTreeTest {
 
     private SkipListMap.SkipList<String, String> skipList;
 

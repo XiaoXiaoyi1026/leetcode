@@ -2,7 +2,7 @@ package com.xiaoxiaoyi.tree;
 
 import junit.framework.TestCase;
 
-public class TrieTreeTest extends TestCase {
+public class TrieBinarySearchTreeTest extends TestCase {
 
     public void testTrieTree() {
         TrieTree trieTree = new TrieTree();

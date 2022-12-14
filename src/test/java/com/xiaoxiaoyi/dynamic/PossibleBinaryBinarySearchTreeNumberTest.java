@@ -2,7 +2,7 @@ package com.xiaoxiaoyi.dynamic;
 
 import junit.framework.TestCase;
 
-public class PossibleBinaryTreeNumberTest extends TestCase {
+public class PossibleBinaryBinarySearchTreeNumberTest extends TestCase {
 
     public void testPossibleBinaryTreeNumber() {
         for (int i = 0; i < 10; i++) {

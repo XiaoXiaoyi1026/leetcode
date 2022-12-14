@@ -1,7 +1,5 @@
 package com.xiaoxiaoyi.tree;
 
-import com.xiaoxiaoyi.tree.orderedlist.BinarySearchTree;
-
 /**
  * @author xiaoxiaoyi
  */

@@ -2,7 +2,7 @@ package com.xiaoxiaoyi.graph;
 
 import junit.framework.TestCase;
 
-public class MinimumSpanningTreeTest extends TestCase {
+public class MinimumSpanningBinarySearchTreeTest extends TestCase {
 
     public void testKruskalMinimumSpanningTreeByUnionFind() {
         Integer[][] input = new Integer[][]{

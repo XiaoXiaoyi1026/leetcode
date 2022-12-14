@@ -4,51 +4,51 @@ import junit.framework.TestCase;
 
 public class MorrisTest extends TestCase {
 
-    Tree.Node<Integer> node1 = new Tree.Node<>(1);
-    Tree.Node<Integer> node2 = new Tree.Node<>(1);
-    Tree.Node<Integer> node3 = new Tree.Node<>(1);
-    Tree.Node<Integer> node4 = new Tree.Node<>(1);
-    Tree.Node<Integer> node5 = new Tree.Node<>(1);
-    Tree.Node<Integer> node6 = new Tree.Node<>(1);
-    Tree.Node<Integer> node7 = new Tree.Node<>(1);
+    BinaryTree.Node elementNode = new BinaryTree.Node();
+    BinaryTree.Node elementNode2 = new BinaryTree.Node();
+    BinaryTree.Node elementNode3 = new BinaryTree.Node();
+    BinaryTree.Node elementNode4 = new BinaryTree.Node();
+    BinaryTree.Node elementNode5 = new BinaryTree.Node();
+    BinaryTree.Node elementNode6 = new BinaryTree.Node();
+    BinaryTree.Node elementNode7 = new BinaryTree.Node();
 
     public void createTree() {
-        node1.left = node2;
-        node1.right = node3;
-        node2.left = node4;
-        node2.right = node5;
-        node3.left = node6;
-        node3.right = node7;
+        elementNode.left = elementNode2;
+        elementNode.right = elementNode3;
+        elementNode2.left = elementNode4;
+        elementNode2.right = elementNode5;
+        elementNode3.left = elementNode6;
+        elementNode3.right = elementNode7;
     }
 
     public void testProcess() {
         createTree();
         System.out.println("递归遍历: ");
-        Morris.process(node1);
+        Morris.process(elementNode);
     }
 
     public void testMorris() {
         createTree();
         System.out.println("Morris遍历: ");
-        Morris.morris(node1);
+        Morris.morris(elementNode);
     }
 
     public void testMorrisPreorderTraversal() {
         createTree();
         System.out.println("Morris先序遍历: ");
-        Morris.morrisPreorderTraversal(node1);
+        Morris.morrisPreorderTraversal(elementNode);
     }
 
     public void testMorrisInorderTraversal() {
         createTree();
         System.out.println("Morris中序遍历: ");
-        Morris.morrisInorderTraversal(node1);
+        Morris.morrisInorderTraversal(elementNode);
     }
 
     public void testMorrisPostorderTraversal() {
         createTree();
         System.out.println("Morris后序遍历: ");
-        Morris.morrisPostorderTraversal(node1);
+        Morris.morrisPostorderTraversal(elementNode);
     }
 
 }

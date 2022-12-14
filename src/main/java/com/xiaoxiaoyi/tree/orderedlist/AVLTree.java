@@ -4,22 +4,29 @@ import java.util.Comparator;
 
 /**
  * @author xiaoxiaoyi
+ * Adelson-Velsky and Landis Tree
+ * 自平衡二叉搜索树
  */
-public class AvlBinarySearchTree<T> extends RotateBinarySearchTree<T> {
+public class AVLTree<T extends Comparable<T>> extends SelfBalancingBinaryTree<T> {
 
-    public AvlBinarySearchTree(Comparator<Node<T>> comparator) {
+    public AVLTree(Comparator<Node<T>> comparator) {
         super(comparator);
     }
 
     @Override
-    public AvlSearchTreeNode<T> insert(T element) {
-        AvlSearchTreeNode<T> newNode = insert(new AvlSearchTreeNode<>(element));
+    public AvlNode<T> getRoot() {
+        return (AvlNode<T>) super.getRoot();
+    }
+
+    @Override
+    public AvlNode<T> insert(T element) {
+        AvlNode<T> newNode = insert(new AvlNode<>(element));
         // 调整
         rebalance(newNode);
         return newNode;
     }
 
-    public AvlSearchTreeNode<T> insert(AvlSearchTreeNode<T> newNode) {
+    public AvlNode<T> insert(AvlNode<T> newNode) {
         super.insert(newNode);
         // 调整
         rebalance(newNode);
@@ -27,47 +34,47 @@ public class AvlBinarySearchTree<T> extends RotateBinarySearchTree<T> {
     }
 
     @Override
-    public AvlSearchTreeNode<T> findNode(T element) {
-        return (AvlSearchTreeNode<T>) super.findNode(element);
+    public AvlNode<T> findNode(T element) {
+        return (AvlNode<T>) super.findNode(element);
     }
 
     @Override
-    public AvlSearchTreeNode<T> nodeTransplant(Node<T> nodeToReplace, Node<T> newNode) {
-        return (AvlSearchTreeNode<T>) super.nodeTransplant(nodeToReplace, newNode);
+    public AvlNode<T> nodeTransplant(Node<T> nodeToReplace, Node<T> newNode) {
+        return (AvlNode<T>) super.nodeTransplant(nodeToReplace, newNode);
     }
 
     @Override
-    public AvlSearchTreeNode<T> getMinimum(Node<T> node) {
-        return (AvlSearchTreeNode<T>) super.getMinimum(node);
+    public AvlNode<T> getMinimum(Node<T> node) {
+        return (AvlNode<T>) super.getMinimum(node);
     }
 
     @Override
-    public AvlSearchTreeNode<T> getMaximum(Node<T> node) {
-        return (AvlSearchTreeNode<T>) super.getMaximum(node);
+    public AvlNode<T> getMaximum(Node<T> node) {
+        return (AvlNode<T>) super.getMaximum(node);
     }
 
     @Override
-    public AvlSearchTreeNode<T> rotateLeft(Node<T> node) {
-        return (AvlSearchTreeNode<T>) super.rotateLeft(node);
+    public AvlNode<T> rotateLeft(Node<T> node) {
+        return (AvlNode<T>) super.rotateLeft(node);
     }
 
     @Override
-    public AvlSearchTreeNode<T> rotateRight(Node<T> node) {
-        return (AvlSearchTreeNode<T>) super.rotateRight(node);
+    public AvlNode<T> rotateRight(Node<T> node) {
+        return (AvlNode<T>) super.rotateRight(node);
     }
 
     @Override
-    public AvlSearchTreeNode<T> remove(T element) {
-        AvlSearchTreeNode<T> reNode = findNode(element);
+    public AvlNode<T> remove(T element) {
+        AvlNode<T> reNode = findNode(element);
         return reNode != null ? remove(reNode) : null;
     }
 
-    public AvlSearchTreeNode<T> remove(AvlSearchTreeNode<T> reNode) {
+    public AvlNode<T> remove(AvlNode<T> reNode) {
         // 存在时删除, 删除后哪个节点代替了它就返回哪个节点(后继结点)
-        AvlSearchTreeNode<T> successorNode = (AvlSearchTreeNode<T>) super.remove(reNode);
+        AvlNode<T> successorNode = (AvlNode<T>) super.remove(reNode);
         if (successorNode != null) {
             // 获得后继结点的右子树上的最小节点, 如果后继结点没有右子树, 则最小节点就是它自己
-            AvlSearchTreeNode<T> minimum = successorNode.getRight() != null ?
+            AvlNode<T> minimum = successorNode.getRight() != null ?
                     getMinimum(successorNode.getRight()) : successorNode;
             // 从最小节点开始向上调整所有节点的高度
             recomputeNode(minimum);
@@ -75,9 +82,9 @@ public class AvlBinarySearchTree<T> extends RotateBinarySearchTree<T> {
             rebalance(minimum);
         } else {
             // 如果后继结点为空时, 则从node的父节点开始向上调整
-            recomputeNode((AvlSearchTreeNode<T>) reNode.parent);
+            recomputeNode((AvlNode<T>) reNode.parent);
             // 重新调整父节点
-            rebalance((AvlSearchTreeNode<T>) reNode.parent);
+            rebalance((AvlNode<T>) reNode.parent);
         }
         // 返回后继结点
         return successorNode;
@@ -91,7 +98,7 @@ public class AvlBinarySearchTree<T> extends RotateBinarySearchTree<T> {
      *
      * @param node Inserted Node.
      */
-    private void rebalance(AvlSearchTreeNode<T> node) {
+    private void rebalance(AvlNode<T> node) {
         while (node != null) {
             // afterRotateRoot指向旋转后的根节点, 未旋转之前指向node
             Node<T> parent = node.parent;
@@ -125,49 +132,49 @@ public class AvlBinarySearchTree<T> extends RotateBinarySearchTree<T> {
                 updateHeight(node);
             }
             // 继续向上更新
-            node = (AvlSearchTreeNode<T>) parent;
+            node = (AvlNode<T>) parent;
         }
     }
 
     /**
      * 从node开始向上调整所有节点的高度
      */
-    private void recomputeNode(AvlSearchTreeNode<T> node) {
+    private void recomputeNode(AvlNode<T> node) {
         while (node != null) {
             node.height = getMaxHeight(node) + 1;
-            node = (AvlSearchTreeNode<T>) node.parent;
+            node = (AvlNode<T>) node.parent;
         }
     }
 
-    private void avlRotateLeftAndRight(AvlSearchTreeNode<T> node) {
+    private void avlRotateLeftAndRight(AvlNode<T> node) {
         // 左旋后右旋
         node.left = avlRotateLeft(node.getLeft());
         avlRotateRight(node);
     }
 
-    private void avlRotateRightAndLeft(AvlSearchTreeNode<T> node) {
+    private void avlRotateRightAndLeft(AvlNode<T> node) {
         // 右旋后左旋
         node.right = avlRotateRight(node.getRight());
         avlRotateLeft(node);
     }
 
-    private AvlSearchTreeNode<T> avlRotateLeft(AvlSearchTreeNode<T> node) {
+    private AvlNode<T> avlRotateLeft(AvlNode<T> node) {
         // 左旋
-        AvlSearchTreeNode<T> temp = (AvlSearchTreeNode<T>) super.rotateLeft(node);
+        AvlNode<T> temp = (AvlNode<T>) super.rotateLeft(node);
 
         // 更新左子树的高度
-        updateHeight((AvlSearchTreeNode<T>) temp.left);
+        updateHeight(temp.getLeft());
         // 更新自己的高度
         updateHeight(temp);
         return temp;
     }
 
-    private AvlSearchTreeNode<T> avlRotateRight(AvlSearchTreeNode<T> node) {
+    private AvlNode<T> avlRotateRight(AvlNode<T> node) {
         // 执行右旋操作
-        AvlSearchTreeNode<T> temp = (AvlSearchTreeNode<T>) super.rotateRight(node);
+        AvlNode<T> temp = (AvlNode<T>) super.rotateRight(node);
 
         // 更新右子树的高度
-        updateHeight((AvlSearchTreeNode<T>) temp.right);
+        updateHeight(temp.getRight());
         // 更新整棵树的高度
         updateHeight(temp);
         return temp;
@@ -179,13 +186,13 @@ public class AvlBinarySearchTree<T> extends RotateBinarySearchTree<T> {
      *
      * @param node Node for which height and balance must be updated.
      */
-    private void updateHeight(AvlSearchTreeNode<T> node) {
+    protected void updateHeight(AvlNode<T> node) {
         int leftHeight = node.getLeft() == null ? -1 : node.getLeft().height;
         int rightHeight = node.getRight() == null ? -1 : node.getRight().height;
         node.height = Math.max(leftHeight, rightHeight) + 1;
     }
 
-    private int getMaxHeight(AvlSearchTreeNode<T> node) {
+    protected int getMaxHeight(AvlNode<T> node) {
         if (node.getLeft() != null && node.getRight() != null) {
             // 左右子树都不为空, 返回高度较高的那个
             return Math.max(node.getLeft().height, node.getRight().height);
@@ -202,22 +209,22 @@ public class AvlBinarySearchTree<T> extends RotateBinarySearchTree<T> {
     /**
      * @author 20609
      */
-    public static class AvlSearchTreeNode<T> extends Node<T> {
+    public static class AvlNode<T> extends Node<T> {
 
         public int height;
 
-        public AvlSearchTreeNode(T element) {
+        public AvlNode(T element) {
             super(element);
             // 初始化节点的高度为0
             height = 0;
         }
 
-        public AvlSearchTreeNode<T> getLeft() {
-            return (AvlSearchTreeNode<T>) super.left;
+        public AvlNode<T> getLeft() {
+            return (AvlNode<T>) super.getLeft();
         }
 
-        public AvlSearchTreeNode<T> getRight() {
-            return (AvlSearchTreeNode<T>) super.right;
+        public AvlNode<T> getRight() {
+            return (AvlNode<T>) super.getRight();
         }
     }
 }
