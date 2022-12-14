@@ -13,12 +13,18 @@ public class NumberOfCompleteBinaryTreeNodes extends BinaryTree {
         return process(completeBinaryTree.root, height(completeBinaryTree.root));
     }
 
+    /**
+     * @param node       子树根节点
+     * @param treeHeight 当前子树的高度
+     * @return 子树的节点个数
+     */
     public static int process(Node node, int treeHeight) {
         if (node == null) {
+            // 空树没有节点
             return 0;
         }
         int ans = 0;
-        // 求右子树的高度
+        // 求整棵树的右子树的高度(logN)
         int rightHeight = height(node.right);
         if (rightHeight == treeHeight - 1) {
             // 如果右子树高度 = 整棵树的高度 - 1, 说明左子树是满二叉树, 高度 = 整棵树的高度 - 1
@@ -36,6 +42,9 @@ public class NumberOfCompleteBinaryTreeNodes extends BinaryTree {
         return ans;
     }
 
+    /**
+     * 求以node为头的完全二叉树的深度
+     */
     public static int height(Node node) {
         int height = 0;
         while (node != null) {
