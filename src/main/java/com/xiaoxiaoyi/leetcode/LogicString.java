@@ -79,6 +79,7 @@ public class LogicString {
                     // 符号位是^, 要达成false的结果, 需要左右两边结果相同
                     res += process(exp, true, left, i - 1) *
                             process(exp, true, i + 1, right);
+
                     res += process(exp, false, left, i - 1) *
                             process(exp, false, i + 1, right);
                 }

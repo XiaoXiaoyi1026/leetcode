@@ -23,13 +23,14 @@ public class DeleteDuplicateCharacter {
         int minASCIICharIndex = 0;
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
-            int frequency = charFrequency.get(c) - 1;
-            charFrequency.put(c, frequency);
-            if (frequency == 0) {
-                // 出现了词频为0的节点
+            int frequency = charFrequency.get(c);
+            if (frequency == 1) {
+                // 词频减1后为0
                 break;
             } else {
                 minASCIICharIndex = c < chars[minASCIICharIndex] ? i : minASCIICharIndex;
+                // 更新当前遍历过后的词频
+                charFrequency.put(c, frequency - 1);
             }
         }
         return chars[minASCIICharIndex] + remove(str
