@@ -18,4 +18,10 @@ public class JosephRingTest extends TestCase {
         System.out.println(JosephRing.getLive(node1, 3));
     }
 
+    public void testGetAdmissionId() {
+        int n = 10;
+        int[] arr = {7, 4, 5};
+        System.out.println(JosephRing.getAdmissionId(n, arr));
+    }
+
 }

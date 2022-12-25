@@ -24,6 +24,40 @@ public class JosephRing {
         }
     }
 
+    /**
+     * 面试者从0开始编号, 一直到n-1
+     * arr中存有一些数字, 每一轮淘汰规则如下:
+     * 从编号0的面试者开始, 循环取用arr中的数字, 即当取完arr最后一个数字时, 下一次取arr[0]
+     * 从取到数字的面试者开始, 按编号向后报数, 报到数字的面试者被淘汰, 淘汰一共进行n-1轮
+     *
+     * @param n 面试人数
+     * @return 最后录取到的人的编号
+     */
+    public static int getAdmissionId(int n, int[] arr) {
+        // 最开始剩余n个人, 数字从arr[0]开始取
+        return getAdmissionId(n, arr, 0);
+    }
+
+    /**
+     * @param remain   剩余人数
+     * @param arr      循环取用的数组
+     * @param numIndex 当前取到的数字下标
+     * @return 本轮开始到结束, 被录取的人的编号
+     */
+    public static int getAdmissionId(int remain, int[] arr, int numIndex) {
+        if (remain == 1) {
+            // base case: 如果本轮只剩1个人, 那么返回它在本轮中的编号: 0
+            return 0;
+        }
+        /*
+        公式为: 老编号 = (新编号 + m - 1) % remain + 1
+        下一轮剩余remain-1, m = arr[numIndex], 公式中remain为当前轮剩余人数
+         */
+        return (getAdmissionId(remain - 1, arr,
+                numIndex == arr.length - 1 ? 0 : numIndex + 1)
+                + arr[numIndex] - 1) % remain + 1;
+    }
+
     public static Node getLive(Node head, int m) {
         if (head == null || head.next == head || m < 1) {
             return head;
