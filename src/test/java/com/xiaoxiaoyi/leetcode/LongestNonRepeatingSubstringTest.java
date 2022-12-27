@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 public class LongestNonRepeatingSubstringTest extends TestCase {
 
     public String generateRandomString() {
-        StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder = new StringBuilder();
         char[] chars = {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G',
                 'H', 'I', 'J', 'K', 'L', 'M', 'N',
