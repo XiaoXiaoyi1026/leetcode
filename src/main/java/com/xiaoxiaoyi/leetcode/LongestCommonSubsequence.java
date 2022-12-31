@@ -61,17 +61,10 @@ public class LongestCommonSubsequence {
         int[] upperLine = new int[n + 1];
         // left记录当前位置左边的结果
         int left = 0;
-        /*
-        dp[i][j]的可能性分析:
-        1. 既不以chars1[i]结尾, 也不以chars2[j]结尾, dp[i][j] = dp[i-1][j-1]
-        2. 以chars1[i]结尾, 不以chars2[j]结尾, dp[i][j] = dp[i][j-1]
-        3. 不以chars1[i]结尾, 以chars2[j]结尾, dp[i][j] = dp[i-1][j]
-        4. 在chars1[i] == chars2[j]的情况下, 既以chars1[i]结尾又以chars2[j]结尾, dp[i][j] = dp[i-1][j-1] + 1
-        最终dp[i][j]取这4种可能性中的最大值
-         */
         for (int i = 1; i <= m; i++) {
             int[] curLine = new int[n + 1];
             for (int j = 1; j <= n; j++) {
+                // upperLine[j - 1]是左上, left是左边, upperLine[j]是上面
                 int cur = Math.max(upperLine[j - 1], Math.max(left, upperLine[j]));
                 if (chars1[i - 1] == chars2[j - 1]) {
                     cur = Math.max(cur, upperLine[j - 1] + 1);
