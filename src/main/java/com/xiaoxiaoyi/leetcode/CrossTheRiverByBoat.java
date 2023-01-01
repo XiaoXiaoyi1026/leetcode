@@ -11,6 +11,9 @@ import java.util.Arrays;
 public class CrossTheRiverByBoat {
 
     public static int needBoats(int[] weights, int limit) {
+        if (weights == null || weights.length == 0) {
+            return 0;
+        }
         // 对重量排序
         Arrays.sort(weights);
         int n = weights.length;
@@ -21,7 +24,7 @@ public class CrossTheRiverByBoat {
             return n;
         }
         if (weights[n - 1] <= limit >> 1) {
-            return n >> 1;
+            return (n + 1) >> 1;
         }
         // 二分查找小于等于limit>>1的最右位置
         int left = mostRight(weights, limit >> 1);
@@ -46,6 +49,9 @@ public class CrossTheRiverByBoat {
     }
 
     public static int needBoats2(int[] weights, int limit) {
+        if (weights == null || weights.length == 0) {
+            return 0;
+        }
         // 对重量排序
         Arrays.sort(weights);
         int n = weights.length;
@@ -56,7 +62,7 @@ public class CrossTheRiverByBoat {
             return n;
         }
         if (weights[n - 1] <= limit >> 1) {
-            return n >> 1;
+            return (n + 1) >> 1;
         }
         int left = 0, right = n - 1;
         int ans = 0;
