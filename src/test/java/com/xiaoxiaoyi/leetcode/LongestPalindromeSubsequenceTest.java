@@ -7,6 +7,7 @@ public class LongestPalindromeSubsequenceTest extends TestCase {
     public void testLongestPalindromeSubsequence() {
         String str = "112ab3cd2e1";
         System.out.println(LongestPalindromeSubsequence.get(str));
+        System.out.println(LongestPalindromeSubsequence.get2(str));
     }
 
 }

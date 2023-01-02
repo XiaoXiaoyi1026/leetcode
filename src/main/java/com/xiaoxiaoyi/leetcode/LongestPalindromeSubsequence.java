@@ -45,4 +45,35 @@ public class LongestPalindromeSubsequence {
         return dp[0][n - 1];
     }
 
+    public static int get2(String str) {
+        if (str == null || str.length() == 0) {
+            return 0;
+        }
+        int n = str.length();
+        // 代表当前行的下一行
+        int[] downLine = new int[n];
+        // dp的最后一行只有最后1个数有效, 且为1
+        downLine[n - 1] = 1;
+        for (int row = n - 2; row >= 0; row--) {
+            // 代表当前行
+            int[] curLine = new int[n];
+            // 当col == row时, base case = 1
+            curLine[row] = 1;
+            for (int col = row + 1; col < n; col++) {
+                curLine[col] = Math.max(
+                        str.charAt(row) == str.charAt(col) ?
+                                downLine[col - 1] + 2 :
+                                downLine[col - 1],
+                        Math.max(
+                                curLine[col - 1],
+                                downLine[col]
+                        )
+                );
+            }
+            downLine = curLine;
+        }
+        // 最后返回范围0~n-1上的最长回文子序列的长度即可
+        return downLine[n - 1];
+    }
+
 }
