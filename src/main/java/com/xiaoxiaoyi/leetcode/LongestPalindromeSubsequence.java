@@ -13,9 +13,13 @@ public class LongestPalindromeSubsequence {
         int n = str.length();
         // dp[i][j]代表i~j范围内的最长回文子序列的长度
         int[][] dp = new int[n][n];
-        // base case, 当i == j时, 即对角线上代表范围内只有1个字符时, 答案就是1
-        for (int i = 0; i < n; i++) {
+        // base case
+        dp[n - 1][n - 1] = 1;
+        for (int i = 0; i < n - 1; i++) {
+            // 当i == j时, 即对角线上代表范围内只有1个字符时, 答案就是1
             dp[i][i] = 1;
+            // 当i == j - 1时, 即范围内有2个字符时, 如果两个字符相等, 那么答案为2, 否则答案为1
+            dp[i][i + 1] = str.charAt(i) == str.charAt(i + 1) ? 2 : 1;
         }
         /*
         普遍位置上的范围尝试可能只有4种:
@@ -54,12 +58,12 @@ public class LongestPalindromeSubsequence {
         int[] downLine = new int[n];
         // dp的最后一行只有最后1个数有效, 且为1
         downLine[n - 1] = 1;
-        for (int row = n - 2; row >= 0; row--) {
+        for (int row = n - 3; row >= 0; row--) {
             // 代表当前行
             int[] curLine = new int[n];
             // 当col == row时, base case = 1
             curLine[row] = 1;
-            for (int col = row + 1; col < n; col++) {
+            for (int col = row + 2; col < n; col++) {
                 curLine[col] = Math.max(
                         str.charAt(row) == str.charAt(col) ?
                                 downLine[col - 1] + 2 :

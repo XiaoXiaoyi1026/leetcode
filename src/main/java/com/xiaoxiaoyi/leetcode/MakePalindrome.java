@@ -16,6 +16,14 @@ public class MakePalindrome {
         // dp[i]][j]代表str的i~j范围最少添几个字符就可以使得, base case为当i == j时, 答案为0
         int[][] dp = new int[n][n];
         /*
+        base case为当i == j时, 答案为0
+        dp[i][i+1]代表2个字符最少添几个字符, 如果str[i] == str[i+1], 答案为0
+        如果str[i] != str[i+1], 答案为1
+         */
+        for (int i = 0; i < n - 1; i++) {
+            dp[i][i + 1] = str.charAt(i) == str.charAt(i + 1) ? 0 : 1;
+        }
+        /*
         普遍情况下(i != j), 范围尝试模型只讨论范围的开始和结束位置的情况:
         1. 当str[i] == str[j]时, 那么只需要搞定i+1~j-1范围上的回文即可
         即dp[i][j] = dp[i+1][j-1]
@@ -76,8 +84,16 @@ public class MakePalindrome {
             return "";
         }
         int n = str.length();
-        // dp[i]][j]代表str的i~j范围最少添几个字符就可以使得, base case为当i == j时, 答案为0
+        // dp[i]][j]代表str的i~j范围最少添几个字符
         int[][] dp = new int[n][n];
+        /*
+        base case为当i == j时, 答案为0
+        dp[i][i+1]代表2个字符最少添几个字符, 如果str[i] == str[i+1], 答案为0
+        如果str[i] != str[i+1], 答案为1
+         */
+        for (int i = 0; i < n - 1; i++) {
+            dp[i][i + 1] = str.charAt(i) == str.charAt(i + 1) ? 0 : 1;
+        }
         /*
         普遍情况下(i != j), 范围尝试模型只讨论范围的开始和结束位置的情况:
         1. 当str[i] == str[j]时, 那么只需要搞定i+1~j-1范围上的回文即可
