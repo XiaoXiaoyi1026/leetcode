@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 import java.util.Arrays;
 
-public class FindTheKthSmallestNumberIn2SortedArraysTest extends TestCase {
+public class FindTheBFPRTNumberIn2SortedArraysTest extends TestCase {
 
     public int[] generateSortedRandomArray(int length, int max) {
         int[] arr = new int[length];
