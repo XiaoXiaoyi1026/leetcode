@@ -6,7 +6,7 @@ import java.util.Objects;
  * @author xiaoxiaoyi
  * 树(节点含有元素)
  */
-public class ElementBinaryTree<T extends Comparable<T>> extends BinaryTree {
+public class ElementBinaryTree<T> extends BinaryTree {
 
     public static class Node<T> extends BinaryTree.Node {
         public final T element;
