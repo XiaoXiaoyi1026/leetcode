@@ -1,6 +1,4 @@
-package com.xiaoxiaoyi.tree.orderedlist;
-
-import com.xiaoxiaoyi.tree.ElementBinaryTree;
+package com.xiaoxiaoyi.tree;
 
 import java.util.Stack;
 
@@ -13,7 +11,13 @@ public class MaximumSearchSubtree {
 
     public static class Node<T extends Comparable<T>> extends ElementBinaryTree.Node<T> {
 
+        /**
+         * 我的左子树向负责的节点贡献了多少
+         */
         public int leftContribution;
+        /**
+         * 我的右子树向负责的节点贡献了多少
+         */
         public int rightContribution;
 
         public Node(T element) {
@@ -63,28 +67,26 @@ public class MaximumSearchSubtree {
 
     /**
      * 生成对节点node负责的拓扑贡献记录
+     * 算法复杂度保持在O(N)
      */
     private static int GenerateTopologyContributionRecords(Node<Integer> node) {
-        if (node == null || node.left == node.right) {
-            // 如果node为空节点或者叶节点(只有叶节点才能left == right)
+        if (node == null) {
+            // 如果node为空节点
             return 0;
         }
-        // 得到左右子树的对自身负责的拓扑贡献记录后, 生成对自己的拓扑贡献记录
-        GenerateTopologyContributionRecords(node.getLeft());
-        GenerateTopologyContributionRecords(node.getRight());
-        // 返回结果
-        int res = 0;
-        // cur一开始指向node的左孩子
+        // 得到左子树上对左孩子负责的信息, res维持树上的最大连通搜索节点个数
+        int res = GenerateTopologyContributionRecords(node.getLeft());
+        // 得到右子树上对右孩子负责的信息
+        res = Math.max(res, GenerateTopologyContributionRecords(node.getRight()));
+        // 将左右子树上的信息更新成对我负责的, cur一开始指向node的左孩子
         Node<Integer> cur = node.getLeft();
         // 保证左孩子不为空且左孩子对node存在贡献
         if (cur != null && cur.element < node.element) {
-            // res先记录左孩子的结果
-            res = cur.leftContribution + cur.rightContribution + 1;
             // 辅助栈
             Stack<Node<Integer>> help = new Stack<>();
             help.push(cur);
             cur = cur.getRight();
-            // cur还能往右走则往右走
+            // cur还能往右走则往右走, O(N)
             while (cur != null && help.peek().rightContribution != 0) {
                 if (cur.element > node.element) {
                     // 如果发现了某个节点的element > node的element, 则切断与其的联系(向上每一个节点的右贡献都减掉该节点的总贡献)
@@ -107,13 +109,11 @@ public class MaximumSearchSubtree {
         cur = node.getRight();
         // 保证右孩子不为空且右孩子对node有贡献
         if (cur != null && cur.element > node.element) {
-            // 更新res, 取左右孩子中最大的
-            res = Math.max(res, cur.leftContribution + cur.rightContribution + 1);
             // 辅助栈
             Stack<Node<Integer>> help = new Stack<>();
             help.push(cur);
             cur = cur.getLeft();
-            // 当cur还可以往左走则往左走
+            // 当cur还可以往左走则往左走, O(N)
             while (cur != null && help.peek().leftContribution != 0) {
                 if (cur.element < node.element) {
                     // 如果发现某个节点的值小于node, 那么其上的所有节点的左贡献应该减去当前节点的总贡献
@@ -131,7 +131,6 @@ public class MaximumSearchSubtree {
             // 更新对自己负责的右贡献
             node.rightContribution = cur.leftContribution + cur.rightContribution + 1;
         }
-        // 更新res, 取左右孩子和自己中最大的
         res = Math.max(res, node.leftContribution + node.rightContribution + 1);
         return res;
     }
