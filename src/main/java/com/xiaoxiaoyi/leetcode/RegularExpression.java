@@ -10,11 +10,28 @@ package com.xiaoxiaoyi.leetcode;
  */
 public class RegularExpression {
 
+    public static boolean isValid(String str, String exp) {
+        for (char c : str.toCharArray()) {
+            if (c < 'a' || c > 'z') {
+                return false;
+            }
+        }
+        if (exp.charAt(0) == '*') {
+            return false;
+        }
+        for (int i = exp.length() - 1; i > 0; i--) {
+            if (exp.charAt(i) == '*' && exp.charAt(i - 1) == '*') {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean exp(String str, String exp) {
         if (str == null || exp == null) {
             return false;
         }
-        return process(str.toCharArray(), exp.toCharArray(), 0, 0);
+        return isValid(str, exp) && process(str.toCharArray(), exp.toCharArray(), 0, 0);
     }
 
     /**
@@ -45,7 +62,7 @@ public class RegularExpression {
     }
 
     public static boolean dp(String str, String exp) {
-        if (str == null || exp == null) {
+        if (str == null || exp == null || !isValid(str, exp)) {
             return false;
         }
         char[] strChars = str.toCharArray();
@@ -86,13 +103,11 @@ public class RegularExpression {
         // 填完dp最后一行和倒数两列后行从n-1开始, 列从m-2开始, 普遍位置依赖都可直接计算得出
         for (int strIndex = n - 1; strIndex >= 0; strIndex--) {
             for (int expIndex = m - 2; expIndex >= 0; expIndex--) {
-                // 保证expIndex上不是*
-                if (expChars[expIndex] != '*') {
-                    // 情况1: expIndex+1位置不是*
-                    if (expChars[expIndex + 1] != '*') {
-                        dp[strIndex][expIndex] = (expChars[expIndex] == '.' || expChars[expIndex] == strChars[strIndex])
-                                && dp[strIndex + 1][expIndex + 1];
-                    }
+                // 情况1: expIndex+1位置不是*
+                if (expChars[expIndex + 1] != '*') {
+                    dp[strIndex][expIndex] = (expChars[expIndex] == '.' || expChars[expIndex] == strChars[strIndex])
+                            && dp[strIndex + 1][expIndex + 1];
+                } else {
                     // 情况2: expIndex+1位置是*
                     int tmp = strIndex;
                     while (tmp < n && (expChars[expIndex] == '.' || expChars[expIndex] == strChars[tmp])) {
