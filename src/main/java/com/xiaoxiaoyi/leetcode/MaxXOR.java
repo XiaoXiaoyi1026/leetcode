@@ -70,16 +70,29 @@ public class MaxXOR {
             }
         }
 
+        /**
+         * @param num 32位有符号整数
+         * @return 前缀树上能够使异或和最大的结果
+         */
         public int bestXORMatch(int num) {
             Node cur = root;
             int res = 0;
-            for (int i = 31; i >= 0; i--) {
-                int path = ((num >> i) & 1) == 0 ? 1 : 0;
+            // 判断符号位, 无论如何希望符号位为0
+            int path = (num >> 31) & 1;
+            if (cur.next[path] != null) {
+                cur = cur.next[path];
+            } else {
+                res |= (1 << 31);
+                cur = cur.next[path ^ 1];
+            }
+            // 其他位希望遇到与自己相反的
+            for (int i = 30; i >= 0; i--) {
+                path = ((num >> i) & 1) ^ 1;
                 if (cur.next[path] != null) {
                     res |= (1 << i);
                     cur = cur.next[path];
                 } else {
-                    cur = cur.next[path == 0 ? 1 : 0];
+                    cur = cur.next[path ^ 1];
                 }
             }
             return res;
