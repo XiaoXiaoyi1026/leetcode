@@ -88,11 +88,20 @@ public class RotatingChangeString {
                         for (int split = 1; split < length; split++) {
                             if (
                                     (
-                                            (dp[split][begin1][begin2] != null && dp[split][begin1][begin2])
-                                            && (dp[length - split][begin1 + split][begin2 + split] != null && dp[length - split][begin1 + split][begin2 + split])
+                                            (
+                                                    dp[split][begin1][begin2] != null
+                                                            && dp[split][begin1][begin2]
+                                            ) && (
+                                                    dp[length - split][begin1 + split][begin2 + split] != null
+                                                            && dp[length - split][begin1 + split][begin2 + split]
+                                            )
                             ) || (
-                                            (dp[split][begin1][begin2 + length - split] != null && dp[split][begin1][begin2 + length - split])
-                                            && (dp[length - split][begin1 + split][begin2] != null && dp[length - split][begin1 + split][begin2])
+                                            (
+                                                    dp[split][begin1][begin2 + length - split] != null
+                                                            && dp[split][begin1][begin2 + length - split]
+                                            ) && (
+                                                    dp[length - split][begin1 + split][begin2] != null
+                                                            && dp[length - split][begin1 + split][begin2])
                                     )
                             ) {
                                 // 找到一个可以的直接退出

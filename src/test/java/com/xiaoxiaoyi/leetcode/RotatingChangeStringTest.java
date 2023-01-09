@@ -6,7 +6,7 @@ public class RotatingChangeStringTest extends TestCase {
 
     public void testGet() {
         String str1 = "abcd";
-        String str2 = "bdca";
+        String str2 = "adcb";
         System.out.println(RotatingChangeString.isRotatingChange(str1, str2));
         System.out.println(RotatingChangeString.dp(str1, str2));
     }
