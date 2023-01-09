@@ -56,8 +56,7 @@ public class HanoiStep {
         if (arr == null) {
             return -1;
         }
-        int n = arr.length;
-        int i = n - 1;
+        int i = arr.length - 1;
         int from = 1;
         int to = 3;
         int another = 2;
