@@ -107,7 +107,7 @@ public class LFUCache<K extends Comparable<K>, V> {
         }
     }
 
-    protected static class Element<K, V> {
+    protected static class Element<K extends Comparable<K>, V> {
         private final K key;
         private V value;
         private int operations;
