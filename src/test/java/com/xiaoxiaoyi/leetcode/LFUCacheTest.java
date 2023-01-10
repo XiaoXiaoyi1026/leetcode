@@ -22,5 +22,7 @@ public class LFUCacheTest extends TestCase {
         System.out.println(lfuCache.get("A"));
         System.out.println(lfuCache.get("B"));
         System.out.println(lfuCache.get("C"));
+        System.out.println(lfuCache.getBucketMap());
+        System.out.println(lfuCache.getElementMap());
     }
 }

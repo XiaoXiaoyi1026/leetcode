@@ -151,6 +151,14 @@ public class LFUCache<K extends Comparable<K>, V> {
         first = last = null;
     }
 
+    public Map<K, Element<K, V>> getElementMap() {
+        return elementMap;
+    }
+
+    public Map<Integer, Bucket<K, V>> getBucketMap() {
+        return bucketMap;
+    }
+
     public void set(K key, V value) {
         // 从缓存map中取出要set的对象(O(1))
         Element<K, V> setElement = elementMap.get(key);
@@ -251,6 +259,7 @@ public class LFUCache<K extends Comparable<K>, V> {
         } else {
             last = bucket.previous;
         }
+        bucketMap.remove(bucket.operations);
     }
 
     public boolean isEmpty() {
