@@ -23,7 +23,7 @@ public class MonotonicStack<T> {
      */
     private final Comparator<T> comparator;
 
-    public static class Element implements Comparable<Element> {
+    public static class Element {
         /**
          * 元素的下标
          */
@@ -67,11 +67,6 @@ public class MonotonicStack<T> {
             return "Element{" +
                     "val=" + val +
                     '}';
-        }
-
-        @Override
-        public int compareTo(Element element) {
-            return this.val - element.val;
         }
     }
 
