@@ -7,7 +7,7 @@ import java.util.Stack;
  * 给定一颗二叉树(其中没有相同节点), 问以这棵树的最大二叉搜索树的节点个数有多少个
  * 搜索二叉子树只要求连通即可
  */
-public class MaximumSearchSubtree {
+public class MaximumSearchConnectedTree {
 
     public static class Node<T extends Comparable<T>> extends ElementBinaryTree.Node<T> {
 
