@@ -47,7 +47,12 @@ public class RectangularCoincidence {
             }
             smallRootHeap.insert(rect);
         }
-        return ans;
+        List<int[]> elements = smallRootHeap.getElements();
+        List<int[]> ropes = new ArrayList<>(elements.size());
+        for (int[] element : elements) {
+            ropes.add(new int[]{element[0], element[2]});
+        }
+        return Math.max(ans, RopeCover.getMaximumCovers(ropes));
     }
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author xiaoxiaoyi
- * 大根堆
+ * 默认为大根堆
  */
 public class Heap<E> {
 
