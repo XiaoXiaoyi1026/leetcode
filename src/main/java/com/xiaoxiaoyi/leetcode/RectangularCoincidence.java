@@ -39,7 +39,7 @@ public class RectangularCoincidence {
                     for (int[] element : elements) {
                         ropes.add(new int[]{element[0], element[2]});
                     }
-                    ans = Math.max(ans, RopeCover.getMaximumCovers(ropes));
+                    ans = Math.max(ans, RopeOverlap.getMaximumCovers(ropes));
                     // 标记已经计算过了
                     flag = true;
                 }
@@ -52,7 +52,7 @@ public class RectangularCoincidence {
         for (int[] element : elements) {
             ropes.add(new int[]{element[0], element[2]});
         }
-        return Math.max(ans, RopeCover.getMaximumCovers(ropes));
+        return Math.max(ans, RopeOverlap.getMaximumCovers(ropes));
     }
 
 }

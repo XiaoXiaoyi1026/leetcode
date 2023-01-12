@@ -9,7 +9,7 @@ import java.util.List;
  * @author xiaoxiaoyi
  * 绳子覆盖问题
  */
-public class RopeCover {
+public class RopeOverlap {
 
     public static int getMaximumCovers(List<int[]> ropes) {
         if (ropes == null || ropes.size() == 0) {

@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RopeCoverTest extends TestCase {
+public class RopeOverlapTest extends TestCase {
 
     public void testGetMaximumCovers() {
         List<int[]> ropes = new ArrayList<>(5);
@@ -14,7 +14,7 @@ public class RopeCoverTest extends TestCase {
         ropes.add(new int[]{3, 10});
         ropes.add(new int[]{6, 8});
         ropes.add(new int[]{2, 4});
-        System.out.println(RopeCover.getMaximumCovers(ropes));
+        System.out.println(RopeOverlap.getMaximumCovers(ropes));
     }
 
 }
