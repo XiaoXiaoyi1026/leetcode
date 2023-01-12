@@ -23,7 +23,7 @@ public class MonotonicStack<T> {
      */
     private final Comparator<T> comparator;
 
-    public static class Element {
+    public static class Element implements Comparable<Element> {
         /**
          * 元素的下标
          */
@@ -68,9 +68,14 @@ public class MonotonicStack<T> {
                     "val=" + val +
                     '}';
         }
+
+        @Override
+        public int compareTo(Element element) {
+            return this.val - element.val;
+        }
     }
 
-    MonotonicStack(List<T> objects, Comparator<T> comparator) {
+    public MonotonicStack(List<T> objects, Comparator<T> comparator) {
         // 初始化双端队列
         deque = new LinkedList<>();
         this.objects = objects;
@@ -118,7 +123,8 @@ public class MonotonicStack<T> {
             while (!deque.isEmpty()) {
                 // 获取队尾节点
                 T lastObject = objects.get(this.getLast().val);
-                if (comparator.compare(curObject, lastObject) > 0) {
+                int compare = comparator.compare(curObject, lastObject);
+                if (compare > 0) {
                     // 如果当前元素 > 队尾元素，则队尾元素出队
                     if (elements == null) {
                         elements = new ArrayList<>();
@@ -128,7 +134,7 @@ public class MonotonicStack<T> {
                     element.pre = deque.isEmpty() ? 0 : this.getLast().val + 1;
                     element.end = right - 1;
                     elements.add(element);
-                } else if (curObject.equals(lastObject)) {
+                } else if (curElement.equals(lastObject) || compare == 0) {
                     // 最后一个弹出
                     // 当前元素变为头节点
                     curElement.next = deque.pollLast();
@@ -161,7 +167,8 @@ public class MonotonicStack<T> {
             T dequeHeadObject = objects.get(this.getFirst().val);
             // 获取当前出窗口的元素
             T curObject = objects.get(left++);
-            if (curObject.equals(dequeHeadObject)) {
+            if (curObject.equals(dequeHeadObject) ||
+                    comparator.compare(curObject, dequeHeadObject) == 0) {
                 // 如果当前元素恰好等于队顶元素，则队列弹出队顶
                 res = deque.pollFirst();
             }

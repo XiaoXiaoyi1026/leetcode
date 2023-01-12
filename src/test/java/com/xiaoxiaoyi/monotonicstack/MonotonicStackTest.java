@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MonotonicStackTest extends TestCase {
-    private static class Element {
+    private static class Element implements Comparable<Element> {
         int val;
 
         Element(int val) {
@@ -17,6 +17,11 @@ public class MonotonicStackTest extends TestCase {
         @Override
         public String toString() {
             return String.valueOf(this.val);
+        }
+
+        @Override
+        public int compareTo(Element element) {
+            return this.val - element.val;
         }
     }
 
