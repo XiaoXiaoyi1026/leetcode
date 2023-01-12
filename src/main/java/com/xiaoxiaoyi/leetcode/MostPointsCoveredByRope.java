@@ -12,14 +12,15 @@ public class MostPointsCoveredByRope {
         }
         // 首先对points进行排序
         HeapSort.sort(points);
-        int ans = 0;
+        int ans = 1;
         // 双指针, 窗口[left, right)包左不包右
         int left = 0, right = 1;
         while (right < points.length) {
             while (right < points.length && points[right] <= points[left] + ropeLength) {
                 right++;
             }
-            ans = Math.max(ans, right - left++);
+            ans = Math.max(ans, right - left);
+            left++;
         }
         return ans;
     }

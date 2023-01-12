@@ -1,14 +1,27 @@
 package com.xiaoxiaoyi.leetcode;
 
+import com.xiaoxiaoyi.RandomArray;
 import junit.framework.TestCase;
+
+import java.util.Arrays;
 
 public class MostPointsCoveredByRopeTest extends TestCase {
 
     public void testGet() {
-        int[] points = {1, 3, 4, 7, 13, 16, 17};
-        int ropeLength = 4;
-        System.out.println(MostPointsCoveredByRope.get(points, ropeLength));
-        System.out.println(MostPointsCoveredByRope.get2(points, ropeLength));
+        for (int i = 0; i < 1000; i++) {
+            int[] points = RandomArray.generate((int) (Math.random() * 20), (int) (Math.random() * 100));
+            int ropeLength = (int) (Math.random() * 20);
+            int ans1 = MostPointsCoveredByRope.get(points, ropeLength);
+            int ans2 = MostPointsCoveredByRope.get2(points, ropeLength);
+            if (ans1 != ans2) {
+                System.out.println("ooops!");
+                System.out.println(Arrays.toString(points));
+                System.out.println(ropeLength);
+                System.out.println(ans1);
+                System.out.println(ans2);
+                break;
+            }
+        }
     }
 
 }
