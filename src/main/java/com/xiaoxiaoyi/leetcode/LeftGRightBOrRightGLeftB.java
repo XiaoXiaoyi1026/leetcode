@@ -55,4 +55,22 @@ public class LeftGRightBOrRightGLeftB {
         return Math.min(res1, res2);
     }
 
+    public static int getMinimum2(String str) {
+        if (str == null || str.length() < 2) {
+            return 0;
+        }
+        int ans1 = 0, ans2 = 0;
+        int gi = 0, bi = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == 'G') {
+                // 可以选择让G去左边
+                ans1 += i - (gi++);
+            } else {
+                // 也可以选择让B去左边
+                ans2 += i - (bi++);
+            }
+        }
+        return Math.min(ans1, ans2);
+    }
+
 }

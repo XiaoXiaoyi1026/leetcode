@@ -13,4 +13,20 @@ public class LeftGRightBOrRightGLeftBTest extends TestCase {
         System.out.println(LeftGRightBOrRightGLeftB.minimumNumberOfExchanges(GBString));
     }
 
+    public void testAll() {
+        for (int i = 0; i < 1000; i++) {
+            String GBString = RandomGenerate.containsCharactersString(
+                    new char[]{'G', 'B'}, (int) (Math.random() * 20)
+            );
+            int ans1 = LeftGRightBOrRightGLeftB.minimumNumberOfExchanges(GBString);
+            int ans2 = LeftGRightBOrRightGLeftB.getMinimum2(GBString);
+            if (ans1 != ans2) {
+                System.out.println("ooops!");
+                System.out.println(GBString);
+                System.out.println(ans1);
+                System.out.println(ans2);
+            }
+        }
+    }
+
 }

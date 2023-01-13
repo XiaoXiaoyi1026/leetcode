@@ -28,4 +28,12 @@ public class RandomGenerate {
         return String.valueOf(sb);
     }
 
+    public static int[][] matrix(int rows, int cols, int max) {
+        int[][] matrix = new int[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            matrix[i] = array(cols, max);
+        }
+        return matrix;
+    }
+
 }
