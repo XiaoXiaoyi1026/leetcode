@@ -6,7 +6,7 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  * 搜索二叉树
  */
-public class BinarySearchTree<T extends Comparable<T>> extends ElementBinaryTree<T> {
+public class BinarySearchTree<T> extends ElementBinaryTree<T> {
 
     public int size;
     public final Comparator<Node<T>> comparator;

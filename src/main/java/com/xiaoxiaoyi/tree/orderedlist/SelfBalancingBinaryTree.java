@@ -8,7 +8,7 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  * 自平衡二叉树, 可以进行左旋和右旋操作
  */
-public class SelfBalancingBinaryTree<T extends Comparable<T>> extends BinarySearchTree<T> {
+public class SelfBalancingBinaryTree<T> extends BinarySearchTree<T> {
 
     public SelfBalancingBinaryTree(Comparator<Node<T>> comparator) {
         super(comparator);

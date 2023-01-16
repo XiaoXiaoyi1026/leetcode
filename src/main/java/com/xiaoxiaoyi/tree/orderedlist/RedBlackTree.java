@@ -6,7 +6,7 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  * 红黑树
  */
-public class RedBlackTree<T extends Comparable<T>> extends SelfBalancingBinaryTree<T> {
+public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
 
     /**
      * 根节点
