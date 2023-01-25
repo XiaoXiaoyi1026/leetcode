@@ -34,6 +34,7 @@ public class MaxPairNumberTest extends TestCase {
 
     public void testAll() {
         int testTimes = 10000;
+        System.out.println("测试开始");
         for (int i = 0; i < testTimes; i++) {
             int length = 5 + (int) (Math.random() * 10);
             int max = (int) (Math.random() * 30) + 20;
@@ -43,7 +44,6 @@ public class MaxPairNumberTest extends TestCase {
             int k = (int) (Math.random() * 20);
             int ans1 = MaxPairNumber.maxPairNum1(arr1, k);
             int ans2 = MaxPairNumber.maxPairNum2(arr2, k);
-            System.out.println("测试开始");
             if (ans1 != ans2) {
                 System.out.println(Arrays.toString(arr2));
                 System.out.println(ans1);
@@ -51,8 +51,8 @@ public class MaxPairNumberTest extends TestCase {
                 System.out.println(k);
                 break;
             }
-            System.out.println("测试结束");
         }
+        System.out.println("测试结束");
     }
 
 }

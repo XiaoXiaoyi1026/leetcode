@@ -19,4 +19,17 @@ public class MaximumSubarraySum {
         }
         return max;
     }
+
+    public static int maximumSubarraySum2(int[] array) {
+        if (array == null || array.length == 0) {
+            return 0;
+        }
+        int pre = 0;
+        int max = 0;
+        for (int num : array) {
+            pre = Math.max(num, pre + num);
+            max = Math.max(max, pre);
+        }
+        return max;
+    }
 }
