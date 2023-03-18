@@ -38,15 +38,9 @@ public class Heap<E> {
     private void heapIfy(int index) {
         int left = (index << 1) + 1;
         while (left < size) {
-            int maximum = comparator.compare(
-                    elements.get(left),
-                    elements.get(index)
-            ) > 0 ? left : index;
+            int maximum = comparator.compare(elements.get(left), elements.get(index)) > 0 ? left : index;
             if (left + 1 < size) {
-                maximum = comparator.compare(
-                        elements.get(left + 1),
-                        elements.get(maximum)
-                ) > 0 ? left + 1 : maximum;
+                maximum = comparator.compare(elements.get(left + 1), elements.get(maximum)) > 0 ? left + 1 : maximum;
             }
             if (maximum == index) {
                 break;
@@ -58,10 +52,7 @@ public class Heap<E> {
     }
 
     protected void heapInsert(int index) {
-        while (index > 0 && comparator.compare(
-                elements.get(index)
-                , elements.get((index - 1) >> 1)
-        ) > 0) {
+        while (index > 0 && comparator.compare(elements.get(index), elements.get((index - 1) >> 1)) > 0) {
             swap(index, (index - 1) >> 1);
             index = (index - 1) >> 1;
         }

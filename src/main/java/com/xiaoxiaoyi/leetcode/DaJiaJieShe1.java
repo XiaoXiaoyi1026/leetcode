@@ -20,19 +20,23 @@ public class DaJiaJieShe1 {
         System.out.println(tou(rooms));
     }
 
-    public static int tou(int[] rooms) {
-        if (rooms == null || rooms.length == 0) {
+    public static int tou(int[] nums) {
+        if (nums == null || nums.length == 0) {
             return 0;
         }
-        int n = rooms.length;
-        // dp[i]代表0~i范围上偷的最优解
-        int[] dp = new int[n];
-        dp[0] = rooms[0];
-        dp[1] = Math.max(rooms[0], rooms[1]);
-        for (int i = 2; i < n; i++) {
-            dp[i] = Math.max(Math.max(rooms[i], rooms[i] + dp[i - 2]), dp[i - 1]);
+        if (nums.length < 2) {
+            return nums[0];
         }
-        return dp[n - 1];
+        int n = nums.length;
+        // dp[i]代表0~i范围上偷的最优解
+        int prePre = nums[0];
+        int pre = Math.max(nums[0], nums[1]);
+        for (int i = 2, cur; i < n; i++) {
+            cur = Math.max(Math.max(prePre + nums[i], nums[i]), pre);
+            prePre = pre;
+            pre = cur;
+        }
+        return pre;
     }
 
 }
