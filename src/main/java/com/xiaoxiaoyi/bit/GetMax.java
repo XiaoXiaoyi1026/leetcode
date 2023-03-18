@@ -15,7 +15,7 @@ public class GetMax {
         int re = flip(sign);
         // 如果num1 >= num2, 则sign = 1, re = 0, 返回的就是num1
         // 如果num1 < num2, 则sign = 0, re = 1, 返回的就是num2
-        return num1 * sign + num2 *  re;
+        return num1 * sign + num2 * re;
     }
 
     public static int bitCompare2(int num1, int num2) {

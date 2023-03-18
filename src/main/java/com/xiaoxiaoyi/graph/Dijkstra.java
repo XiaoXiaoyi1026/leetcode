@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.graph;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,26 +19,27 @@ public class Dijkstra {
      * @param fromNode 出发节点
      * @return 出发节点到每个节点的最小值
      */
-    public static Map<Node, Integer> dijkstra(Node fromNode) {
+    @NotNull
+    public static Map<Graph.Node, Integer> dijkstra(Graph.Node fromNode) {
         // 1. 初始化distanceMap
         // key: to的节点
         // value: 最短距离
         // 如果distanceMap中不包含to节点，则意味着到to节点的距离为正无穷
-        Map<Node, Integer> distanceMap = new HashMap<>(1);
+        Map<Graph.Node, Integer> distanceMap = new HashMap<>(1);
         // 初始节点到自己的距离为0
         distanceMap.put(fromNode, 0);
         // 记录已经使用过的节点
-        Set<Node> selectedNodes = new HashSet<>();
+        Set<Graph.Node> selectedNodes = new HashSet<>();
         // 选出最小距离的节点
-        Node minNode = getMinDistanceAndUnSelectedNodes(distanceMap, selectedNodes);
+        Graph.Node minNode = getMinDistanceAndUnSelectedNodes(distanceMap, selectedNodes);
         // 当最小节点不为空，即还有点未被选择过
         while (minNode != null) {
             // 取出最小距离
             Integer distance = distanceMap.get(minNode);
             // 遍历其所有发散边
-            for (Edge edge : minNode.edges) {
+            for (Graph.Edge edge : minNode.edges) {
                 // 获取到当前边的to节点
-                Node toNode = edge.to;
+                Graph.Node toNode = edge.to;
                 // 判断距离表中是否包含to节点
                 if (!distanceMap.containsKey(toNode)) {
                     // 如果不包含则直接更新to节点的最小距离为当前节点的距离 + 当前这条边的权重
@@ -61,14 +64,14 @@ public class Dijkstra {
      * @param selectedNodes 被选择过的点集
      * @return 符合条件的节点
      */
-    public static Node getMinDistanceAndUnSelectedNodes(Map<Node, Integer> distanceMap, Set<Node> selectedNodes) {
+    public static Graph.Node getMinDistanceAndUnSelectedNodes(@NotNull Map<Graph.Node, Integer> distanceMap, Set<Graph.Node> selectedNodes) {
         // 要返回的节点
-        Node minNode = null;
+        Graph.Node minNode = null;
         // 记录map中的最短距离
         Integer minDistance = Integer.MAX_VALUE;
         // 从map中取出节点
-        for (Map.Entry<Node, Integer> entry : distanceMap.entrySet()) {
-            Node node = entry.getKey();
+        for (Map.Entry<Graph.Node, Integer> entry : distanceMap.entrySet()) {
+            Graph.Node node = entry.getKey();
             Integer distance = entry.getValue();
             // 如果节点未被访问过且距离小于当前的最小距离
             if (!selectedNodes.contains(node) && distance < minDistance) {
@@ -88,20 +91,20 @@ public class Dijkstra {
      * @param size     图的结点个数
      * @return 起点到其他所有节点的最小距离
      */
-    public static Map<Node, Integer> improvedDijkstra(Node fromNode, int size) {
+    public static Map<Graph.Node, Integer> improvedDijkstra(Graph.Node fromNode, int size) {
         // 准备size个大小的小顶堆
         NodeHeap nodeHeap = new NodeHeap(size);
         // 小顶堆添加或者更新或者不更新一个节点和到它的最小距离
         nodeHeap.addOrUpdateOrIgnore(fromNode, 0);
-        Map<Node, Integer> result = new HashMap<>(size);
+        Map<Graph.Node, Integer> result = new HashMap<>(size);
         while (!nodeHeap.isEmpty()) {
             // 弹出小顶堆的元素，即当前距离最小的节点
             NodeRecord record = nodeHeap.pop();
             // 取出当前节点
-            Node cur = record.node;
+            Graph.Node cur = record.node;
             // 取出其距离
             int distance = record.distance;
-            for (Edge edge : cur.edges) {
+            for (Graph.Edge edge : cur.edges) {
                 // 插入小顶堆
                 nodeHeap.addOrUpdateOrIgnore(edge.to, edge.weight + distance);
             }
@@ -115,10 +118,10 @@ public class Dijkstra {
      * 存储节点和其距离
      */
     public static class NodeRecord {
-        Node node;
+        Graph.Node node;
         int distance;
 
-        NodeRecord(Node node, int distance) {
+        NodeRecord(Graph.Node node, int distance) {
             this.node = node;
             this.distance = distance;
         }
@@ -127,11 +130,11 @@ public class Dijkstra {
     public static class NodeHeap {
 
         // 堆中的所有元素放到数组中
-        public final Node[] nodes;
+        public final Graph.Node[] nodes;
         // 存储节点在堆上对应的位置 值为该节点在nodes中的下标
-        public final Map<Node, Integer> heapIndexMap;
+        public final Map<Graph.Node, Integer> heapIndexMap;
         // 存储节点到起点的最小距离
-        public final Map<Node, Integer> distanceMap;
+        public final Map<Graph.Node, Integer> distanceMap;
         // 堆上一共有多少个节点
         public int size;
 
@@ -139,7 +142,7 @@ public class Dijkstra {
             // 初始化堆大小为0
             this.size = 0;
             // 存储所有节点的数组
-            nodes = new Node[size];
+            nodes = new Graph.Node[size];
             // 存储所有节点在堆上的位置
             heapIndexMap = new HashMap<>();
             // 存储所有节点的距离
@@ -156,7 +159,7 @@ public class Dijkstra {
          * @param node 节点
          * @return 是否进过堆
          */
-        public boolean entered(Node node) {
+        public boolean entered(Graph.Node node) {
             // indexMap中包含这个节点，说明它肯定进过堆
             return heapIndexMap.containsKey(node);
         }
@@ -167,7 +170,7 @@ public class Dijkstra {
          * @param node 节点
          * @return 堆上是否包含该节点
          */
-        public boolean contains(Node node) {
+        public boolean contains(Graph.Node node) {
             // 节点从堆中弹出后，节点在堆中的下标变为-1，如果堆现在真正包含它，那么其下标就不为-1
             return entered(node) && heapIndexMap.get(node) != -1;
         }
@@ -183,7 +186,7 @@ public class Dijkstra {
             heapIndexMap.put(nodes[index1], index2);
             heapIndexMap.put(nodes[index2], index1);
             // 交换nodes中对应的节点
-            Node tmp = nodes[index1];
+            Graph.Node tmp = nodes[index1];
             nodes[index1] = nodes[index2];
             nodes[index2] = tmp;
         }
@@ -257,10 +260,10 @@ public class Dijkstra {
         /**
          * 新增一个节点的距离信息
          *
-         * @param node 节点
+         * @param node     节点
          * @param distance 距离
          */
-        public void addOrUpdateOrIgnore(Node node, int distance) {
+        public void addOrUpdateOrIgnore(Graph.Node node, int distance) {
             if (contains(node)) {
                 // 如果节点真的在堆中，则更新它的距离
                 distanceMap.put(node, Math.min(distanceMap.get(node), distance));

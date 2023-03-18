@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.dynamic;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 /**
@@ -15,6 +17,7 @@ public class TakeCoins {
      * @param max 硬币最大面额
      * @return 随机硬币数组
      */
+    @NotNull
     public static int[] getRandomCoins(int len, int max) {
         int[] coins = new int[(int) (Math.random() * len) + 1];
         for (int i = 0; i < coins.length; i++) {
@@ -32,7 +35,7 @@ public class TakeCoins {
      * @param cur      当前拿到的硬币位置
      * @return 种数
      */
-    public static int f(int[] coins, int money, int curMoney, int cur) {
+    public static int f(@NotNull int[] coins, int money, int curMoney, int cur) {
         if (cur == coins.length) {
             // 如果已经选完了最后1枚硬币, 则判断当前拿到的钱数是否等于目标钱数, 如果相等则是一种有效的拿法
             return curMoney == money ? 1 : 0;
@@ -53,13 +56,12 @@ public class TakeCoins {
         // f函数是求拿目标money的方案数
         f(coins, money, 0, 0);
         // minCoins是返回拿到目标money的最小硬币数
-        return minCoins1(coins, 0,  money);
+        return minCoins1(coins, 0, money);
     }
 
     /**
-     *
-     * @param coins 硬币数组
-     * @param cur 当前选到的硬币下标
+     * @param coins    硬币数组
+     * @param cur      当前选到的硬币下标
      * @param curMoney 目标钱数
      * @return 能组成目标钱数的最小硬币数
      */
@@ -112,13 +114,12 @@ public class TakeCoins {
             Arrays.fill(ints, -2);
         }
         // minCoins是返回拿到目标money的最小硬币数
-        return minCoins2(coins, 0,  money, dp);
+        return minCoins2(coins, 0, money, dp);
     }
 
     /**
-     *
-     * @param coins 硬币数组
-     * @param cur 当前选到的硬币下标
+     * @param coins    硬币数组
+     * @param cur      当前选到的硬币下标
      * @param curMoney 目标钱数
      * @return 能组成目标钱数的最小硬币数
      */
@@ -186,12 +187,12 @@ public class TakeCoins {
         int n = coins.length;
         // 初始化严格表结构的表, 横坐标为硬币下标, 纵坐标为钱数
         int[][] dp = new int[n + 1][money + 1];
-        for (int index = 0; index <= n; index ++) {
+        for (int index = 0; index <= n; index++) {
             // 代表money为0时, 需要0枚硬币
             dp[index][0] = 0;
         }
 
-        for (int col = 1; col <= money ; col++) {
+        for (int col = 1; col <= money; col++) {
             // 代表当遍历完最后一枚硬币时, 返回-1
             dp[n][col] = -1;
         }

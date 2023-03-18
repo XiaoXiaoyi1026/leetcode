@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.greedy;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 import java.util.PriorityQueue;
 
@@ -17,7 +19,7 @@ public class LessMoneySplitGold {
      * @param lengths 长度序列
      * @return 铜板数
      */
-    public static int lessMoney(int[] lengths) {
+    public static int lessMoney(@NotNull int[] lengths) {
         // 准备一个小根堆
         PriorityQueue<Integer> pQ = new PriorityQueue<>(lengths.length);
         // 所有长度进入小根堆

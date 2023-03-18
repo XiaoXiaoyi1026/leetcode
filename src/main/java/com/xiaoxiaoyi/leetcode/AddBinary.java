@@ -1,12 +1,15 @@
 package com.xiaoxiaoyi.leetcode;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 给定两个 01 字符串 a 和 b ，请计算它们的和，并以二进制字符串的形式输出
  */
 public class AddBinary {
 
-    public static String addBinary(String a, String b) {
+    @NotNull
+    public static String addBinary(@NotNull String a, @NotNull String b) {
         char[] x = a.length() >= b.length() ? a.toCharArray() : b.toCharArray();
         char[] y = a.length() >= b.length() ? b.toCharArray() : a.toCharArray();
         int i = x.length - 1, j = y.length - 1;

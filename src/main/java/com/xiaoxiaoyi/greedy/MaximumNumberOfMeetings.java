@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.greedy;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -29,7 +31,7 @@ public class MaximumNumberOfMeetings {
     public static class ProjectComparator implements Comparator<Project> {
 
         @Override
-        public int compare(Project o1, Project o2) {
+        public int compare(@NotNull Project o1, @NotNull Project o2) {
             // 按照结束时间升序排序
             return o1.endTime - o2.endTime;
         }
@@ -42,7 +44,7 @@ public class MaximumNumberOfMeetings {
      * @param timePoint 时间指针
      * @return 最优情况下能够执行多少项目
      */
-    public static int bestArrange(Project[] projects, int timePoint) {
+    public static int bestArrange(@NotNull Project[] projects, int timePoint) {
         Project[] thisProjects = new Project[projects.length];
         System.arraycopy(projects, 0, thisProjects, 0, projects.length);
         // 按照endTime升序排序

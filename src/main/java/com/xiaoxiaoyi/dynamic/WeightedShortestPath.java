@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.dynamic;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 /**
@@ -13,7 +15,7 @@ public class WeightedShortestPath {
         return dpProcess(matrix);
     }
 
-    public static int dpProcess(int[][] matrix) {
+    public static int dpProcess(@NotNull int[][] matrix) {
         // 普遍位置i j 依赖于i - 1, j 和 i, j - 1这两个位置的最小值
         int m = matrix.length, n = matrix[0].length;
         // 优化空间只用1个一维数组滚动更新

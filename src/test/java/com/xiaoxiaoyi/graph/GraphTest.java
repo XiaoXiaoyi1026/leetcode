@@ -54,7 +54,7 @@ public class GraphTest extends TestCase {
                 {6, 5, 1}
         };
         Graph graph = GraphGenerator.createGraph(input);
-        for (Node node : TopologySort.topologySort(graph)) {
+        for (Graph.Node node : TopologySort.topologySort(graph)) {
             System.out.println(node.value);
         }
     }
@@ -76,8 +76,8 @@ public class GraphTest extends TestCase {
                 {3, 6, 5}
         };
         Graph graph = GraphGenerator.createGraph(input);
-        Map<Node, Integer> distanceMap = Dijkstra.dijkstra(graph.nodes.get(1));
-        for (Map.Entry<Node, Integer> entry : distanceMap.entrySet()) {
+        Map<Graph.Node, Integer> distanceMap = Dijkstra.dijkstra(graph.nodes.get(1));
+        for (Map.Entry<Graph.Node, Integer> entry : distanceMap.entrySet()) {
             System.out.println("1 -> " + entry.getKey().value + " : " + entry.getValue());
         }
     }
@@ -96,8 +96,8 @@ public class GraphTest extends TestCase {
                 {3, 6, 5}
         };
         Graph graph = GraphGenerator.createGraph(input);
-        Map<Node, Integer> distanceMap = Dijkstra.improvedDijkstra(graph.nodes.get(1), graph.nodes.size());
-        for (Map.Entry<Node, Integer> entry : distanceMap.entrySet()) {
+        Map<Graph.Node, Integer> distanceMap = Dijkstra.improvedDijkstra(graph.nodes.get(1), graph.nodes.size());
+        for (Map.Entry<Graph.Node, Integer> entry : distanceMap.entrySet()) {
             System.out.println("1 -> " + entry.getKey().value + " : " + entry.getValue());
         }
     }

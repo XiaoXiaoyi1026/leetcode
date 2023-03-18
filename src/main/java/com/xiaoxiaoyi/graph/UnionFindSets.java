@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.graph;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 /**
@@ -7,7 +9,7 @@ import java.util.*;
  *            并查集结构
  * @author xiaoxiaoyi
  */
-public class UnionFind<V> {
+public class UnionFindSets<V> {
 
     /**
      * key: 样本的值
@@ -51,11 +53,9 @@ public class UnionFind<V> {
             if (this == o) {
                 return true;
             }
-            if (!(o instanceof Element)) {
+            if (!(o instanceof Element<?> element)) {
                 return false;
             }
-
-            Element<?> element = (Element<?>) o;
 
             return Objects.equals(value, element.value);
         }
@@ -71,7 +71,7 @@ public class UnionFind<V> {
      *
      * @param values 要添加的所有value组成的集合
      */
-    public UnionFind(List<V> values) {
+    public UnionFindSets(@NotNull List<V> values) {
         // 初始化3个map
         elementMap = new HashMap<>();
         fatherMap = new HashMap<>();

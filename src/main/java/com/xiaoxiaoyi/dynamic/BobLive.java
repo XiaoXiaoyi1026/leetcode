@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.dynamic;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * bob存活概率问题, bob一开始在x, y 位置, 每一步随机往上下左右走, 如果越界则die
@@ -7,6 +9,9 @@ package com.xiaoxiaoyi.dynamic;
  */
 public class BobLive {
 
+    /**
+     * 最大公约数
+     */
     public static long gcd(long num1, long num2) {
         long tmp;
         if (num1 < num2) {
@@ -22,6 +27,7 @@ public class BobLive {
         return num1;
     }
 
+    @NotNull
     public static String bob1(int m, int n, int x, int y, int step) {
         // 总的方法数为4^k
         long all = (long) Math.pow(4, step);
@@ -69,6 +75,7 @@ public class BobLive {
     /**
      * dp 动态规划
      */
+    @NotNull
     public static String bob2(int m, int n, int x, int y, int step) {
         long[][][] dp = new long[m + 2][n + 2][step + 1];
         for (int i = 1; i <= m; i++) {

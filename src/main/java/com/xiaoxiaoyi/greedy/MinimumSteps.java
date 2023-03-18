@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.greedy;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 初始化定义s = "a",m = s
@@ -25,6 +28,8 @@ public class MinimumSteps {
      * @param n 合数
      * @return n的质数因子的和与数量
      */
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     private static int[] primeNumbersSumAndCount(int n) {
         int sum = 0, count = 0;
         for (int i = 2; i <= n; i++) {

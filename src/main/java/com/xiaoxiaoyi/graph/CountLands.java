@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.graph;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 给你一个二维01矩阵，每一个位置可以和上下左右位置相连
@@ -7,7 +9,7 @@ package com.xiaoxiaoyi.graph;
  */
 public class CountLands {
 
-    public static int countLands(int[][] area) {
+    public static int countLands(@NotNull int[][] area) {
         int res = 0, m = area.length, n = area[0].length;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {

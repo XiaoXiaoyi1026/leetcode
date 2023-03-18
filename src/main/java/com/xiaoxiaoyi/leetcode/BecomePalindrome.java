@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.leetcode;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 给定一个字符串str, 你可以删除一些字符, 最终目的是让其变成一个回文串
@@ -19,7 +21,7 @@ public class BecomePalindrome {
         return dpProcess(str.toCharArray());
     }
 
-    private static int dpProcess(char[] chars) {
+    private static int dpProcess(@NotNull char[] chars) {
         int n = chars.length;
         // dp[i][j]代表str[i]~str[j]范围内的解
         int[][] dp = new int[n][n];

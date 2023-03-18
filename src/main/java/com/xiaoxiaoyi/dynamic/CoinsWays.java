@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.dynamic;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author 20609
  * 拿硬币问题, 给你一些面值的硬币, 每个面值的硬币你都可以拿很多个
@@ -7,6 +9,7 @@ package com.xiaoxiaoyi.dynamic;
  */
 public class CoinsWays {
 
+    @NotNull
     public static int[] randomCoins(int len, int max) {
         int[] res = new int[(int) (Math.random() * len) + 1];
         for (int i = 0; i < res.length; i++) {

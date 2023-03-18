@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.kmp;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * KMP算法
@@ -42,7 +45,9 @@ public class Kmp {
     /**
      * 获取字符串的next数组
      */
-    private static int[] getNextArray(char[] arr) {
+    @NotNull
+    @Contract(pure = true)
+    private static int[] getNextArray(@NotNull char[] arr) {
         if (arr.length == 1) {
             // 如果字符串长度等于1, 则直接返回-1, 因为0~i-1位置没有字符
             return new int[]{-1};

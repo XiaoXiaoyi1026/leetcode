@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.greedy;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.PriorityQueue;
@@ -32,8 +35,9 @@ public class FindMaximizedCapital {
      */
     private static class MinCostComparator implements Comparator<Project> {
 
+        @Contract(pure = true)
         @Override
-        public int compare(Project o1, Project o2) {
+        public int compare(@NotNull Project o1, @NotNull Project o2) {
             return o1.c - o2.c;
         }
     }
@@ -43,13 +47,14 @@ public class FindMaximizedCapital {
      */
     private static class MaxProfitComparator implements Comparator<Project> {
 
+        @Contract(pure = true)
         @Override
-        public int compare(Project o1, Project o2) {
+        public int compare(@NotNull Project o1, @NotNull Project o2) {
             return o2.p - o1.p;
         }
     }
 
-    public static int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
+    public static int findMaximizedCapital(int k, int w, @NotNull int[] profits, int[] capital) {
         // 先准备一个以项目花费升序排列的小根堆和一个以项目利润降序排列的大根堆
         PriorityQueue<Project> minCostQ = new PriorityQueue<>(new MinCostComparator());
         PriorityQueue<Project> maxProfitQ = new PriorityQueue<>(new MaxProfitComparator());

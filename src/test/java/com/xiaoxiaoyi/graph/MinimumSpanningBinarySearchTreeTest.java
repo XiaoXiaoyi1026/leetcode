@@ -18,7 +18,7 @@ public class MinimumSpanningBinarySearchTreeTest extends TestCase {
                 {5, 6, 6}
         };
         Graph graph = GraphGenerator.createGraph(input);
-        for (Edge edge : MinimumSpanningTree.kruskalMinimumSpanningTreeByUnionFind(graph)) {
+        for (Graph.Edge edge : MinimumSpanningTree.kruskalMinimumSpanningTreeByUnionFind(graph)) {
             System.out.println(edge.weight);
         }
     }
@@ -40,7 +40,7 @@ public class MinimumSpanningBinarySearchTreeTest extends TestCase {
                 {5, 6, 6}
         };
         Graph graph = GraphGenerator.createGraph(input);
-        for (Edge edge : MinimumSpanningTree.kruskalMinimumSpanningTree(graph)) {
+        for (Graph.Edge edge : MinimumSpanningTree.kruskalMinimumSpanningTree(graph)) {
             System.out.println(edge.weight);
         }
     }
@@ -72,7 +72,7 @@ public class MinimumSpanningBinarySearchTreeTest extends TestCase {
                 {6, 5, 6}
         };
         Graph graph = GraphGenerator.createGraph(input);
-        for (Edge edge : MinimumSpanningTree.primMinimumSpanningTree(graph)) {
+        for (Graph.Edge edge : MinimumSpanningTree.primMinimumSpanningTree(graph)) {
             System.out.println(edge.weight);
         }
     }

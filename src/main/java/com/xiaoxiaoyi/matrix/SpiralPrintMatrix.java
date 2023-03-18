@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.matrix;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 螺旋打印矩阵
@@ -15,7 +17,7 @@ public class SpiralPrintMatrix {
         }
     }
 
-    public static void spiralPrintMatrix(int[][] matrix) {
+    public static void spiralPrintMatrix(@NotNull int[][] matrix) {
         Coordinate upperLeft = new Coordinate(0, 0);
         Coordinate bottomRight = new Coordinate(matrix[0].length - 1, matrix.length - 1);
         while (upperLeft.x <= bottomRight.x && upperLeft.y <= bottomRight.y) {
@@ -27,7 +29,7 @@ public class SpiralPrintMatrix {
         }
     }
 
-    private static void printMatrixBorder(int[][] matrix, Coordinate upperLeft, Coordinate bottomRight) {
+    private static void printMatrixBorder(int[][] matrix, @NotNull Coordinate upperLeft, @NotNull Coordinate bottomRight) {
         if (upperLeft.y == bottomRight.y) {
             // 在同一行
             for (int i = upperLeft.x; i <= bottomRight.x; i++) {

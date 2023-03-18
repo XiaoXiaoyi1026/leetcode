@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.dynamic;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 给定一个卡牌数组，规定2名玩家只能从数组两端拿牌，每个玩家都很聪明，问谁最后能够获胜
@@ -13,6 +15,7 @@ public class BestWayToHoldPoker {
      * @param max 卡牌的最大分数
      * @return 随机卡牌数组
      */
+    @NotNull
     public static int[] getRandomPokers(int len, int max) {
         int[] pokers = new int[(int) (Math.random() * len) + 1];
         for (int i = 0; i < pokers.length; i++) {
@@ -118,7 +121,7 @@ public class BestWayToHoldPoker {
      * @param right 可选牌右边界
      * @return 先手的2种情况中的最小值
      */
-    private static int s2(int[] arr, int left, int right, int[][] sdp, int[][] fdp) {
+    private static int s2(int[] arr, int left, int right, @NotNull int[][] sdp, int[][] fdp) {
         if (sdp[left][right] != -1) {
             // 如果状态已经计算过则直接返回
             return sdp[left][right];
@@ -141,7 +144,7 @@ public class BestWayToHoldPoker {
      * @param right 可选牌右边界
      * @return 后手的2种情况中的最大值
      */
-    private static int f2(int[] arr, int left, int right, int[][] fdp, int[][] sdp) {
+    private static int f2(int[] arr, int left, int right, @NotNull int[][] fdp, int[][] sdp) {
         if (fdp[left][right] != -1) {
             // 缓存命中直接返回
             return fdp[left][right];

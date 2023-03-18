@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.dynamic;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 /**
@@ -60,7 +62,7 @@ public class RobotWalk {
      * @param cur  当前格子
      * @param dp   缓存结构, 记录每一个子问题的解
      */
-    public static int f2(int n, int p, int rest, int cur, int[][] dp) {
+    public static int f2(int n, int p, int rest, int cur, @NotNull int[][] dp) {
         if (dp[rest][cur] != -1) {
             // 记忆化搜索
             return dp[rest][cur];

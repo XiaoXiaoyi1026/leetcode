@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.graph;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Comparator;
 
 /**
@@ -7,14 +9,14 @@ import java.util.Comparator;
  * @author xiaoxiaoyi
  */
 
-public class EdgeComparator implements Comparator<Edge> {
+public class EdgeComparator implements Comparator<Graph.Edge> {
 
     private static volatile EdgeComparator edgeComparator;
 
     private EdgeComparator() {}
 
     @Override
-    public int compare(Edge edge1, Edge edge2) {
+    public int compare(@NotNull Graph.Edge edge1, @NotNull Graph.Edge edge2) {
         return edge1.weight - edge2.weight;
     }
 

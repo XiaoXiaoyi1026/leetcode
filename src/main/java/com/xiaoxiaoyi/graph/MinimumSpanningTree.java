@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.graph;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 /**
@@ -16,16 +18,16 @@ public class MinimumSpanningTree {
         /**
          * 存放结点和它对应的set
          */
-        public HashMap<Node, Set<Node>> nodeSetHashMap = new HashMap<>();
+        public HashMap<Graph.Node, Set<Graph.Node>> nodeSetHashMap = new HashMap<>();
 
         /**
          * 初始化函数，将图的每一个节点都单独放入一个set
          *
          * @param nodeHashMap 点集
          */
-        public MySet(HashMap<Integer, Node> nodeHashMap) {
-            for (Node node : nodeHashMap.values()) {
-                Set<Node> nodes = new HashSet<>();
+        public MySet(@NotNull HashMap<Integer, Graph.Node> nodeHashMap) {
+            for (Graph.Node node : nodeHashMap.values()) {
+                Set<Graph.Node> nodes = new HashSet<>();
                 nodes.add(node);
                 nodeSetHashMap.put(node, nodes);
             }
@@ -38,7 +40,7 @@ public class MinimumSpanningTree {
          * @param node2 节点2
          * @return node1与node2是否在同一个set
          */
-        public boolean isTwoNodesInTheSameSet(Node node1, Node node2) {
+        public boolean isTwoNodesInTheSameSet(Graph.Node node1, Graph.Node node2) {
             return nodeSetHashMap.get(node1) == nodeSetHashMap.get(node2);
         }
 
@@ -48,10 +50,10 @@ public class MinimumSpanningTree {
          * @param node1 节点1
          * @param node2 节点2
          */
-        public void unionTwoSet(Node node1, Node node2) {
-            Set<Node> node1Set = nodeSetHashMap.get(node1);
-            Set<Node> node2Set = nodeSetHashMap.get(node2);
-            for (Node node : node2Set) {
+        public void unionTwoSet(Graph.Node node1, Graph.Node node2) {
+            Set<Graph.Node> node1Set = nodeSetHashMap.get(node1);
+            Set<Graph.Node> node2Set = nodeSetHashMap.get(node2);
+            for (Graph.Node node : node2Set) {
                 node1Set.add(node);
                 // 更新node2Set中的每个节点所属的set
                 nodeSetHashMap.put(node, node1Set);
@@ -66,34 +68,35 @@ public class MinimumSpanningTree {
      * @param graph 图
      * @return 边集
      */
-    public static Set<Edge> kruskalMinimumSpanningTreeByUnionFind(Graph graph) {
+    @NotNull
+    public static Set<Graph.Edge> kruskalMinimumSpanningTreeByUnionFind(@NotNull Graph graph) {
 
-        Set<Edge> result = new HashSet<>();
+        Set<Graph.Edge> result = new HashSet<>();
 
-        List<Node> nodes = new ArrayList<>();
+        List<Graph.Node> nodes = new ArrayList<>();
 
-        for (Map.Entry<Integer, Node> entry : graph.nodes.entrySet()) {
+        for (Map.Entry<Integer, Graph.Node> entry : graph.nodes.entrySet()) {
             nodes.add(entry.getValue());
         }
 
         // 初始化并查集，存储图中每个节点
-        UnionFind<Node> unionFind = new UnionFind<>(nodes);
+        UnionFindSets<Graph.Node> unionFindSets = new UnionFindSets<>(nodes);
         // 获取边的比较器
         EdgeComparator edgeComparator = EdgeComparator.getMyComparator();
         // 构造小根堆
-        PriorityQueue<Edge> edgePriorityQueue = new PriorityQueue<>(edgeComparator);
+        PriorityQueue<Graph.Edge> edgePriorityQueue = new PriorityQueue<>(edgeComparator);
         // 将所有边放入小根堆排序
         edgePriorityQueue.addAll(graph.edges);
         // 遍历小根堆
         while (!edgePriorityQueue.isEmpty()) {
             // 选出最小的那条边
-            Edge edge = edgePriorityQueue.poll();
+            Graph.Edge edge = edgePriorityQueue.poll();
             // 判断这条边的from和to节点是否在同一个set中
-            if (!unionFind.isSameSet(edge.from, edge.to)) {
+            if (!unionFindSets.isSameSet(edge.from, edge.to)) {
                 // 如果不在，则将该边加入到result中
                 result.add(edge);
                 // 合并from和to的set
-                unionFind.union(edge.from, edge.to);
+                unionFindSets.union(edge.from, edge.to);
             }
         }
         return result;
@@ -105,23 +108,24 @@ public class MinimumSpanningTree {
      * @param graph graph
      * @return edges
      */
-    public static Set<Edge> kruskalMinimumSpanningTree(Graph graph) {
+    @NotNull
+    public static Set<Graph.Edge> kruskalMinimumSpanningTree(@NotNull Graph graph) {
 
         // 记录返回的边集
-        Set<Edge> result = new HashSet<>();
+        Set<Graph.Edge> result = new HashSet<>();
 
         // 初始化，将图中所有节点都指向自己的set
         MySet mySet = new MySet(graph.nodes);
         // 获取边的比较器
         EdgeComparator edgeComparator = EdgeComparator.getMyComparator();
         // 构造小根堆
-        PriorityQueue<Edge> edgePriorityQueue = new PriorityQueue<>(edgeComparator);
+        PriorityQueue<Graph.Edge> edgePriorityQueue = new PriorityQueue<>(edgeComparator);
         // 将所有边放入小根堆排序
         edgePriorityQueue.addAll(graph.edges);
         // 遍历小根堆
         while (!edgePriorityQueue.isEmpty()) {
             // 选出最小的那条边
-            Edge edge = edgePriorityQueue.poll();
+            Graph.Edge edge = edgePriorityQueue.poll();
             // 判断这条边的from和to节点是否在同一个set中
             if (!mySet.isTwoNodesInTheSameSet(edge.from, edge.to)) {
                 // 如果不在，则将该边加入到result中
@@ -139,15 +143,16 @@ public class MinimumSpanningTree {
      * @param graph 图
      * @return 边集
      */
-    public static Set<Edge> primMinimumSpanningTree(Graph graph) {
+    @NotNull
+    public static Set<Graph.Edge> primMinimumSpanningTree(@NotNull Graph graph) {
 
-        Set<Edge> result = new HashSet<>();
+        Set<Graph.Edge> result = new HashSet<>();
 
         // 创建已访问点集和已解锁的边集
-        Stack<Node> goesNodes = new Stack<>();
-        PriorityQueue<Edge> unlockEdges = new PriorityQueue<>(EdgeComparator.getMyComparator());
+        Stack<Graph.Node> goesNodes = new Stack<>();
+        PriorityQueue<Graph.Edge> unlockEdges = new PriorityQueue<>(EdgeComparator.getMyComparator());
         // 可以针对森林(图非连通)问题，保证能取到所有的点
-        for (Node node : graph.nodes.values()) {
+        for (Graph.Node node : graph.nodes.values()) {
             // 节点未被访问时
             if (!goesNodes.contains(node)) {
                 // 节点加入到已访问点集中
@@ -157,7 +162,7 @@ public class MinimumSpanningTree {
                 // 解锁的边集不为空时
                 while (!unlockEdges.isEmpty()) {
                     // 弹出其中的最小边
-                    Edge poll = unlockEdges.poll();
+                    Graph.Edge poll = unlockEdges.poll();
                     // 当最小边的to未被访问过时才进行添加(跳过重复的边)
                     if (!goesNodes.contains(poll.to)) {
                         // 添加进返回结果中
