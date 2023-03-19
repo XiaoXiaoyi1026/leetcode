@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.recursion;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Stack;
 
 /**
@@ -18,7 +21,9 @@ public class ComputedParenthesisExpression {
     /**
      * @return res[0] 代表当前负责的这一区域计算的结果, res[1]代表当前负责的这一区域计算到的位置
      */
-    private static int[] value(char[] chars, int cur) {
+    @NotNull
+    @Contract("_, _ -> new")
+    private static int[] value(@NotNull char[] chars, int cur) {
         Stack<String> help = new Stack<>();
         int num = 0;
         // 越界或者遇到右括号时退出
@@ -43,7 +48,7 @@ public class ComputedParenthesisExpression {
         return new int[]{getAnswer(help), cur};
     }
 
-    private static void addNum(Stack<String> help, int num) {
+    private static void addNum(@NotNull Stack<String> help, int num) {
         if (!help.isEmpty()) {
             String sign = help.pop();
             if ("+".equals(sign) || "-".equals(sign)) {
@@ -56,7 +61,7 @@ public class ComputedParenthesisExpression {
         help.push(String.valueOf(num));
     }
 
-    private static int getAnswer(Stack<String> help) {
+    private static int getAnswer(@NotNull Stack<String> help) {
         int ans = Integer.parseInt(help.pop());
         while (!help.isEmpty()) {
             String sign = help.pop();
@@ -76,7 +81,9 @@ public class ComputedParenthesisExpression {
         return f(parenthesisExpression.toCharArray(), 0)[0];
     }
 
-    private static int[] f(char[] chars, int cur) {
+    @NotNull
+    @Contract("_, _ -> new")
+    private static int[] f(@NotNull char[] chars, int cur) {
         // 辅助栈
         Stack<String> help = new Stack<>();
         // 数字
@@ -156,20 +163,15 @@ public class ComputedParenthesisExpression {
         return new int[]{ans, cur};
     }
 
-    private static int calc(String numStr1, String numStr2, String sign) {
+    private static int calc(String numStr1, String numStr2, @NotNull String sign) {
         int num1 = Integer.parseInt(numStr1);
         int num2 = Integer.parseInt(numStr2);
-        switch (sign) {
-            case "+":
-                return num1 + num2;
-            case "-":
-                return num1 - num2;
-            case "*":
-                return num1 * num2;
-            case "/":
-                return num1 / num2;
-            default:
-                throw new RuntimeException("Calc sign wrong!");
-        }
+        return switch (sign) {
+            case "+" -> num1 + num2;
+            case "-" -> num1 - num2;
+            case "*" -> num1 * num2;
+            case "/" -> num1 / num2;
+            default -> throw new RuntimeException("Calc sign wrong!");
+        };
     }
 }

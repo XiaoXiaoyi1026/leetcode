@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +70,7 @@ public class SkipListMap {
          * @param cur   当前遍历到的节点
          * @param level 当前遍历到的层
          */
-        private SkipListNode<K, V> rightMostLessNodeAtLevel(K key, SkipListNode<K, V> cur, int level) {
+        private SkipListNode<K, V> rightMostLessNodeAtLevel(K key, @NotNull SkipListNode<K, V> cur, int level) {
             // 记录当前节点的当前层的下一个节点
             SkipListNode<K, V> next = cur.nextNodes.get(level);
             // 当没有走到最后且, 当前层的下一个节点key比目标key小, 说明在当前层可以往右走

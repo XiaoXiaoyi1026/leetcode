@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 /**
@@ -45,7 +47,7 @@ public class TheSkylineProblem {
         }
 
         @Override
-        public int compareTo(YAxisVaryInfo o) {
+        public int compareTo(@NotNull YAxisVaryInfo o) {
             if (this.x == o.x && this.up) {
                 // 如果一维数据相等, 变化是up的排前面
                 return 1;

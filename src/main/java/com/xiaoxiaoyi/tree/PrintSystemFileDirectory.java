@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,11 +30,9 @@ public class PrintSystemFileDirectory {
             if (this == o) {
                 return true;
             }
-            if (!(o instanceof Node)) {
+            if (!(o instanceof Node node)) {
                 return false;
             }
-
-            Node node = (Node) o;
 
             return Objects.equals(name, node.name);
         }
@@ -55,7 +55,7 @@ public class PrintSystemFileDirectory {
             root = new Node("");
         }
 
-        public void add(String path) {
+        public void add(@NotNull String path) {
             // split会因为转义将\\\\变为\\
             // 然后因为正则表达式将\\变为\
             String[] names = path.split("\\\\");
@@ -97,16 +97,13 @@ public class PrintSystemFileDirectory {
         }
     }
 
+    @NotNull
     private static String getSpaces(int layer) {
-        StringBuilder res = new StringBuilder();
         // 每一层的空格数 = (layer - 1) * 2
-        for (int i = 1; i < layer; i++) {
-            res.append("  ");
-        }
-        return String.valueOf(res);
+        return "  ".repeat(Math.max(0, layer - 1));
     }
 
-    public static Node generatePathTrieTree(String[] paths) {
+    public static Node generatePathTrieTree(@NotNull String[] paths) {
         PathTrieTree pathTrieTree = new PathTrieTree();
         for (String path : paths) {
             pathTrieTree.add(path);

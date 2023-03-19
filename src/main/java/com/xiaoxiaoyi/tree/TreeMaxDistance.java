@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.tree;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 树形dp, 求树上任意两节点间的最大距离
@@ -83,6 +86,8 @@ public class TreeMaxDistance {
      * @param root 根节点
      * @return 以root为根的树的信息
      */
+    @NotNull
+    @Contract("null -> new")
     private static Info process(Node root) {
         if (root == null) {
             // base case

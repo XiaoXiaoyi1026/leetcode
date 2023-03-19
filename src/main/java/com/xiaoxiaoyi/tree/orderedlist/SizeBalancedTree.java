@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * SBTree, 要求一个节点的兄弟节点两个子树的节点个数<=这个节点为根的树上的节点个数
@@ -43,7 +45,8 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
      *
      * @param cur 要进行右旋的子树的根节点
      */
-    private SizeBalancedTreeNode<K, V> rightRotate(SizeBalancedTreeNode<K, V> cur) {
+    @NotNull
+    private SizeBalancedTreeNode<K, V> rightRotate(@NotNull SizeBalancedTreeNode<K, V> cur) {
         // 记录左子树根节点
         SizeBalancedTreeNode<K, V> leftNode = cur.left;
         // 改变当前节点的左指针, 接管左子树的右子树
@@ -64,7 +67,8 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
      *
      * @param cur 进行左旋操作的子树根节点
      */
-    private SizeBalancedTreeNode<K, V> leftRotate(SizeBalancedTreeNode<K, V> cur) {
+    @NotNull
+    private SizeBalancedTreeNode<K, V> leftRotate(@NotNull SizeBalancedTreeNode<K, V> cur) {
         // 记录右边的节点(左旋后变为根节点代替cur)
         SizeBalancedTreeNode<K, V> rightNode = cur.right;
         // 当前节点的右指针接管右节点的左子树
@@ -218,7 +222,7 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
     /**
      * 根据key删除节点
      */
-    private SizeBalancedTreeNode<K, V> delete(SizeBalancedTreeNode<K, V> cur, K key) {
+    private SizeBalancedTreeNode<K, V> delete(@NotNull SizeBalancedTreeNode<K, V> cur, @NotNull K key) {
         // 要从当前子树删除一个节点, size - 1
         cur.size--;
         if (key.compareTo(cur.key) > 0) {

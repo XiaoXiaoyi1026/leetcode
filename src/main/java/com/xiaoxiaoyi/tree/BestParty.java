@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.tree;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +84,9 @@ public class BestParty {
      * @param employee 当前员工
      * @return 当前员工来/不来的最大快乐值
      */
-    private static Info process(Employee employee) {
+    @NotNull
+    @Contract("_ -> new")
+    private static Info process(@NotNull Employee employee) {
         if (employee.getLowLevelEmployees().isEmpty()) {
             // 如果该员工没有下级员工, 直接返回信息
             return new Info(employee.getHappy(), 0);

@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.stack;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Stack;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Stack;
  */
 public class StackSort {
 
-    public static void stackSort(Stack<Integer> stack) {
+    public static void stackSort(@NotNull Stack<Integer> stack) {
         // 辅助栈
         Stack<Integer> help = new Stack<>();
         while (!stack.isEmpty()) {

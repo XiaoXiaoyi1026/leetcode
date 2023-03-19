@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 /**
@@ -56,11 +58,11 @@ public class ElementBinaryTree<T> extends BinaryTree {
         return (Node<T>) root;
     }
 
-    public static void print(ElementBinaryTree<?> tree) {
+    public static void print(@NotNull ElementBinaryTree<?> tree) {
         print(tree.getRoot());
     }
 
-    public static void print(Node<?> node, boolean isRight, String indent) {
+    public static void print(@NotNull Node<?> node, boolean isRight, String indent) {
         if (node.right != null) {
             print(node.getRight(), true, indent + (isRight ? "        " : " |      "));
         }
@@ -77,7 +79,7 @@ public class ElementBinaryTree<T> extends BinaryTree {
         }
     }
 
-    public static void print(Node<?> node) {
+    public static void print(@NotNull Node<?> node) {
         if (node.right != null) {
             print(node.getRight(), true, "");
         }
@@ -87,7 +89,7 @@ public class ElementBinaryTree<T> extends BinaryTree {
         }
     }
 
-    public static void printNodeElement(Node<?> node) {
+    public static void printNodeElement(@NotNull Node<?> node) {
         if (node.element == null) {
             System.out.print("<null>");
         } else {

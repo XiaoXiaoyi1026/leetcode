@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.recursion;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +11,15 @@ import java.util.List;
  */
 public class PrintAllPermutations {
 
-    public static List<String> printAllPermutations(String str) {
+    @NotNull
+    public static List<String> printAllPermutations(@NotNull String str) {
         char[] chs = str.toCharArray();
         List<String> res = new ArrayList<>();
         process(chs, 0, res);
         return res;
     }
 
-    private static void process(char[] str, int i, List<String> res) {
+    private static void process(@NotNull char[] str, int i, List<String> res) {
         if (i == str.length - 1) {
             res.add(String.valueOf(str));
             return;
@@ -34,7 +37,7 @@ public class PrintAllPermutations {
         }
     }
 
-    private static void swap(char[] str, int i, int j) {
+    private static void swap(@NotNull char[] str, int i, int j) {
         char tmp = str[i];
         str[i] = str[j];
         str[j] = tmp;

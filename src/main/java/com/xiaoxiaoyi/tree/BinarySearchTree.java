@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Comparator;
 
 /**
@@ -119,7 +121,7 @@ public class BinarySearchTree<T> extends ElementBinaryTree<T> {
     /**
      * 替换nodeToReplace为newNode
      */
-    public Node<T> nodeTransplant(Node<T> nodeToReplace, Node<T> newNode) {
+    public Node<T> nodeTransplant(@NotNull Node<T> nodeToReplace, Node<T> newNode) {
         if (nodeToReplace.parent == null) {
             // 替换根节点
             root = newNode;
@@ -140,7 +142,7 @@ public class BinarySearchTree<T> extends ElementBinaryTree<T> {
     /**
      * 获取以node为根的搜索树上最小值的节点
      */
-    public Node<T> getMinimum(Node<T> node) {
+    public Node<T> getMinimum(@NotNull Node<T> node) {
         while (node.left != null) {
             node = node.getLeft();
         }
@@ -150,7 +152,7 @@ public class BinarySearchTree<T> extends ElementBinaryTree<T> {
     /**
      * 获取以node为根的搜索树上最大值的节点
      */
-    public Node<T> getMaximum(Node<T> node) {
+    public Node<T> getMaximum(@NotNull Node<T> node) {
         while (node.right != null) {
             node = node.getRight();
         }

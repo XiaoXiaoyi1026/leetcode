@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.other;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 /**
@@ -20,7 +22,7 @@ public class ChooseJob {
         }
 
         @Override
-        public int compareTo(Job o) {
+        public int compareTo(@NotNull Job o) {
             if (this.abilityRequirements == o.abilityRequirements) {
                 // 如果能力要求一样, 则按工资降序排序
                 return o.salary - this.salary;
@@ -38,6 +40,7 @@ public class ChooseJob {
         }
     }
 
+    @NotNull
     public static int[] chooseJob(Job[] jobs, int[] ability) {
         // 排序
         Arrays.sort(jobs);

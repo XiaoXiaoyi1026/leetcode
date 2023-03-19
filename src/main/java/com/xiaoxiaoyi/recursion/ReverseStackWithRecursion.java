@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.recursion;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Stack;
 
 /**
@@ -26,7 +28,7 @@ public class ReverseStackWithRecursion {
      * @param stack 栈
      * @return 移除栈底后的栈
      */
-    private static Object f(Stack<Object> stack) {
+    private static Object f(@NotNull Stack<Object> stack) {
         // 弹出栈顶结点
         Object result = stack.pop();
         if (stack.isEmpty()) {

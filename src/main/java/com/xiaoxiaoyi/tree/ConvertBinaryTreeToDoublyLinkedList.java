@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.tree;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  */
@@ -23,7 +26,7 @@ public class ConvertBinaryTreeToDoublyLinkedList {
     /**
      * 将二叉搜索树转换为双链表
      */
-    public static BinarySearchTree.Node<Integer> convert(BinarySearchTree<Integer> binarySearchTree) {
+    public static BinarySearchTree.Node<Integer> convert(@NotNull BinarySearchTree<Integer> binarySearchTree) {
         return convert(binarySearchTree.getRoot());
     }
 
@@ -38,6 +41,8 @@ public class ConvertBinaryTreeToDoublyLinkedList {
     /**
      * 转换的过程
      */
+    @NotNull
+    @Contract("null -> new")
     public static Info convertProcess(BinarySearchTree.Node<Integer> head) {
         if (head == null) {
             // base case 递归终止条件, 遍历到null节点直接返回
@@ -70,7 +75,7 @@ public class ConvertBinaryTreeToDoublyLinkedList {
                 rightInfo.end == null ? head : rightInfo.end);
     }
 
-    public static void printDoublyLinkedList(BinarySearchTree.Node<Integer> head) {
+    public static void printDoublyLinkedList(@NotNull BinarySearchTree.Node<Integer> head) {
         System.out.print(head.element);
         if (head.right != null) {
             System.out.print(" -> ");

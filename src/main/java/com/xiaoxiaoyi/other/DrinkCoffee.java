@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.other;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -39,7 +41,7 @@ public class DrinkCoffee {
      * @param canWashTime 洗咖啡杯机的空闲时刻
      * @return 从cur到最后一个人洗完的最早时间
      */
-    private static int washProcess1(int[] waitWashTime, int washTime, int selfCleanTime, int cur, int canWashTime) {
+    private static int washProcess1(@NotNull int[] waitWashTime, int washTime, int selfCleanTime, int cur, int canWashTime) {
         if (cur == waitWashTime.length - 1) {
             // 最后1个人洗, 返回选择用机器洗或者挥发
             // Math.max(canWashTime, waitWashTime[cur])表示可以开始洗的时间
@@ -69,7 +71,7 @@ public class DrinkCoffee {
         return dpWashProcess(getCoffeeTime(efficient, n), washTime, selfCleanTime);
     }
 
-    private static int dpWashProcess(int[] waitWashTime, int washTime, int selfCleanTime) {
+    private static int dpWashProcess(@NotNull int[] waitWashTime, int washTime, int selfCleanTime) {
         // 可变参数1: cur 变化范围: 0~waitWashTime.length-1
         // 可变参数2: canWashTime 变化范围0~waitWashTime[waitWashTime.length-1] + waitWashTime.length * washTime
         int n = waitWashTime.length;
@@ -114,7 +116,8 @@ public class DrinkCoffee {
      * @param efficiency 冲咖啡机的效率
      * @param n          要喝咖啡的人数
      */
-    private static int[] getCoffeeTime(int[] efficiency, int n) {
+    @NotNull
+    private static int[] getCoffeeTime(@NotNull int[] efficiency, int n) {
         Queue<int[]> smallRootHeap = new PriorityQueue<>(efficiency.length,
                 Comparator.comparingInt(o -> (o[0] + o[1]))
         );

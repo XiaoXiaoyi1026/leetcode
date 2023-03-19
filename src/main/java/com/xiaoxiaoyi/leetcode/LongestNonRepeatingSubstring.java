@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.leetcode;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +11,7 @@ import java.util.Map;
  */
 public class LongestNonRepeatingSubstring {
 
-    public static int get(String str) {
+    public static int get(@NotNull String str) {
         // 记录每一个字符最后一次出现的位置
         Map<Character, Integer> charMap = new HashMap<>();
         char[] chars = str.toCharArray();

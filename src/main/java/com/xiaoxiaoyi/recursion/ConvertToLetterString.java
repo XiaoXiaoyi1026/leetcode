@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.recursion;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 数字字符串(0~9)转化为字符串的种数
@@ -24,7 +26,7 @@ public class ConvertToLetterString {
      * @param index 当前遍历到的位置
      * @return 可能的组合数
      */
-    private static int process(char[] str, int index) {
+    private static int process(@NotNull char[] str, int index) {
         if (index == str.length) {
             // index == str.length时，说明前面0~index - 1都已经做好了决定，即有1种可能
             return 1;
@@ -65,7 +67,7 @@ public class ConvertToLetterString {
         return process2(str, 0);
     }
 
-    private static int process2(char[] str, int index) {
+    private static int process2(@NotNull char[] str, int index) {
         if (index == str.length) {
             return 1;
         } else if (str[index] == '0') {

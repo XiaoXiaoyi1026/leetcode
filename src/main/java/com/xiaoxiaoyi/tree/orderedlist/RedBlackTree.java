@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Comparator;
 
 /**
@@ -90,7 +92,7 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
     }
 
     @Override
-    public RedBlackTreeNode<T> getMinimum(Node<T> node) {
+    public RedBlackTreeNode<T> getMinimum(@NotNull Node<T> node) {
         RedBlackTreeNode<T> cur = (RedBlackTreeNode<T>) node;
         // 当前节点不为根节点
         while (!cur.getLeft().equals(nilNode)) {
@@ -100,7 +102,7 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
     }
 
     @Override
-    public RedBlackTreeNode<T> getMaximum(Node<T> node) {
+    public RedBlackTreeNode<T> getMaximum(@NotNull Node<T> node) {
         RedBlackTreeNode<T> cur = (RedBlackTreeNode<T>) node;
         // 当前节点不为根节点
         while (!cur.getRight().equals(nilNode)) {
@@ -110,7 +112,7 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
     }
 
     @Override
-    public RedBlackTreeNode<T> rotateLeft(Node<T> node) {
+    public RedBlackTreeNode<T> rotateLeft(@NotNull Node<T> node) {
         RedBlackTreeNode<T> rotateNode = (RedBlackTreeNode<T>) node;
         RedBlackTreeNode<T> temp = rotateNode.getRight();
         // 设置根节点(rotateNode)的右孩子(temp)的parent指向根节点的parent
@@ -138,7 +140,7 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
     }
 
     @Override
-    public RedBlackTreeNode<T> rotateRight(Node<T> node) {
+    public RedBlackTreeNode<T> rotateRight(@NotNull Node<T> node) {
         RedBlackTreeNode<T> rotateNode = (RedBlackTreeNode<T>) node;
         // 记录根节点的左孩子
         RedBlackTreeNode<T> temp = rotateNode.getLeft();
@@ -172,7 +174,7 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
      * 类似于BinarySearchTree中的节点移植方法，但使用nilNode而不使用null
      */
     @Override
-    public RedBlackTreeNode<T> nodeTransplant(Node<T> replaceNode, Node<T> node) {
+    public RedBlackTreeNode<T> nodeTransplant(@NotNull Node<T> replaceNode, Node<T> node) {
         RedBlackTreeNode<T> nodeToReplace = (RedBlackTreeNode<T>) replaceNode, newNode = (RedBlackTreeNode<T>) node;
         if (nodeToReplace.getParent().equals(nilNode)) {
             // 替换的节点是根节点
@@ -190,7 +192,7 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
         return newNode;
     }
 
-    public void adjustAfterDeletingNode(RedBlackTreeNode<T> node) {
+    public void adjustAfterDeletingNode(@NotNull RedBlackTreeNode<T> node) {
         while (!node.equals(getRoot()) && isBlack(node)) {
             // 当节点不为根节点且颜色为黑时
             if (node.equals(node.getParent().getLeft())) {
@@ -275,7 +277,7 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
      * 1. root节点变成红色
      * 2. 根节点为红色那么子节点必须为黑色
      */
-    public void adjustAfterInsertingNode(RedBlackTreeNode<T> currentNode) {
+    public void adjustAfterInsertingNode(@NotNull RedBlackTreeNode<T> currentNode) {
         // currentNode为红色, 如果父节点也为红色, 那么需要调整, 否则退出
         while (!getRoot().equals(currentNode.getParent()) && currentNode.getParent().color == ColorEnum.RED) {
             RedBlackTreeNode<T> parent = currentNode.getParent();

@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.leetcode;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 最长递增子序列问题
@@ -20,7 +23,7 @@ public class LongestIncreasingSubsequence {
      * @param pre    前面过程中最后加入的数
      * @param preAns 前面过程中加入的长度
      */
-    public static int trialProcess(int[] array, int cur, int pre, int preAns) {
+    public static int trialProcess(@NotNull int[] array, int cur, int pre, int preAns) {
         if (cur == array.length) {
             return preAns;
         }
@@ -38,7 +41,7 @@ public class LongestIncreasingSubsequence {
         return dpProcess(array);
     }
 
-    public static int dpProcess(int[] array) {
+    public static int dpProcess(@NotNull int[] array) {
         int n = array.length;
         // dp[i]代表必须以i结尾, 最长递增子序列的长度
         int[] dp = new int[n];
@@ -65,10 +68,11 @@ public class LongestIncreasingSubsequence {
         return ans;
     }
 
-    public static int longestIncreasingSubsequence3(int[] array) {
+    @Contract(pure = true)
+    public static int longestIncreasingSubsequence3(@NotNull int[] array) {
         int n = array.length;
         /*
-        ends[i]代表长度为i+1的递增子序列中, 最小的末尾数是多少
+         ends[i]代表长度为i+1的递增子序列中, 最小的末尾数是多少
          ends中的数字一定递增
          因为长度为n的递增子序列的最小结尾一定>=长度为n - 1的递增子序列的最小结尾
          */

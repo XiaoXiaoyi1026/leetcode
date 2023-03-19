@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.tree;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  */
@@ -32,7 +35,7 @@ public class MaximumBinarySearchSubtree {
         }
     }
 
-    public static ElementBinaryTree.Node<Integer> maximumSearchSubtreeRoot(ElementBinaryTree<Integer> tree) {
+    public static ElementBinaryTree.Node<Integer> maximumSearchSubtreeRoot(@NotNull ElementBinaryTree<Integer> tree) {
         return maximumSearchSubtreeRoot(tree.getRoot());
     }
 
@@ -40,6 +43,8 @@ public class MaximumBinarySearchSubtree {
         return searchProcess(root).maximumSearchSubtreeRoot;
     }
 
+    @NotNull
+    @Contract("null -> new")
     private static Info searchProcess(ElementBinaryTree.Node<Integer> curElementNode) {
         if (curElementNode == null) {
             // 当前节点为空, 假设树上的节点值都为>0的数

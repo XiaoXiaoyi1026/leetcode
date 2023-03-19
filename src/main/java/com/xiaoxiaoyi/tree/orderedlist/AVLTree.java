@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Comparator;
 
 /**
@@ -39,27 +41,27 @@ public class AVLTree<T extends Comparable<T>> extends SelfBalancingBinaryTree<T>
     }
 
     @Override
-    public AvlNode<T> nodeTransplant(Node<T> nodeToReplace, Node<T> newNode) {
+    public AvlNode<T> nodeTransplant(@NotNull Node<T> nodeToReplace, Node<T> newNode) {
         return (AvlNode<T>) super.nodeTransplant(nodeToReplace, newNode);
     }
 
     @Override
-    public AvlNode<T> getMinimum(Node<T> node) {
+    public AvlNode<T> getMinimum(@NotNull Node<T> node) {
         return (AvlNode<T>) super.getMinimum(node);
     }
 
     @Override
-    public AvlNode<T> getMaximum(Node<T> node) {
+    public AvlNode<T> getMaximum(@NotNull Node<T> node) {
         return (AvlNode<T>) super.getMaximum(node);
     }
 
     @Override
-    public AvlNode<T> rotateLeft(Node<T> node) {
+    public AvlNode<T> rotateLeft(@NotNull Node<T> node) {
         return (AvlNode<T>) super.rotateLeft(node);
     }
 
     @Override
-    public AvlNode<T> rotateRight(Node<T> node) {
+    public AvlNode<T> rotateRight(@NotNull Node<T> node) {
         return (AvlNode<T>) super.rotateRight(node);
     }
 
@@ -146,18 +148,19 @@ public class AVLTree<T extends Comparable<T>> extends SelfBalancingBinaryTree<T>
         }
     }
 
-    private void avlRotateLeftAndRight(AvlNode<T> node) {
+    private void avlRotateLeftAndRight(@NotNull AvlNode<T> node) {
         // 左旋后右旋
         node.left = avlRotateLeft(node.getLeft());
         avlRotateRight(node);
     }
 
-    private void avlRotateRightAndLeft(AvlNode<T> node) {
+    private void avlRotateRightAndLeft(@NotNull AvlNode<T> node) {
         // 右旋后左旋
         node.right = avlRotateRight(node.getRight());
         avlRotateLeft(node);
     }
 
+    @NotNull
     private AvlNode<T> avlRotateLeft(AvlNode<T> node) {
         // 左旋
         AvlNode<T> temp = (AvlNode<T>) super.rotateLeft(node);
@@ -169,6 +172,7 @@ public class AVLTree<T extends Comparable<T>> extends SelfBalancingBinaryTree<T>
         return temp;
     }
 
+    @NotNull
     private AvlNode<T> avlRotateRight(AvlNode<T> node) {
         // 执行右旋操作
         AvlNode<T> temp = (AvlNode<T>) super.rotateRight(node);
@@ -186,13 +190,13 @@ public class AVLTree<T extends Comparable<T>> extends SelfBalancingBinaryTree<T>
      *
      * @param node Node for which height and balance must be updated.
      */
-    protected void updateHeight(AvlNode<T> node) {
+    protected void updateHeight(@NotNull AvlNode<T> node) {
         int leftHeight = node.getLeft() == null ? -1 : node.getLeft().height;
         int rightHeight = node.getRight() == null ? -1 : node.getRight().height;
         node.height = Math.max(leftHeight, rightHeight) + 1;
     }
 
-    protected int getMaxHeight(AvlNode<T> node) {
+    protected int getMaxHeight(@NotNull AvlNode<T> node) {
         if (node.getLeft() != null && node.getRight() != null) {
             // 左右子树都不为空, 返回高度较高的那个
             return Math.max(node.getLeft().height, node.getRight().height);

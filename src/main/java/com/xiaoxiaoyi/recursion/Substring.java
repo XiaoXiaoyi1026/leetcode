@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.recursion;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +12,13 @@ import java.util.List;
  */
 public class Substring {
 
-    public static void substring(String str) {
+    public static void substring(@NotNull String str) {
         char[] chs = str.toCharArray();
         process(chs, 0, new ArrayList<>());
         process2(chs, 0);
     }
 
-    public static void process2(char[] str, int i) {
+    public static void process2(@NotNull char[] str, int i) {
         if (i == str.length) {
             System.out.println(String.valueOf(str));
             return;
@@ -34,7 +37,7 @@ public class Substring {
      * @param i   当前位置
      * @param res 结果数组
      */
-    private static void process(char[] chs, int i, List<Character> res) {
+    private static void process(@NotNull char[] chs, int i, List<Character> res) {
         if (i == chs.length) {
             // 如果当前位置走到了最后则直接打印结果数组内容
             printList(res);
@@ -51,11 +54,13 @@ public class Substring {
         process(chs, i + 1, resNotInclude);
     }
 
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     private static List<Character> copyList(List<Character> from) {
         return new ArrayList<>(from);
     }
 
-    private static void printList(List<Character> res) {
+    private static void printList(@NotNull List<Character> res) {
         for (Character character : res) {
             System.out.print(character);
         }

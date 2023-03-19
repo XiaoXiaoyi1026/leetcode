@@ -1,6 +1,7 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
 import com.xiaoxiaoyi.tree.BinarySearchTree;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
@@ -14,7 +15,7 @@ public class SelfBalancingBinaryTree<T> extends BinarySearchTree<T> {
         super(comparator);
     }
 
-    public Node<T> rotateLeft(Node<T> node) {
+    public Node<T> rotateLeft(@NotNull Node<T> node) {
         if (node.right != null) {
             // temp 指向原来节点的右节点
             Node<T> temp = node.getRight();
@@ -49,7 +50,7 @@ public class SelfBalancingBinaryTree<T> extends BinarySearchTree<T> {
         return null;
     }
 
-    public Node<T> rotateRight(Node<T> node) {
+    public Node<T> rotateRight(@NotNull Node<T> node) {
         if (node.left != null) {
             // nodeRight 指向原来节点的右节点
             Node<T> temp = node.getLeft();
