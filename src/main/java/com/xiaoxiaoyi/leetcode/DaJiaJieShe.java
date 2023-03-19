@@ -8,16 +8,16 @@ import java.util.Scanner;
  * @description 偷盗问题
  * @date 3/18/2023 2:38 PM
  */
-public class DaJiaJieShe1 {
+public class DaJiaJieShe {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int[] rooms = new int[n];
+        int[] nums = new int[n];
         for (int i = 0; i < n; i++) {
-            rooms[i] = sc.nextInt();
+            nums[i] = sc.nextInt();
         }
-        System.out.println(tou(rooms));
+        System.out.println(tou(nums));
     }
 
     public static int tou(int[] nums) {

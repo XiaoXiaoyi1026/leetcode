@@ -1,5 +1,8 @@
 package com.xiaoxiaoyi.leetcode;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 /**
@@ -80,7 +83,8 @@ public class CrossTheRiverByBoat {
         return ans;
     }
 
-    private static int mostRight(int[] sorted, int border) {
+    @Contract(pure = true)
+    private static int mostRight(@NotNull int[] sorted, int border) {
         int left = 0, right = sorted.length - 1;
         int ans = -1;
         while (left <= right) {
