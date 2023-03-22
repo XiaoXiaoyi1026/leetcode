@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomGenerate;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

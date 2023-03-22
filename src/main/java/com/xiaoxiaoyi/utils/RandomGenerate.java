@@ -1,4 +1,4 @@
-package com.xiaoxiaoyi;
+package com.xiaoxiaoyi.utils;
 
 import org.jetbrains.annotations.NotNull;
 

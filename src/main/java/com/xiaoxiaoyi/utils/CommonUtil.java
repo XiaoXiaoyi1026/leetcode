@@ -1,5 +1,6 @@
 package com.xiaoxiaoyi.utils;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -13,5 +14,13 @@ public class CommonUtil {
         int tmp = arr[i];
         arr[i] = arr[j];
         arr[j] = tmp;
+    }
+
+    @Contract(pure = true)
+    public static void toQianZhui(@NotNull int[] arr) {
+        int n = arr.length;
+        for (int i = 1; i < n; i++) {
+            arr[i] += arr[i - 1];
+        }
     }
 }

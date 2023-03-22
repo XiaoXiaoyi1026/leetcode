@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomGenerate;
 import junit.framework.TestCase;
 
 import java.util.Arrays;
