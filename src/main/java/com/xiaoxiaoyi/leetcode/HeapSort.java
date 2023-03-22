@@ -1,18 +1,37 @@
 package com.xiaoxiaoyi.leetcode;
 
+import com.xiaoxiaoyi.RandomGenerate;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+
 /**
  * @author xiaoxiaoyi
  * 额外空间复杂度O(1)的排序算法, 堆排序
  */
 public class HeapSort {
 
+    public static void main(String[] args) {
+        for (int i = 0; i < 100; i++) {
+            int[] arr = RandomGenerate.array((int) (1 + Math.random() * 20), 50);
+            System.out.println(Arrays.toString(arr));
+            sort(arr);
+            System.out.println(Arrays.toString(arr));
+        }
+    }
+
     public static void sort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
-        for (int i = 0; i < arr.length; i++) {
-            heapInsert(i, arr);
+//        for (int i = 0; i < arr.length; i++) {
+//            heapInsert(i, arr);
+//        }
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            heapIfy(arr, arr.length, i);
         }
+
         int heapSize = arr.length;
         while (heapSize > 0) {
             swap(arr, 0, --heapSize);
@@ -27,7 +46,7 @@ public class HeapSort {
      *
      * @param index 进堆元素原来所在的下标
      */
-    private static void heapInsert(int index, int[] arr) {
+    private static void heapInsert(int index, @NotNull int[] arr) {
         while (index > 0 && arr[index] > arr[(index - 1) >> 1]) {
             swap(arr, index, (index - 1) >> 1);
             index = (index - 1) >> 1;
@@ -59,7 +78,7 @@ public class HeapSort {
     /**
      * 交换数组内元素
      */
-    private static void swap(int[] arr, int from, int to) {
+    private static void swap(@NotNull int[] arr, int from, int to) {
         int tmp = arr[from];
         arr[from] = arr[to];
         arr[to] = tmp;

@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi;
 
+import org.jetbrains.annotations.NotNull;
+
 public class RandomGenerate {
 
     /**
@@ -7,6 +9,7 @@ public class RandomGenerate {
      * @param max    元素最大值
      * @return 数组
      */
+    @NotNull
     public static int[] array(int length, int max) {
         int[] arr = new int[length];
         for (int i = 0; i < length; i++) {
@@ -28,6 +31,7 @@ public class RandomGenerate {
         return String.valueOf(sb);
     }
 
+    @NotNull
     public static int[][] matrix(int rows, int cols, int max) {
         int[][] matrix = new int[rows][cols];
         for (int i = 0; i < rows; i++) {
