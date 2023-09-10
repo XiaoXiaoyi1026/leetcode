@@ -16,32 +16,32 @@ public class SelfBalancingBinaryTree<T> extends BinarySearchTree<T> {
     }
 
     public Node<T> rotateLeft(@NotNull Node<T> node) {
-        if (node.right != null) {
+        if (node.getRight() != null) {
             // temp 指向原来节点的右节点
             Node<T> temp = node.getRight();
             // 右节点的父亲节点变成node的父节点
-            temp.parent = node.parent;
+            temp.setParent(node.getParent());
             // 原节点的右节点变为右节点的左节点
-            node.right = temp.left;
+            node.setRight(temp.getLeft());
             // 更新右结点的左节点父节点
-            if (node.right != null) {
-                node.getRight().parent = node;
+            if (node.getRight() != null) {
+                node.getRight().setParent(node);
             }
             // 右结点的左子树指向原来的根节点
-            temp.left = node;
+            temp.setLeft(node);
             // 更新根节点的父亲
-            node.parent = temp;
+            node.setParent(temp);
 
-            if (temp.parent != null) {
-                if (node.equals(temp.parent.left)) {
+            if (temp.getParent() != null) {
+                if (node.equals(temp.getParent().getLeft())) {
                     // 如果旋转前的节点是父节点的左节点
-                    temp.parent.left = temp;
+                    temp.getParent().setLeft(temp);
                 } else {
-                    temp.parent.right = temp;
+                    temp.getParent().setRight(temp);
                 }
             } else {
                 // 否则说明是根节点
-                root = temp;
+                setRoot(temp);
             }
 
             // 返回旋转后的根节点
@@ -51,32 +51,32 @@ public class SelfBalancingBinaryTree<T> extends BinarySearchTree<T> {
     }
 
     public Node<T> rotateRight(@NotNull Node<T> node) {
-        if (node.left != null) {
+        if (node.getLeft() != null) {
             // nodeRight 指向原来节点的右节点
             Node<T> temp = node.getLeft();
             // 右节点的父亲节点变成node的父节点
-            temp.parent = node.parent;
+            temp.setParent(node.getParent());
             // 原节点的右节点变为右节点的左节点
-            node.left = temp.right;
+            node.setLeft(temp.getRight());
             // 更新右结点的左节点父节点
-            if (node.left != null) {
-                node.getLeft().parent = node;
+            if (node.getLeft() != null) {
+                node.getLeft().setParent(node);
             }
             // 右结点的左子树指向原来的根节点
-            temp.right = node;
+            temp.setRight(node);
             // 更新根节点的父亲
-            node.parent = temp;
+            node.setParent(temp);
 
-            if (temp.parent != null) {
-                if (node.equals(temp.parent.left)) {
+            if (temp.getParent() != null) {
+                if (node.equals(temp.getParent().getLeft())) {
                     // 如果旋转前的节点是父节点的左节点
-                    temp.parent.left = temp;
+                    temp.getParent().setLeft(temp);
                 } else {
-                    temp.parent.right = temp;
+                    temp.getParent().setRight(temp);
                 }
             } else {
                 // 否则说明是根节点
-                root = temp;
+                setRoot(temp);
             }
 
             // 返回旋转后的根节点

@@ -1,6 +1,8 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import com.xiaoxiaoyi.tree.ElementBinaryTree;
 import junit.framework.TestCase;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
@@ -10,9 +12,9 @@ public class SelfBalancingBinaryTreeTest extends TestCase {
 
     private SelfBalancingBinaryTree<Integer> rotateTree;
 
-    private void createTree(int[] input) {
+    private void createTree(@NotNull int[] input) {
         rotateTree = new SelfBalancingBinaryTree<>(
-                Comparator.comparingInt(o -> o.element)
+                Comparator.comparingInt(ElementBinaryTree.Node::getElement)
         );
         for (int i : input) {
             rotateTree.insert(i);
@@ -23,9 +25,7 @@ public class SelfBalancingBinaryTreeTest extends TestCase {
     public void testRotateLeft() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6, 3, 8, 1, 0};
         createTree(input);
-        rotateTree.root = (
-                rotateTree.rotateLeft(rotateTree.getRoot())
-        );
+        rotateTree.setRoot(rotateTree.rotateLeft(rotateTree.getRoot()));
         System.out.println("======================");
         print(rotateTree.getRoot());
         System.out.println("======================");
@@ -34,8 +34,7 @@ public class SelfBalancingBinaryTreeTest extends TestCase {
     public void testRotateRight() {
         int[] input = new int[]{3, 5, 2, 7, 4, 7, 6};
         createTree(input);
-        rotateTree.root =
-                rotateTree.rotateRight(rotateTree.getRoot());
+        rotateTree.setRoot(rotateTree.rotateRight(rotateTree.getRoot()));
         System.out.println("======================");
         print(rotateTree.getRoot());
         System.out.println("======================");

@@ -1,12 +1,13 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import com.xiaoxiaoyi.exception.MyException;
 import junit.framework.TestCase;
 
 public class SizeBalancedBinarySearchTreeTest extends TestCase {
 
     private SizeBalancedTree<String, Integer> sizeBalancedTree;
 
-    private void createTree() {
+    private void createTree() throws MyException {
         sizeBalancedTree = new SizeBalancedTree<>();
         sizeBalancedTree.put("d", 4);
         sizeBalancedTree.put("c", 3);
@@ -41,14 +42,10 @@ public class SizeBalancedBinarySearchTreeTest extends TestCase {
 
     public static String getSpace(int num) {
         String space = " ";
-        StringBuilder buf = new StringBuilder();
-        for (int i = 0; i < num; i++) {
-            buf.append(space);
-        }
-        return buf.toString();
+        return space.repeat(Math.max(0, num));
     }
 
-    public void testGetAndPut() {
+    public void testGetAndPut() throws MyException {
         createTree();
         sizeBalancedTree.put("a", 111);
         System.out.println(sizeBalancedTree.get("a"));
@@ -56,19 +53,19 @@ public class SizeBalancedBinarySearchTreeTest extends TestCase {
         System.out.println(sizeBalancedTree.get("a"));
     }
 
-    public void testPrintTreeNodes() {
+    public void testPrintTreeNodes() throws MyException {
         createTree();
         for (int i = 0; i < sizeBalancedTree.size(); i++) {
             System.out.println(sizeBalancedTree.getIndexKey(i) + " , " + sizeBalancedTree.getIndexValue(i));
         }
     }
 
-    public void testPrintAll() {
+    public void testPrintAll() throws MyException {
         createTree();
         printAll(sizeBalancedTree.getRoot());
     }
 
-    public void testAboutKey() {
+    public void testAboutKey() throws MyException {
         createTree();
         System.out.println(sizeBalancedTree.firstKey());
         System.out.println(sizeBalancedTree.lastKey());
@@ -82,7 +79,7 @@ public class SizeBalancedBinarySearchTreeTest extends TestCase {
         System.out.println(sizeBalancedTree.ceilingKey("j"));
     }
 
-    public void testRemove() {
+    public void testRemove() throws MyException {
         createTree();
         sizeBalancedTree.remove("d");
         printAll(sizeBalancedTree.getRoot());

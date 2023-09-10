@@ -1,18 +1,27 @@
 package com.xiaoxiaoyi.tree;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author xiaoxiaoyi
  */
+@Getter
+@Setter
 public class BinaryTree {
 
-    public Node root;
+    Node root;
 
+    @Getter
+    @Setter
     public static class Node {
-        public Node left;
-        public Node right;
+        Node left;
+        Node right;
 
         public Node() {
             left = right = null;
         }
+
     }
+
 }

@@ -1,21 +1,26 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import com.xiaoxiaoyi.exception.MyException;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * @author xiaoxiaoyi
  * SBTree, 要求一个节点的兄弟节点两个子树的节点个数<=这个节点为根的树上的节点个数
  */
+@Getter
 public class SizeBalancedTree<K extends Comparable<K>, V> {
+    
+    private static final String EXCEPTION_MESSAGE = "invalid parameter.";
 
     public static class SizeBalancedTreeNode<K extends Comparable<K>, V> {
-        public K key;
-        public V value;
+        K key;
+        V value;
 
-        public SizeBalancedTreeNode<K, V> left;
-        public SizeBalancedTreeNode<K, V> right;
+        SizeBalancedTreeNode<K, V> left;
+        SizeBalancedTreeNode<K, V> right;
 
-        public int size;
+        int size;
 
         public SizeBalancedTreeNode(K key, V value) {
             this.key = key;
@@ -28,10 +33,6 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
      * 整棵树的根节点
      */
     private SizeBalancedTreeNode<K, V> root;
-
-    public SizeBalancedTreeNode<K, V> getRoot() {
-        return root;
-    }
 
     /**
      * 树的大小(节点个数)
@@ -130,7 +131,8 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
      * 查找一个节点
      */
     private SizeBalancedTreeNode<K, V> findLastIndex(K key) {
-        SizeBalancedTreeNode<K, V> cur, pre;
+        SizeBalancedTreeNode<K, V> cur;
+        SizeBalancedTreeNode<K, V> pre;
         // pre指向遍历的前1个节点, cur指向遍历到的当前节点
         pre = cur = this.root;
         while (cur != null) {
@@ -155,7 +157,8 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
      * 返回不小于(大于等于)key的最后一个节点
      */
     private SizeBalancedTreeNode<K, V> findLastNotSmallIndex(K key) {
-        SizeBalancedTreeNode<K, V> ans = null, cur = root;
+        SizeBalancedTreeNode<K, V> ans = null;
+        SizeBalancedTreeNode<K, V> cur = root;
         while (cur != null) {
             if (key.compareTo(cur.key) == 0) {
                 // 找到了一样的key, 记录结果并退出返回
@@ -178,7 +181,8 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
      * 查找最后一个不大于(小于等于)目标key的节点
      */
     private SizeBalancedTreeNode<K, V> findLastNotBigIndex(K key) {
-        SizeBalancedTreeNode<K, V> ans = null, cur = root;
+        SizeBalancedTreeNode<K, V> ans = null;
+        SizeBalancedTreeNode<K, V> cur = root;
         while (cur != null) {
             if (key.compareTo(cur.key) == 0) {
                 // 找到了key值相等的节点, 直接记录并返回
@@ -244,7 +248,8 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
                 cur = cur.left;
             } else {
                 // 左右子树都有, pre指向前一个, des指向要被销毁的节点, 默认拿要被销毁节点的右子树来替代
-                SizeBalancedTreeNode<K, V> pre = null, des = cur.right;
+                SizeBalancedTreeNode<K, V> pre = null;
+                SizeBalancedTreeNode<K, V> des = cur.right;
                 // 右子树size - 1
                 des.size--;
                 while (des.left != null) {
@@ -278,17 +283,17 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
         }
     }
 
-    public boolean containsKey(K key) {
+    public boolean containsKey(K key) throws MyException {
         if (key == null) {
-            throw new RuntimeException("invalid parameter.");
+            throw new MyException(EXCEPTION_MESSAGE);
         }
         SizeBalancedTreeNode<K, V> lastNode = findLastIndex(key);
         return lastNode != null && key.compareTo(lastNode.key) == 0;
     }
 
-    public void put(K key, V value) {
+    public void put(K key, V value) throws MyException {
         if (key == null) {
-            throw new RuntimeException("invalid parameter.");
+            throw new MyException(EXCEPTION_MESSAGE);
         }
         SizeBalancedTreeNode<K, V> lastNode = findLastIndex(key);
         if (lastNode != null && key.compareTo(lastNode.key) == 0) {
@@ -298,34 +303,34 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
         }
     }
 
-    public void remove(K key) {
+    public void remove(K key) throws MyException {
         if (key == null) {
-            throw new RuntimeException("invalid parameter.");
+            throw new MyException(EXCEPTION_MESSAGE);
         }
         if (containsKey(key)) {
             root = delete(root, key);
         }
     }
 
-    public K getIndexKey(int index) {
+    public K getIndexKey(int index) throws MyException {
         if (index < 0 || index >= this.size()) {
-            throw new RuntimeException("invalid parameter.");
+            throw new MyException(EXCEPTION_MESSAGE);
         }
         SizeBalancedTreeNode<K, V> node = getIndex(root, index + 1);
         return node == null ? null : node.key;
     }
 
-    public V getIndexValue(int index) {
+    public V getIndexValue(int index) throws MyException {
         if (index < 0 || index >= this.size()) {
-            throw new RuntimeException("invalid parameter.");
+            throw new MyException(EXCEPTION_MESSAGE);
         }
         SizeBalancedTreeNode<K, V> node = getIndex(root, index + 1);
         return node == null ? null : node.value;
     }
 
-    public V get(K key) {
+    public V get(K key) throws MyException {
         if (key == null) {
-            throw new RuntimeException("invalid parameter.");
+            throw new MyException(EXCEPTION_MESSAGE);
         }
         SizeBalancedTreeNode<K, V> lastNode = findLastIndex(key);
         if (lastNode != null && key.compareTo(lastNode.key) == 0) {
@@ -357,17 +362,17 @@ public class SizeBalancedTree<K extends Comparable<K>, V> {
         return cur.key;
     }
 
-    public K floorKey(K key) {
+    public K floorKey(K key) throws MyException {
         if (key == null) {
-            throw new RuntimeException("invalid parameter.");
+            throw new MyException(EXCEPTION_MESSAGE);
         }
         SizeBalancedTreeNode<K, V> lastNoBigNode = findLastNotBigIndex(key);
         return lastNoBigNode == null ? null : lastNoBigNode.key;
     }
 
-    public K ceilingKey(K key) {
+    public K ceilingKey(K key) throws MyException {
         if (key == null) {
-            throw new RuntimeException("invalid parameter.");
+            throw new MyException(EXCEPTION_MESSAGE);
         }
         SizeBalancedTreeNode<K, V> lastNoSmallNode = findLastNotSmallIndex(key);
         return lastNoSmallNode == null ? null : lastNoSmallNode.key;

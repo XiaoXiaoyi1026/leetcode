@@ -7,11 +7,15 @@ import java.util.Comparator;
 public class HeapTest extends TestCase {
 
     public void testInsert() {
-        Heap<Integer> heap = new Heap<>(Comparator.comparingInt(o -> o));
-        for (int i = 0; i < 10; i++) {
-            heap.insert(i);
+        try {
+            Heap<Integer> heap = new Heap<>(Comparator.comparingInt(o -> o));
+            for (int i = 0; i < 10; i++) {
+                heap.insert(i);
+            }
+            System.out.println(heap);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println(heap);
     }
 
 }

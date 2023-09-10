@@ -1,6 +1,7 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
 import com.xiaoxiaoyi.tree.BinarySearchTree;
+import com.xiaoxiaoyi.tree.ElementBinaryTree;
 import junit.framework.TestCase;
 
 import java.util.Comparator;
@@ -11,7 +12,7 @@ public class BinarySearchTreeTest extends TestCase {
 
     public void createTree(int[] input) {
         binarySearchTree = new BinarySearchTree<>(
-                Comparator.comparingInt(o -> o.element)
+                Comparator.comparingInt(ElementBinaryTree.Node::getElement)
         );
         for (int i : input) {
             binarySearchTree.insert(i);
@@ -30,7 +31,7 @@ public class BinarySearchTreeTest extends TestCase {
         BinarySearchTree.print(binarySearchTree.getRoot());
         System.out.println("=====================");
         binarySearchTree.remove(3);
-        System.out.println(binarySearchTree.root);
+        System.out.println(binarySearchTree.getRoot());
         System.out.println("==================");
         BinarySearchTree.print(binarySearchTree.getRoot());
     }

@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
@@ -10,8 +12,52 @@ import java.util.Comparator;
  */
 public class BinarySearchTree<T> extends ElementBinaryTree<T> {
 
+    @Getter
     public int size;
     public final Comparator<Node<T>> comparator;
+
+    /**
+     * @author 20609
+     * 二分搜索树的节点定义
+     */
+    @Getter
+    @Setter
+    public static class Node<T> extends ElementBinaryTree.Node<T> {
+        Node<T> parent;
+
+        public Node(T element) {
+            super(element);
+            parent = null;
+        }
+
+        @Override
+        public Node<T> getLeft() {
+            return (Node<T>) super.getLeft();
+        }
+
+        @Override
+        public Node<T> getRight() {
+            return (Node<T>) super.getRight();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Node<?> node = (Node<?>) o;
+            return element.equals(node.element);
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode();
+        }
+
+    }
 
     public BinarySearchTree(Comparator<Node<T>> comparator) {
         super();
@@ -19,6 +65,7 @@ public class BinarySearchTree<T> extends ElementBinaryTree<T> {
         this.comparator = comparator;
     }
 
+    @Override
     public Node<T> getRoot() {
         return (Node<T>) super.getRoot();
     }
@@ -31,7 +78,8 @@ public class BinarySearchTree<T> extends ElementBinaryTree<T> {
         if (root == null) {
             root = node;
         } else {
-            Node<T> curNode = getRoot(), parent = null;
+            Node<T> curNode = getRoot();
+            Node<T> parent = null;
             // 判断element不为空是为了红黑树
             while (curNode != null && curNode.element != null) {
                 parent = curNode;
@@ -46,11 +94,12 @@ public class BinarySearchTree<T> extends ElementBinaryTree<T> {
                     return curNode;
                 }
             }
-            node.parent = parent;
+            node.setParent(parent);
+            assert parent != null;
             if (comparator.compare(parent, node) > 0) {
-                parent.left = node;
+                parent.setLeft(node);
             } else {
-                parent.right = node;
+                parent.setRight(node);
             }
         }
         size++;
@@ -157,37 +206,5 @@ public class BinarySearchTree<T> extends ElementBinaryTree<T> {
             node = node.getRight();
         }
         return node;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     * @author 20609
-     * 二分搜索树的节点定义
-     */
-    public static class Node<T> extends ElementBinaryTree.Node<T> {
-        public Node<T> parent;
-
-        public Node(T element) {
-            super(element);
-            parent = null;
-        }
-
-        public Node<T> getLeft() {
-            return (Node<T>) super.getLeft();
-        }
-
-        public Node<T> getRight() {
-            return (Node<T>) super.getRight();
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "element=" + element +
-                    '}';
-        }
     }
 }

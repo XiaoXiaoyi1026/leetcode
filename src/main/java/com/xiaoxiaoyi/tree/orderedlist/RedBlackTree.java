@@ -1,8 +1,12 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
+import com.xiaoxiaoyi.tree.BinarySearchTree;
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * @author xiaoxiaoyi
@@ -13,21 +17,22 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
     /**
      * 根节点
      */
-    public final RedBlackTreeNode<T> nilNode;
+    public final Node<T> nilNode;
 
-    public RedBlackTree(Comparator<Node<T>> comparator) {
+    public RedBlackTree(Comparator<BinarySearchTree.Node<T>> comparator) {
         super(comparator);
         // 保证红黑树的根节点为黑色(零节点, 黑色节点)
-        nilNode = new RedBlackTreeNode<>(null, ColorEnum.BLACK);
-    }
-
-    public RedBlackTreeNode<T> getRoot() {
-        return (RedBlackTreeNode<T>) super.getRoot();
+        nilNode = new Node<>(null, ColorEnum.BLACK);
     }
 
     @Override
-    public RedBlackTreeNode<T> insert(T element) {
-        return insert(new RedBlackTreeNode<>(element, ColorEnum.RED));
+    public Node<T> getRoot() {
+        return (Node<T>) super.getRoot();
+    }
+
+    @Override
+    public Node<T> insert(T element) {
+        return insert(new Node<>(element, ColorEnum.RED));
     }
 
     /**
@@ -36,24 +41,25 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
      * @param newNode 新节点
      * @return 新创建的节点
      */
-    public RedBlackTreeNode<T> insert(RedBlackTreeNode<T> newNode) {
+    public Node<T> insert(Node<T> newNode) {
         super.insert(newNode);
         // 红黑树初始化节点的时候左右和父亲都要指向零节点
-        newNode.left = nilNode;
-        newNode.right = nilNode;
-        getRoot().parent = nilNode;
+        newNode.setLeft(nilNode);
+        newNode.setRight(nilNode);
+        getRoot().setParent(nilNode);
         // 插入节点后调整
         adjustAfterInsertingNode(newNode);
         return newNode;
     }
 
     @Override
-    public RedBlackTreeNode<T> remove(T element) {
+    public Node<T> remove(T element) {
         // 跟踪节点, 要移除的节点
-        RedBlackTreeNode<T> replaceNode = null, removeNode = findNode(element);
+        Node<T> replaceNode = null;
+        Node<T> removeNode = findNode(element);
         if (removeNode != null && !removeNode.equals(nilNode)) {
             // 要删除的节点不为空且节点不为零节点
-            RedBlackTreeNode<T> removedOrMovedNode = removeNode;
+            Node<T> removedOrMovedNode = removeNode;
             ColorEnum removedOrMovedNodeColor = removedOrMovedNode.color;
             if (removeNode.getLeft().equals(nilNode)) {
                 replaceNode = removeNode.getRight();
@@ -65,17 +71,17 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
                 removedOrMovedNode = getMinimum(removeNode.getRight());
                 removedOrMovedNodeColor = removedOrMovedNode.color;
                 replaceNode = removedOrMovedNode.getRight();
-                if (removedOrMovedNode.parent.equals(removeNode)) {
-                    replaceNode.parent = removedOrMovedNode;
+                if (removedOrMovedNode.getParent().equals(removeNode)) {
+                    replaceNode.setParent(removedOrMovedNode);
                 } else {
                     nodeTransplant(removedOrMovedNode, removedOrMovedNode.getRight());
-                    removedOrMovedNode.right = removeNode.getRight();
-                    removedOrMovedNode.getRight().parent = removedOrMovedNode;
+                    removedOrMovedNode.setRight(removeNode.getRight());
+                    removedOrMovedNode.getRight().setParent(removedOrMovedNode);
 
                 }
                 nodeTransplant(removeNode, removedOrMovedNode);
-                removedOrMovedNode.left = removeNode.getLeft();
-                removedOrMovedNode.getLeft().parent = removedOrMovedNode;
+                removedOrMovedNode.setLeft(removeNode.getLeft());
+                removedOrMovedNode.getLeft().setParent(removedOrMovedNode);
                 removedOrMovedNode.color = removeNode.color;
             }
             size--;
@@ -87,117 +93,109 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
     }
 
     @Override
-    public RedBlackTreeNode<T> findNode(T element) {
-        return (RedBlackTreeNode<T>) super.findNode(element);
+    public Node<T> findNode(T element) {
+        return (Node<T>) super.findNode(element);
     }
 
-    @Override
-    public RedBlackTreeNode<T> getMinimum(@NotNull Node<T> node) {
-        RedBlackTreeNode<T> cur = (RedBlackTreeNode<T>) node;
+    public Node<T> getMinimum(@NotNull Node<T> node) {
         // 当前节点不为根节点
-        while (!cur.getLeft().equals(nilNode)) {
-            cur = cur.getLeft();
+        while (!node.getLeft().equals(nilNode)) {
+            node = node.getLeft();
         }
-        return cur;
+        return node;
     }
 
-    @Override
-    public RedBlackTreeNode<T> getMaximum(@NotNull Node<T> node) {
-        RedBlackTreeNode<T> cur = (RedBlackTreeNode<T>) node;
+    public Node<T> getMaximum(@NotNull Node<T> node) {
         // 当前节点不为根节点
-        while (!cur.getRight().equals(nilNode)) {
-            cur = cur.getRight();
+        while (!node.getRight().equals(nilNode)) {
+            node = node.getRight();
         }
-        return cur;
+        return node;
     }
 
     @Override
-    public RedBlackTreeNode<T> rotateLeft(@NotNull Node<T> node) {
-        RedBlackTreeNode<T> rotateNode = (RedBlackTreeNode<T>) node;
-        RedBlackTreeNode<T> temp = rotateNode.getRight();
+    public Node<T> rotateLeft(@NotNull BinarySearchTree.Node<T> node) {
+        Node<T> curNode = (Node<T>) node;
+        Node<T> temp = curNode.getRight();
         // 设置根节点(rotateNode)的右孩子(temp)的parent指向根节点的parent
-        temp.parent = rotateNode.getParent();
+        temp.setParent(curNode.getParent());
         // 根节点接管右孩子的左子树
-        rotateNode.right = temp.getLeft();
-        if (!rotateNode.getRight().equals(nilNode)) {
+        curNode.setRight(temp.getLeft());
+        if (!curNode.getRight().equals(nilNode)) {
             // 根节点的右指针的父亲更新为自己
-            rotateNode.getRight().parent = rotateNode;
+            curNode.getRight().setParent(curNode);
         }
-        temp.left = rotateNode;
-        rotateNode.parent = temp;
+        temp.setLeft(curNode);
+        curNode.setParent(temp);
         if (!temp.getParent().equals(nilNode)) {
-            if (rotateNode.equals(temp.getParent().getLeft())) {
-                temp.parent.left = temp;
+            if (curNode.equals(temp.getParent().getLeft())) {
+                temp.getParent().setLeft(temp);
             } else {
-                temp.parent.right = temp;
+                temp.getParent().setRight(temp);
             }
         } else {
             // 父亲是零节点, 说明是根节点
-            root = temp;
+            setRoot(temp);
         }
         // 返回旋转后的根节点
-        return temp;
+        return getRoot();
     }
 
     @Override
-    public RedBlackTreeNode<T> rotateRight(@NotNull Node<T> node) {
-        RedBlackTreeNode<T> rotateNode = (RedBlackTreeNode<T>) node;
+    public Node<T> rotateRight(@NotNull BinarySearchTree.Node<T> node) {
+        Node<T> curNode = (Node<T>) node;
         // 记录根节点的左孩子
-        RedBlackTreeNode<T> temp = rotateNode.getLeft();
+        Node<T> temp = curNode.getLeft();
         // 左孩子的父亲更新为根节点(node)的父亲
-        temp.parent = rotateNode.getParent();
+        temp.setParent(curNode.getParent());
         // 根节点接管temp的右子树为自己的左子树
-        rotateNode.left = temp.getRight();
-        if (!rotateNode.getLeft().equals(nilNode)) {
+        node.setLeft(temp.getRight());
+        if (!curNode.getLeft().equals(nilNode)) {
             // 更新接管后的左子树的父亲
-            rotateNode.getLeft().parent = rotateNode;
+            curNode.getLeft().setParent(node);
         }
         // 根节点挂到temp的右子树
-        temp.right = rotateNode;
+        temp.setRight(curNode);
         // 更新父节点
-        rotateNode.parent = temp;
+        curNode.setParent(temp);
         if (!temp.getParent().equals(nilNode)) {
-            if (node.equals(temp.getParent().getLeft())) {
-                temp.parent.left = temp;
+            if (curNode.equals(temp.getParent().getLeft())) {
+                temp.getParent().setLeft(temp);
             } else {
-                temp.parent.right = temp;
+                temp.getParent().setRight(temp);
             }
         } else {
             // 只有root节点的parent为nilNode
-            root = temp;
+            setRoot(temp);
         }
-        return temp;
+        return getRoot();
     }
 
     /**
-     * Similar to original transplant() method in BST but uses nilNode instead of null.
      * 类似于BinarySearchTree中的节点移植方法，但使用nilNode而不使用null
      */
-    @Override
-    public RedBlackTreeNode<T> nodeTransplant(@NotNull Node<T> replaceNode, Node<T> node) {
-        RedBlackTreeNode<T> nodeToReplace = (RedBlackTreeNode<T>) replaceNode, newNode = (RedBlackTreeNode<T>) node;
-        if (nodeToReplace.getParent().equals(nilNode)) {
+    public void nodeTransplant(@NotNull Node<T> replaceNode, Node<T> node) {
+        if (replaceNode.getParent().equals(nilNode)) {
             // 替换的节点是根节点
-            root = newNode;
-        } else if (nodeToReplace.equals(nodeToReplace.getParent().getLeft())) {
+            setRoot(node);
+        } else if (replaceNode.equals(replaceNode.getParent().getLeft())) {
             // 替换的节点是左子树根节点
-            nodeToReplace.parent.left = newNode;
+            replaceNode.getParent().setLeft(node);
         } else {
             // 替换的节点是右子树的根节点
-            nodeToReplace.parent.right = newNode;
+            replaceNode.getParent().setRight(node);
         }
         // 新节点继承老节点的父亲
-        newNode.parent = nodeToReplace.getParent();
+        node.setParent(replaceNode.getParent());
         // 返回替换后的节点
-        return newNode;
     }
 
-    public void adjustAfterDeletingNode(@NotNull RedBlackTreeNode<T> node) {
+    public void adjustAfterDeletingNode(@NotNull Node<T> node) {
         while (!node.equals(getRoot()) && isBlack(node)) {
             // 当节点不为根节点且颜色为黑时
             if (node.equals(node.getParent().getLeft())) {
                 // 如果是左子树, 获取它的兄弟结点(右子树)
-                RedBlackTreeNode<T> brother = node.getParent().getRight();
+                Node<T> brother = node.getParent().getRight();
                 if (isRed(brother)) {
                     // 兄弟节点是红色, 变为黑色
                     brother.color = ColorEnum.BLACK;
@@ -233,7 +231,7 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
                     node = node.getParent();
                 }
             } else {
-                RedBlackTreeNode<T> brother = node.getParent().getLeft();
+                Node<T> brother = node.getParent().getLeft();
                 if (isRed(brother)) {
                     brother.color = ColorEnum.BLACK;
                     node.getParent().color = ColorEnum.RED;
@@ -264,11 +262,11 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
         }
     }
 
-    public boolean isBlack(RedBlackTreeNode<T> node) {
+    public boolean isBlack(Node<T> node) {
         return node != null && node.color == ColorEnum.BLACK;
     }
 
-    public boolean isRed(RedBlackTreeNode<T> node) {
+    public boolean isRed(Node<T> node) {
         return node != null && node.color == ColorEnum.RED;
     }
 
@@ -277,13 +275,13 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
      * 1. root节点变成红色
      * 2. 根节点为红色那么子节点必须为黑色
      */
-    public void adjustAfterInsertingNode(@NotNull RedBlackTreeNode<T> currentNode) {
+    public void adjustAfterInsertingNode(@NotNull Node<T> currentNode) {
         // currentNode为红色, 如果父节点也为红色, 那么需要调整, 否则退出
         while (!getRoot().equals(currentNode.getParent()) && currentNode.getParent().color == ColorEnum.RED) {
-            RedBlackTreeNode<T> parent = currentNode.getParent();
-            RedBlackTreeNode<T> grandParent = parent.getParent();
+            Node<T> parent = currentNode.getParent();
+            Node<T> grandParent = parent.getParent();
             if (parent.equals(grandParent.getLeft())) {
-                RedBlackTreeNode<T> uncle = grandParent.getRight();
+                Node<T> uncle = grandParent.getRight();
                 // 情况1: 叔叔节点(父节点的兄弟节点) 和父节点都是红色
                 // 将他们的颜色都变成黑色
                 if (uncle.color == ColorEnum.RED) {
@@ -306,7 +304,7 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
                     rotateRight(grandParent);
                 }
             } else if (parent.equals(grandParent.getRight())) {
-                RedBlackTreeNode<T> uncle = grandParent.getLeft();
+                Node<T> uncle = grandParent.getLeft();
                 // 情况1: 叔叔和父亲都为红色, 变为黑色
                 if (uncle.color == ColorEnum.RED) {
                     parent.color = ColorEnum.BLACK;
@@ -349,34 +347,59 @@ public class RedBlackTree<T> extends SelfBalancingBinaryTree<T> {
      * @author xiaoxiaoyi
      * 红黑树节点, 继承自旋转搜索树
      */
-    public static class RedBlackTreeNode<T> extends Node<T> {
+    @Getter
+    @Setter
+    public static class Node<T> extends BinarySearchTree.Node<T> {
 
         /**
          * 节点颜色
          */
-        public ColorEnum color;
+        private ColorEnum color;
 
-        public RedBlackTreeNode(T element, ColorEnum color) {
+        public Node(T element, ColorEnum color) {
             super(element);
             this.color = color;
         }
 
-        public RedBlackTreeNode<T> getLeft() {
-            return (RedBlackTreeNode<T>) super.getLeft();
+        @Override
+        public Node<T> getLeft() {
+            return (Node<T>) super.getLeft();
         }
 
-        public RedBlackTreeNode<T> getRight() {
-            return (RedBlackTreeNode<T>) super.getRight();
+        @Override
+        public Node<T> getRight() {
+            return (Node<T>) super.getRight();
         }
 
-        public RedBlackTreeNode<T> getParent() {
-            return (RedBlackTreeNode<T>) super.parent;
+        @Override
+        public Node<T> getParent() {
+            return (Node<T>) super.getParent();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            if (!super.equals(o)) {
+                return false;
+            }
+            Node<?> node = (Node<?>) o;
+            return color == node.color;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(super.hashCode(), color);
         }
 
         @Override
         public String toString() {
             return "Node{" +
-                    "element=" + element +
+                    "element=" + this.getElement() +
                     "color=" + color +
                     '}';
         }

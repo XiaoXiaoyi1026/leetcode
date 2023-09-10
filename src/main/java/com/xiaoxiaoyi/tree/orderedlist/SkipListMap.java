@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class SkipListMap {
 
+    private SkipListMap() {}
+
     /**
      * 跳表节点
      *
@@ -18,10 +20,10 @@ public class SkipListMap {
      * @param <V> value
      */
     public static class SkipListNode<K extends Comparable<K>, V> {
-        public K key;
-        public V value;
+        protected K key;
+        protected V value;
         // 指向下一个节点的指针数组
-        public List<SkipListNode<K, V>> nextNodes;
+        public final List<SkipListNode<K, V>> nextNodes;
 
         public SkipListNode(K key, V value) {
             this.key = key;
@@ -56,7 +58,7 @@ public class SkipListMap {
         // 跳表大小(节点个数)
         private int size;
         // 跳表节点中最大的层数(链表个数)
-        public int maxLevel;
+        protected int maxLevel;
 
         public SkipList() {
             head = new SkipListNode<>(null, null);

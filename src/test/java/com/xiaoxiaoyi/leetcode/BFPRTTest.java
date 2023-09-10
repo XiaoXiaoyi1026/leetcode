@@ -1,5 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
+import com.xiaoxiaoyi.exception.MyException;
 import junit.framework.TestCase;
 
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class BFPRTTest extends TestCase {
         return tmp[k - 1];
     }
 
-    public void testKthSmallest() {
+    public void testKthSmallest() throws MyException {
         int testTimes = 1000;
         for (int i = 0; i < testTimes; i++) {
             int length = 1 + (int) (Math.random() * 20);
@@ -42,7 +43,7 @@ public class BFPRTTest extends TestCase {
         }
     }
 
-    public void testAdjust() {
+    public void testAdjust() throws MyException {
         int length = 1 + (int) (Math.random() * 20);
         int max = (int) (Math.random() * 20);
         int[] arr = generateRandomArray(length, max);

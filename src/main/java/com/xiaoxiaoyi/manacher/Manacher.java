@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.manacher;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author xiaoxiaoyi
  * 回文直径/半径
@@ -15,13 +17,17 @@ package com.xiaoxiaoyi.manacher;
  */
 public class Manacher {
 
+    private Manacher() {
+    }
+
     /**
      * 把原始串变成处理串
      *
      * @param str 字符串
      * @return 处理过后的串
      */
-    public static char[] manacherString(String str) {
+    @NotNull
+    public static char[] manacherString(@NotNull String str) {
         char[] strChars = str.toCharArray();
         char[] res = new char[2 * str.length() + 1];
         for (int i = 0; i < res.length; i++) {
@@ -38,7 +44,7 @@ public class Manacher {
      * @return 最大回文子串长度
      */
     public static int maxPalindromicRadiusLength(String str) {
-        if (str == null || str.length() == 0) {
+        if (str == null || str.isEmpty()) {
             return 0;
         }
         // 处理后的字符串 123 -> #1#2#3#

@@ -1,5 +1,7 @@
 package com.xiaoxiaoyi.tree;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -8,21 +10,27 @@ import java.util.Objects;
  * @author xiaoxiaoyi
  * 树(节点含有元素)
  */
+@Getter
+@Setter
 public class ElementBinaryTree<T> extends BinaryTree {
 
+    @Getter
+    @Setter
     public static class Node<T> extends BinaryTree.Node {
-        public final T element;
+        T element;
 
         public Node(T element) {
             super();
             this.element = element;
         }
 
+        @Override
         @SuppressWarnings("unchecked")
         public Node<T> getLeft() {
             return (Node<T>) this.left;
         }
 
+        @Override
         @SuppressWarnings("unchecked")
         public Node<T> getRight() {
             return (Node<T>) this.right;
@@ -53,6 +61,7 @@ public class ElementBinaryTree<T> extends BinaryTree {
         }
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public Node<T> getRoot() {
         return (Node<T>) root;

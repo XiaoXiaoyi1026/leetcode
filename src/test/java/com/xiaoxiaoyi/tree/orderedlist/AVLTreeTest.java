@@ -1,7 +1,9 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
 import com.xiaoxiaoyi.tree.BinarySearchTree;
+import com.xiaoxiaoyi.tree.ElementBinaryTree;
 import junit.framework.TestCase;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
@@ -9,9 +11,10 @@ public class AVLTreeTest extends TestCase {
 
     private AVLTree<Integer> avlTree;
 
-    private void createTree(int[] input) {
+    private void createTree(@NotNull int[] input) {
+
         avlTree = new AVLTree<>(
-                Comparator.comparingInt(o -> o.element)
+                Comparator.comparingInt(ElementBinaryTree.Node::getElement)
         );
         for (int i : input) {
             avlTree.insert(i);
@@ -23,10 +26,10 @@ public class AVLTreeTest extends TestCase {
         createTree(input);
         BinarySearchTree.print(avlTree.getRoot());
         System.out.println("=====================");
-        System.out.println(avlTree.root);
+        System.out.println(avlTree.getRoot());
         System.out.println("=====================");
         avlTree.insert(7);
-        System.out.println(avlTree.root);
+        System.out.println(avlTree.getRoot());
         System.out.println("=====================");
         BinarySearchTree.print(avlTree.getRoot());
     }
@@ -37,10 +40,10 @@ public class AVLTreeTest extends TestCase {
         System.out.println("=====================");
         BinarySearchTree.print(avlTree.getRoot());
         System.out.println("=====================");
-        System.out.println(avlTree.root);
+        System.out.println(avlTree.getRoot());
         System.out.println("=====================");
-        avlTree.remove(new AVLTree.AvlNode<>(4));
-        System.out.println(avlTree.root);
+        avlTree.remove(new AVLTree.Node<>(4));
+        System.out.println(avlTree.getRoot());
         System.out.println("=====================");
         BinarySearchTree.print(avlTree.getRoot());
     }

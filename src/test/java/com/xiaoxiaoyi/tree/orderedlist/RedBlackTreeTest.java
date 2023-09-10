@@ -1,17 +1,19 @@
 package com.xiaoxiaoyi.tree.orderedlist;
 
 import com.xiaoxiaoyi.tree.BinarySearchTree;
+import com.xiaoxiaoyi.tree.ElementBinaryTree;
 import junit.framework.TestCase;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
-public class RedBlackBinarySearchTreeTest extends TestCase {
+public class RedBlackTreeTest extends TestCase {
 
     private RedBlackTree<Integer> redBlackTree;
 
-    public void createTree(int[] input) {
+    public void createTree(@NotNull int[] input) {
         redBlackTree = new RedBlackTree<>(
-                Comparator.comparingInt(o -> o.element)
+                Comparator.comparingInt(ElementBinaryTree.Node::getElement)
         );
         for (int i : input) {
             redBlackTree.insert(i);

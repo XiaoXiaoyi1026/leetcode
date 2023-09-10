@@ -1,5 +1,9 @@
 package com.xiaoxiaoyi.leetcode;
 
+import com.xiaoxiaoyi.exception.MyException;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 /**
@@ -8,12 +12,16 @@ import java.util.Arrays;
  */
 public class BFPRT {
 
+    private static final String WRONG_MESSAGE = "Invalid params!";
+
+    private BFPRT() {}
+
     /**
      * @return arr中第k小的数
      */
-    public static int getKthSmallest(int[] arr, int k) {
+    public static int getKthSmallest(int[] arr, int k) throws MyException {
         if (arr == null || arr.length == 0 || k > arr.length) {
-            throw new RuntimeException("Invalid params!");
+            throw new MyException(WRONG_MESSAGE);
         }
         // 第k小的数, 排序后对应的下标为k-1
         return bfprt(arr, 0, arr.length - 1, k - 1);
@@ -23,7 +31,7 @@ public class BFPRT {
      * 求arr[start]~arr[end]范围内第k小的数
      * i一定 >=start && <=end
      */
-    public static int bfprt(int[] arr, int start, int end, int i) {
+    public static int bfprt(int[] arr, int start, int end, int i) throws MyException {
         /*
         使用二分搜索法, 先从原数组中随机选择1个数x, 数组中<x的数放左边, =x的放中间, >x的放右边
         判断=x范围内的小标有没有命中, 如果没有再根据k的情况递归选择去左边或者右边找这个数
@@ -63,7 +71,7 @@ public class BFPRT {
      * @param arr 原数组
      * @return 5个数为一组, 每一组求一个中位数, 然后在这个中位数数组中的中位数返回
      */
-    public static int medianOfMedians(int[] arr, int start, int end) {
+    public static int medianOfMedians(int[] arr, int start, int end) throws MyException {
         int n = end - start + 1;
         // 共分成(n + 4) / 5组
         int groups = (n + 4) / 5;
@@ -80,10 +88,12 @@ public class BFPRT {
     /**
      * 将arr调整为左侧全部<standard, 中间全部等于standard, 右边全部大于standard的状态
      */
-    public static int[] adjust(int[] arr, int start, int end, int standard) {
+    @NotNull
+    @Contract("_, _, _, _ -> new")
+    public static int[] adjust(int[] arr, int start, int end, int standard) throws MyException {
         int n = end - start + 1;
         if (n <= 0) {
-            throw new RuntimeException("Invalid params!");
+            throw new MyException(WRONG_MESSAGE);
         }
         int cur = start;
         // 小于区的右边界
@@ -106,10 +116,10 @@ public class BFPRT {
     /**
      * 获取arr[start]~arr[end]范围上的中位数
      */
-    public static int getMedian(int[] arr, int start, int end) {
+    public static int getMedian(int[] arr, int start, int end) throws MyException {
         int n = end - start + 1;
         if (n <= 0 || n > 5) {
-            throw new RuntimeException("Invalid params!");
+            throw new MyException(WRONG_MESSAGE);
         }
         int[] tmp = new int[n];
         System.arraycopy(arr, start, tmp, 0, n);
@@ -117,7 +127,7 @@ public class BFPRT {
         return tmp[(n - 1) >> 1];
     }
 
-    public static void swap(int[] arr, int from, int to) {
+    public static void swap(@NotNull int[] arr, int from, int to) {
         int tmp = arr[from];
         arr[from] = arr[to];
         arr[to] = tmp;

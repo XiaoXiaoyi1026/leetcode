@@ -5,6 +5,7 @@ import com.xiaoxiaoyi.tree.orderedlist.RedBlackTree;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author xiaoxiaoyi
@@ -34,7 +35,7 @@ public class MyHashMap<K, V> {
      */
     private long lastSetAllTime;
 
-    public static class MyEntry<K, V> extends RedBlackTree.RedBlackTreeNode<K> {
+    public static class MyEntry<K, V> extends RedBlackTree.Node<K> {
         private V value;
         /**
          * 记录插入的时间
@@ -54,6 +55,19 @@ public class MyHashMap<K, V> {
         @Override
         public MyEntry<K, V> getLeft() {
             return (MyEntry<K, V>) super.getLeft();
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public boolean equals(Object other) {
+            if (other == null) return false;
+            if (getClass() != other.getClass()) return false;
+            return this.getElement() == ((MyEntry<K, V>) other).getElement();
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.getElement());
         }
     }
 
@@ -94,7 +108,7 @@ public class MyHashMap<K, V> {
         } else {
             if (curEntry.tree == null) {
                 // 如果还没有转变为红黑树, 则在单链表上查找key
-                while (curEntry != null && curEntry.element != key) {
+                while (curEntry != null && curEntry.getElement() != key) {
                     curEntry = curEntry.getLeft();
                 }
             } else {
@@ -126,7 +140,7 @@ public class MyHashMap<K, V> {
                 for (int i = 0; i < size; i++) {
                     MyEntry<K, V> cur = entrySet.get(i);
                     if (cur != null) {
-                        if ((cur.element.hashCode() & highestOneBit) == highestOneBit) {
+                        if ((cur.getElement().hashCode() & highestOneBit) == highestOneBit) {
                             newEntrySet.set(i + entrySet.size(), cur);
                         } else {
                             newEntrySet.set(i, cur);
@@ -139,18 +153,18 @@ public class MyHashMap<K, V> {
         } else {
             int listSize = 0;
             MyEntry<K, V> tmp = curEntry;
-            while (tmp != null && tmp.element != key) {
+            while (tmp != null && tmp.getElement() != key) {
                 listSize++;
                 tmp = tmp.getLeft();
             }
             if (tmp == null) {
                 tmp = new MyEntry<>(key, value);
                 if (listSize < convert) {
-                    curEntry.left = tmp;
+                    curEntry.setLeft(tmp);
                 } else {
                     if (curEntry.tree == null) {
                         RedBlackTree<K> tree = new RedBlackTree<>(
-                                Comparator.comparingInt(o -> o.element.hashCode())
+                                Comparator.comparingInt(o -> o.getElement().hashCode())
                         );
                         while (curEntry != null) {
                             tree.insert(curEntry);
@@ -180,7 +194,7 @@ public class MyHashMap<K, V> {
         } else {
             if (curEntry.tree == null) {
                 // 如果还没有转变为红黑树, 则在单链表上查找key
-                while (curEntry != null && curEntry.element != key) {
+                while (curEntry != null && curEntry.getElement() != key) {
                     curEntry = curEntry.getLeft();
                 }
             } else {
@@ -205,10 +219,10 @@ public class MyHashMap<K, V> {
     }
 
     private List<MyEntry<K, V>> initializeSet(int size) {
-        List<MyEntry<K, V>> entrySet = new ArrayList<>(size);
+        List<MyEntry<K, V>> temp = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
-            entrySet.add(null);
+            temp.add(null);
         }
-        return entrySet;
+        return temp;
     }
 }
