@@ -73,6 +73,20 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         public int hashCode() {
             return Objects.hash(this.start, this.end, this.element);
         }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "start=" + start +
+                    ", end=" + end +
+                    ", element=" + element +
+                    '}';
+        }
+    }
+
+    public SegmentTree(int length) {
+        this.arr = new int[length];
+        root = build(0, length);
     }
 
     public SegmentTree(@NotNull int[] arr) {
@@ -84,6 +98,16 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
     @Override
     public Node getRoot() {
         return (Node) root;
+    }
+
+    @Override
+    public String toString() {
+        this.print();
+        return "";
+    }
+
+    public void add(int index, int value) {
+        add(0, index, value);
     }
 
     /**
@@ -120,17 +144,20 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         }
         // 如果当前节点没被累加区间完全包含, 那么需要将当前节点的累加和更新任务向子节点进行传递
         pushDown(curNode);
-        int mid = curNode.start + ((curNode.end - curNode.start) >> 1);
-        if (from < mid) {
-            // 左子结点范围是: [curNode.start, mid), from < mid 说明操作范围与左子节点范围有交集, 需要传递任务给左子结点
+        if (curNode.getLeft() != null && from < curNode.getLeft().end) {
+            // 左子节点范围是: [curNode.start, curNode.getLeft().end), from < curNode.getLeft().end 说明操作范围与左子节点范围有交集, 需要传递任务给左子结点
             add(curNode.getLeft(), from, to, value);
         }
-        if (to > mid) {
-            // 右子节点范围是: [mid, curNode.end), to >= mid 说明操作范围与右子节点范围有交集, 需要传递任务给右子结点
+        if (curNode.getRight() != null && to > curNode.getRight().start) {
+            // 右子节点范围是: [curNode.getRight().start, curNode.end), to > curNode.getRight().start 说明操作范围与右子节点范围有交集, 需要传递任务给右子结点
             add(curNode.getRight(), from, to, value);
         }
         // 子节点更新完后, 自己更新
         pushUp(curNode);
+    }
+
+    public void update(int index, int value) {
+        update(0, index, value);
     }
 
     /**
@@ -168,14 +195,17 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         }
         // 如果当前节点没被累加区间完全包含, 那么需要将当前节点的累加和更新任务向子节点进行传递
         pushDown(curNode);
-        int mid = curNode.start + ((curNode.end - curNode.start) >> 1);
-        if (from < mid) {
+        if (curNode.getLeft() != null && from < curNode.getLeft().end) {
             update(curNode.getLeft(), from, to, value);
         }
-        if (to > mid) {
+        if (curNode.getRight() != null && to > curNode.getRight().start) {
             update(curNode.getRight(), from, to, value);
         }
         pushUp(curNode);
+    }
+
+    public int query(int index) {
+        return query(0, index);
     }
 
     /**
@@ -207,15 +237,13 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         }
         // 如果查询范围并未完全包含当前节点范围, 那么当前节点先下发任务给子节点, 让子节点去更新
         pushDown(curNode);
-        int mid = curNode.start + ((curNode.end - curNode.start) >> 1);
         int res = 0;
-        if (from < mid) {
+        if (curNode.getLeft() != null && from < curNode.getLeft().end) {
             res += query(curNode.getLeft(), from, to);
         }
-        if (to > mid) {
+        if (curNode.getRight() != null && to > curNode.getRight().start) {
             res += query(curNode.getRight(), from, to);
         }
-        pushUp(curNode);
         return res;
     }
 
@@ -283,9 +311,9 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
     }
 
     private void pushUp(@NotNull Node curNode) {
-        if (curNode.getLeft() != null && curNode.getRight() != null) {
-            curNode.element = curNode.getLeft().element + curNode.getRight().element;
-        }
+        int leftElement = curNode.getLeft() == null ? 0 : curNode.getLeft().element;
+        int rightElement = curNode.getRight() == null ? 0 : curNode.getRight().element;
+        curNode.setElement(leftElement + rightElement);
     }
 
     public void print() {

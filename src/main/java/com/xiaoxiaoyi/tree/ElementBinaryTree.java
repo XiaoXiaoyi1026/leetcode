@@ -102,7 +102,7 @@ public class ElementBinaryTree<T> extends BinaryTree {
         if (node.element == null) {
             System.out.print("<null>");
         } else {
-            System.out.print(node.element);
+            System.out.print(node);
         }
         System.out.println();
     }

@@ -2,7 +2,9 @@ package com.xiaoxiaoyi.utils;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class RandomGenerate {
 
@@ -13,6 +15,25 @@ public class RandomGenerate {
     }
 
     private RandomGenerate() {
+    }
+
+    @NotNull
+    public static int[] set(int length, int max) {
+        return set(length, max, 0);
+    }
+
+    @NotNull
+    public static int[] set(int length, int max, int min) {
+        Set<Integer> set = new HashSet<>();
+        while (set.size() < length) {
+            set.add(RANDOM.nextInt(max - min) + min);
+        }
+        int[] arr = new int[length];
+        int index = 0;
+        for (Integer i : set) {
+            arr[index++] = i;
+        }
+        return arr;
     }
 
     /**
