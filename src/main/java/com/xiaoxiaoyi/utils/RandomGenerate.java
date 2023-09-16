@@ -23,6 +23,14 @@ public class RandomGenerate {
     }
 
     @NotNull
+    public static int[] set(int length, int max, boolean randomLength) {
+        if (randomLength) {
+            length = RANDOM.nextInt(length);
+        }
+        return set(length, max, 0);
+    }
+
+    @NotNull
     public static int[] set(int length, int max, int min) {
         Set<Integer> set = new HashSet<>();
         while (set.size() < length) {

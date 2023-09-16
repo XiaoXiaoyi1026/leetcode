@@ -29,12 +29,25 @@ public class SegmentTreeTest extends TestCase {
             }
         }
 
-        public int query(int from, int to) {
+        public int get(int from, int to) {
             int res = 0;
             for (int i = from; i < to; i++) {
                 res += arr[i];
             }
             return res;
+        }
+
+        public int max(int from, int to) {
+            int res = Integer.MIN_VALUE;
+            for (int i = from; i < to; i++) {
+                res = Math.max(res, arr[i]);
+            }
+            return res;
+        }
+
+        @Override
+        public String toString() {
+            return Arrays.toString(arr);
         }
     }
 
@@ -69,20 +82,22 @@ public class SegmentTreeTest extends TestCase {
                 testTree.add(from, to, value);
                 segmentTree.add(from, to, value);
             }
-            from = random.nextInt(length);
-            to = from + random.nextInt(length - from);
-            testTreeQueryAnswer = testTree.query(from, to);
-            segmentTreeQueryAnswer = segmentTree.query(from, to);
-            if (testTreeQueryAnswer != segmentTreeQueryAnswer) {
-                System.out.println("testTreeQueryAnswer = " + testTreeQueryAnswer);
-                System.out.println("segmentTreeQueryAnswer = " + segmentTreeQueryAnswer);
-                System.out.println("arr = " + Arrays.toString(arr));
-                System.out.println("from = " + from);
-                System.out.println("to = " + to);
-                System.out.println("testTree = " + testTree);
-                System.out.println("segmentTree = " + segmentTree);
-                System.out.println("testTree.query(from, to) != segmentTree.query(from, to)");
-                break;
+            while (random.nextFloat() < 0.8) {
+                from = random.nextInt(length);
+                to = from + random.nextInt(length - from);
+                testTreeQueryAnswer = testTree.get(from, to);
+                segmentTreeQueryAnswer = segmentTree.get(from, to);
+                if (testTreeQueryAnswer != segmentTreeQueryAnswer) {
+                    System.out.println("testTreeQueryAnswer = " + testTreeQueryAnswer);
+                    System.out.println("segmentTreeQueryAnswer = " + segmentTreeQueryAnswer);
+                    System.out.println("arr = " + Arrays.toString(arr));
+                    System.out.println("from = " + from);
+                    System.out.println("to = " + to);
+                    System.out.println("testTree = " + testTree);
+                    System.out.println("segmentTree = " + segmentTree);
+                    System.out.println("testTree.query(from, to) != segmentTree.query(from, to)");
+                    break;
+                }
             }
         }
         System.out.println("测试结束!!!");
@@ -104,16 +119,18 @@ public class SegmentTreeTest extends TestCase {
             arr = RandomGenerate.array(length, maxValue);
             testTree = new TestTree(arr);
             segmentTree = new SegmentTree(arr);
-            while (random.nextBoolean()) {
+            while (random.nextFloat() < 0.8) {
                 from = random.nextInt(length);
                 to = from + random.nextInt(length - from);
                 value = random.nextInt(maxValue);
                 testTree.update(from, to, value);
                 segmentTree.update(from, to, value);
             }
-            from = random.nextInt(length);
-            to = from + random.nextInt(length - from);
-            assertEquals(testTree.query(from, to), segmentTree.query(from, to));
+            while (random.nextFloat() < 0.8) {
+                from = random.nextInt(length);
+                to = from + random.nextInt(length - from);
+                assertEquals(testTree.get(from, to), segmentTree.get(from, to));
+            }
         }
         System.out.println("测试结束!!!");
     }
@@ -133,59 +150,178 @@ public class SegmentTreeTest extends TestCase {
         Random random = RandomGenerate.getRandom();
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            System.out.println("测试数据组：" + (i + 1));
             arr = RandomGenerate.array(length, maxValue);
             testTree = new TestTree(arr);
             segmentTree = new SegmentTree(arr);
-            System.out.println("arr = " + Arrays.toString(testTree.arr));
-            while (random.nextBoolean()) {
+            while (random.nextFloat() < 0.8) {
                 from = random.nextInt(length);
                 to = from + random.nextInt(length - from);
                 value = random.nextInt(maxValue);
                 testTree.add(from, to, value);
                 segmentTree.add(from, to, value);
-                System.out.println("[" + from + ", " + to + ") add " + value);
-                System.out.println("arr = " + Arrays.toString(testTree.arr));
-                segmentTree.print();
             }
-            while (random.nextBoolean()) {
+            while (random.nextFloat() < 0.8) {
                 from = random.nextInt(length);
                 to = from + random.nextInt(length - from);
                 value = random.nextInt(maxValue);
                 testTree.update(from, to, value);
                 segmentTree.update(from, to, value);
-                System.out.println("[" + from + ", " + to + ") update " + value);
-                System.out.println("arr = " + Arrays.toString(testTree.arr));
-                segmentTree.print();
             }
+            while (random.nextFloat() < 0.8) {
+                from = random.nextInt(length);
+                to = from + random.nextInt(length - from);
+                testTreeQueryAnswer = testTree.get(from, to);
+                segmentTreeQueryAnswer = segmentTree.get(from, to);
+                if (testTreeQueryAnswer != segmentTreeQueryAnswer) {
+                    System.out.println("from = " + from);
+                    System.out.println("to = " + to);
+                    System.out.println("testTreeQueryAnswer = " + testTreeQueryAnswer);
+                    System.out.println("segmentTreeQueryAnswer = " + segmentTreeQueryAnswer);
+                    System.out.println("segmentTree: ");
+                    for (int j = 0; j < arr.length; j++) {
+                        System.out.print(segmentTree.get(j, j + 1) + " ");
+                    }
+                    System.out.println();
+                    segmentTree.print();
+                    System.out.println(Arrays.toString(testTree.arr));
+                    System.out.println("测试未通过!!!");
+                    break;
+                }
+            }
+        }
+        System.out.println("测试结束!!!");
+    }
+
+    public void testMax() {
+        int testTimes = 1000;
+        int length = 10;
+        int maxValue = 20;
+        TestTree testTree;
+        SegmentTree segmentTree;
+        Random random = RandomGenerate.getRandom();
+        int[] arr;
+        int from;
+        int to;
+        int max1;
+        int max2;
+        System.out.println("测试开始!!!");
+        for (int i = 0; i < testTimes; i++) {
+            arr = RandomGenerate.array(length, maxValue);
+            testTree = new TestTree(arr);
+            segmentTree = new SegmentTree(arr);
             from = random.nextInt(length);
             to = from + random.nextInt(length - from);
-            testTreeQueryAnswer = testTree.query(from, to);
-            segmentTreeQueryAnswer = segmentTree.query(from, to);
-            if (testTreeQueryAnswer != segmentTreeQueryAnswer) {
+            max1 = testTree.max(from, to);
+            max2 = segmentTree.max(from, to);
+            if (max1 != max2) {
+                System.out.println("max1 = " + max1);
+                System.out.println("max2 = " + max2);
+                System.out.println("arr = " + Arrays.toString(arr));
                 System.out.println("from = " + from);
                 System.out.println("to = " + to);
-                System.out.println("testTreeQueryAnswer = " + testTreeQueryAnswer);
-                System.out.println("segmentTreeQueryAnswer = " + segmentTree.query(from, to));
-                System.out.println("segmentTree: ");
-                for (int j = 0; j < arr.length; j++) {
-                    System.out.print(segmentTree.query(j, j + 1) + " ");
-                }
-                System.out.println();
-                segmentTree.print();
-                System.out.println(Arrays.toString(testTree.arr));
-                System.out.println("测试未通过!!!");
+                System.out.println("testTree = " + testTree);
+                System.out.println("segmentTree = " + segmentTree);
                 break;
             }
         }
         System.out.println("测试结束!!!");
     }
 
-    public void testUpdate2() {
-        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        SegmentTree segmentTree = new SegmentTree(arr);
-        segmentTree.update(0, 0, 100);
-        segmentTree.print();
+    public void testAddAndMax() {
+        int testTimes = 10000;
+        int length = 100;
+        int maxValue = 200;
+        TestTree testTree;
+        SegmentTree segmentTree;
+        Random random = RandomGenerate.getRandom();
+        int[] arr;
+        int from;
+        int to;
+        int value;
+        int max1;
+        int max2;
+        boolean testFailed = false;
+        System.out.println("测试开始!!!");
+        for (int i = 0; i < testTimes; i++) {
+            arr = RandomGenerate.array(length, maxValue);
+            testTree = new TestTree(arr);
+            segmentTree = new SegmentTree(arr);
+            while (random.nextFloat() < 0.8) {
+                from = random.nextInt(length);
+                to = from + random.nextInt(length - from);
+                value = random.nextInt(maxValue);
+                testTree.add(from, to, value);
+                segmentTree.add(from, to, value);
+            }
+            while (random.nextFloat() < 0.8) {
+                from = random.nextInt(length);
+                to = from + random.nextInt(length - from);
+                max1 = testTree.max(from, to);
+                max2 = segmentTree.max(from, to);
+                if (max1 != max2) {
+                    System.out.println("max1 = " + max1);
+                    System.out.println("max2 = " + max2);
+                    System.out.println("arr = " + Arrays.toString(arr));
+                    System.out.println("from = " + from);
+                    System.out.println("to = " + to);
+                    System.out.println("testTree = " + testTree);
+                    System.out.println("segmentTree = " + segmentTree);
+                    testFailed = true;
+                }
+            }
+            if (testFailed) {
+                break;
+            }
+        }
+        System.out.println("测试结束!!!");
     }
 
+    public void testUpdateAndMax() {
+        int testTimes = 10000;
+        int length = 100;
+        int maxValue = 200;
+        TestTree testTree;
+        SegmentTree segmentTree;
+        Random random = RandomGenerate.getRandom();
+        int[] arr;
+        int from;
+        int to;
+        int value;
+        int max1;
+        int max2;
+        boolean testFailed = false;
+        System.out.println("测试开始!!!");
+        for (int i = 0; i < testTimes; i++) {
+            arr = RandomGenerate.array(length, maxValue);
+            testTree = new TestTree(arr);
+            segmentTree = new SegmentTree(arr);
+            while (random.nextFloat() < 0.8) {
+                from = random.nextInt(length);
+                to = from + random.nextInt(length - from);
+                value = random.nextInt(maxValue);
+                testTree.update(from, to, value);
+                segmentTree.update(from, to, value);
+            }
+            while (random.nextFloat() < 0.8) {
+                from = random.nextInt(length);
+                to = from + random.nextInt(length - from);
+                max1 = testTree.max(from, to);
+                max2 = segmentTree.max(from, to);
+                if (max1 != max2) {
+                    System.out.println("max1 = " + max1);
+                    System.out.println("max2 = " + max2);
+                    System.out.println("arr = " + Arrays.toString(arr));
+                    System.out.println("from = " + from);
+                    System.out.println("to = " + to);
+                    System.out.println("testTree = " + testTree);
+                    System.out.println("segmentTree = " + segmentTree);
+                    testFailed = true;
+                }
+            }
+            if (testFailed) {
+                break;
+            }
+        }
+        System.out.println("测试结束!!!");
+    }
 }

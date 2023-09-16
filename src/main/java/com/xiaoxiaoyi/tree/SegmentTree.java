@@ -39,6 +39,11 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
          */
         boolean lazyUpdateFlag;
 
+        /**
+         * [start, end) 范围内的最大值(懒更新)
+         */
+        int lazyMax;
+
         public Node(int start, int end) {
             this(start, end, 0);
         }
@@ -50,6 +55,7 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
             this.lazyAdd = 0;
             this.lazyUpdate = 0;
             this.lazyUpdateFlag = false;
+            this.lazyMax = Integer.MIN_VALUE;
         }
 
         @Override
@@ -77,9 +83,8 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         @Override
         public String toString() {
             return "Node{" +
-                    "start=" + start +
-                    ", end=" + end +
-                    ", element=" + element +
+                    "element=" + element +
+                    ", max=" + lazyMax +
                     '}';
         }
     }
@@ -106,8 +111,8 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         return "";
     }
 
-    public void add(int index, int value) {
-        add(0, index, value);
+    public void add(int to, int value) {
+        add(0, to, value);
     }
 
     /**
@@ -140,6 +145,7 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
             curNode.lazyAdd += value;
             // 更新自己的信息
             curNode.element += value * (curNode.end - curNode.start);
+            curNode.lazyMax += value;
             return;
         }
         // 如果当前节点没被累加区间完全包含, 那么需要将当前节点的累加和更新任务向子节点进行传递
@@ -156,8 +162,8 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         pushUp(curNode);
     }
 
-    public void update(int index, int value) {
-        update(0, index, value);
+    public void update(int to, int value) {
+        update(to - 1, to, value);
     }
 
     /**
@@ -191,6 +197,7 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
             // 更新当前节点的信息
             curNode.element = value * (curNode.end - curNode.start);
             curNode.lazyAdd = 0;
+            curNode.lazyMax = value;
             return;
         }
         // 如果当前节点没被累加区间完全包含, 那么需要将当前节点的累加和更新任务向子节点进行传递
@@ -204,8 +211,8 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         pushUp(curNode);
     }
 
-    public int query(int index) {
-        return query(0, index);
+    public int get(int to) {
+        return get(0, to);
     }
 
     /**
@@ -215,8 +222,8 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
      * @param to   范围右边界(不包含)
      * @return 范围信息
      */
-    public int query(int from, int to) {
-        return query(getRoot(), from, to);
+    public int get(int from, int to) {
+        return get(getRoot(), from, to);
     }
 
     /**
@@ -227,7 +234,7 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
      * @param to      范围右边界(不包含)
      * @return 范国数据
      */
-    public int query(Node curNode, int from, int to) {
+    public int get(Node curNode, int from, int to) {
         if (from >= to || curNode == null) {
             return 0;
         }
@@ -239,11 +246,38 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         pushDown(curNode);
         int res = 0;
         if (curNode.getLeft() != null && from < curNode.getLeft().end) {
-            res += query(curNode.getLeft(), from, to);
+            res += get(curNode.getLeft(), from, to);
         }
         if (curNode.getRight() != null && to > curNode.getRight().start) {
-            res += query(curNode.getRight(), from, to);
+            res += get(curNode.getRight(), from, to);
         }
+        return res;
+    }
+
+    public int max(int to) {
+        return max(0, to);
+    }
+
+    public int max(int from, int to) {
+        return max(getRoot(), from, to);
+    }
+
+    public int max(Node curNode, int from, int to) {
+        if (from >= to || curNode == null) {
+            return Integer.MIN_VALUE;
+        }
+        if (curNode.start >= from && curNode.end <= to) {
+            return curNode.lazyMax;
+        }
+        pushDown(curNode);
+        int res = 0;
+        if (curNode.getLeft() != null && from < curNode.getLeft().end) {
+            res = Math.max(res, max(curNode.getLeft(), from, to));
+        }
+        if (curNode.getRight() != null && to > curNode.getRight().start) {
+            res = Math.max(res, max(curNode.getRight(), from, to));
+        }
+        pushUp(curNode);
         return res;
     }
 
@@ -261,6 +295,7 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
                 curNode.getLeft().element = curNode.lazyUpdate * (curNode.getLeft().end - curNode.getLeft().start);
                 curNode.getLeft().lazyUpdateFlag = true;
                 curNode.getLeft().lazyAdd = 0;
+                curNode.getLeft().lazyMax = curNode.lazyUpdate;
             }
             if (curNode.getRight() != null) {
                 // 如果存在右节点, 则发给右节点
@@ -268,6 +303,7 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
                 curNode.getRight().element = curNode.lazyUpdate * (curNode.getRight().end - curNode.getRight().start);
                 curNode.getRight().lazyUpdateFlag = true;
                 curNode.getRight().lazyAdd = 0;
+                curNode.getRight().lazyMax = curNode.lazyUpdate;
             }
             // 当前节点的更新任务失效
             curNode.lazyUpdateFlag = false;
@@ -277,10 +313,12 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
             if (curNode.getLeft() != null) {
                 curNode.getLeft().lazyAdd += curNode.lazyAdd;
                 curNode.getLeft().element += curNode.lazyAdd * (curNode.getLeft().end - curNode.getLeft().start);
+                curNode.getLeft().lazyMax += curNode.lazyAdd;
             }
             if (curNode.getRight() != null) {
                 curNode.getRight().lazyAdd += curNode.lazyAdd;
                 curNode.getRight().element += curNode.lazyAdd * (curNode.getRight().end - curNode.getRight().start);
+                curNode.getRight().lazyMax += curNode.lazyAdd;
             }
             // 下发完成后, 当前节点的懒累加任务清空
             curNode.lazyAdd = 0;
@@ -301,6 +339,7 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         Node curNode = new Node(from, to);
         if (from == to - 1) {
             curNode.setElement(arr[from]);
+            curNode.setLazyMax(arr[from]);
         } else {
             int mid = from + ((to - from) >> 1);
             curNode.setLeft(build(from, mid));
@@ -314,6 +353,9 @@ public class SegmentTree extends ElementBinaryTree<Integer> {
         int leftElement = curNode.getLeft() == null ? 0 : curNode.getLeft().element;
         int rightElement = curNode.getRight() == null ? 0 : curNode.getRight().element;
         curNode.setElement(leftElement + rightElement);
+        int leftMax = curNode.getLeft() == null ? Integer.MIN_VALUE : curNode.getLeft().lazyMax;
+        int rightMax = curNode.getRight() == null ? Integer.MIN_VALUE : curNode.getRight().lazyMax;
+        curNode.setLazyMax(Math.max(leftMax, rightMax));
     }
 
     public void print() {
