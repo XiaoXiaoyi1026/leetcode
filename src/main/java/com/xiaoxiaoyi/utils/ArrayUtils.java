@@ -27,4 +27,11 @@ public class ArrayUtils {
             arr[i] += arr[i - 1];
         }
     }
+
+    public static void shuffle(@NotNull int[] arr) {
+        int n = arr.length;
+        for (int i = n - 1; i >= 0; i--) {
+            swap(arr, i, RandomGenerate.nextInt(i + 1));
+        }
+    }
 }

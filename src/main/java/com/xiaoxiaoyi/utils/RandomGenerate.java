@@ -195,4 +195,8 @@ public class RandomGenerate {
     public static Random getRandom() {
         return RANDOM;
     }
+
+    public static int nextInt(int bound) {
+        return RANDOM.nextInt(bound);
+    }
 }
