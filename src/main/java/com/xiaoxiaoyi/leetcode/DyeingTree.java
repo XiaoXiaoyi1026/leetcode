@@ -115,13 +115,17 @@ public class DyeingTree {
         // 生成邻接表
         List<List<Integer>> graph = adjacencyList(edges, n);
         boolean[] colorTypes = new boolean[4];
+        // 记录当前节点和其相邻节点的颜色种类
         int colorCount;
         for (int curNode = 0; curNode < n; curNode++) {
             if (colors[curNode] == 0) {
+                // 如果当前节点没有染色, 返回false
                 return false;
             }
+            // 标记当前节点的颜色已经存在
             colorTypes[colors[curNode]] = true;
             colorCount = 1;
+            // 当前节点必须为非叶节点
             if (graph.get(curNode).size() > 1) {
                 for (int nextNode : graph.get(curNode)) {
                     if (!colorTypes[colors[nextNode]]) {
@@ -130,9 +134,11 @@ public class DyeingTree {
                     }
                 }
                 if (colorCount < 3) {
+                    // 如果颜色种类小于3种, 则直接返回false
                     return false;
                 }
             }
+            // 重置标记
             Arrays.fill(colorTypes, false);
         }
         return true;
