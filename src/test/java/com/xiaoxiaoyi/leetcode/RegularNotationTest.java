@@ -2,7 +2,7 @@ package com.xiaoxiaoyi.leetcode;
 
 import junit.framework.TestCase;
 
-public class RegularExpressionTest extends TestCase {
+public class RegularNotationTest extends TestCase {
 
     public void testProcess() {
         String str = "aaaa";

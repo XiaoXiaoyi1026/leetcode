@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import junit.framework.TestCase;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class MaximumSubarraySumTest extends TestCase {
         for (int i = 0; i < 10000; i++) {
             int length = (int) (5 + Math.random() * 10);
             int max = (int) (20 + Math.random() * 30);
-            int[] array = RandomGenerate.array(length, max);
+            int[] array = RandomUtils.array(length, max);
             int ans1 = MaximumSubarraySum.maximumSubarraySum(array);
             int ans2 = MaximumSubarraySum.maximumSubarraySum2(array);
             if (ans1 != ans2) {

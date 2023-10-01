@@ -1,7 +1,7 @@
 package com.xiaoxiaoyi.leetcode;
 
 import com.xiaoxiaoyi.utils.ArrayUtils;
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -158,7 +158,7 @@ public class DyeingTree {
         int[][] edges = new int[n - 1][2];
         for (int i = 1; i < n; i++) {
             edges[i - 1][0] = nodes[i];
-            edges[i - 1][1] = nodes[RandomGenerate.nextInt(i)];
+            edges[i - 1][1] = nodes[RandomUtils.nextInt(i)];
         }
         return edges;
     }
@@ -171,7 +171,7 @@ public class DyeingTree {
         int[] colors;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            n = RandomGenerate.nextInt(maxLength) + 1;
+            n = RandomUtils.nextInt(maxLength) + 1;
             edges = randomEdges(n);
             colors = dyeingTree(edges, n);
             if (!checkAnswer(edges, n, colors)) {

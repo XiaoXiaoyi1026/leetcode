@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import com.xiaoxiaoyi.matrix.Matrix;
 import junit.framework.TestCase;
 
@@ -13,7 +13,7 @@ public class DriverAssignmentTest extends TestCase {
             int rows = (int) (Math.random() * 50) >> 1;
             int cols = 2;
             int max = (int) (Math.random() * 50);
-            int[][] income = RandomGenerate.matrix(rows, cols, max);
+            int[][] income = RandomUtils.matrix(rows, cols, max);
             int ans1 = DriverAssignment.maxMoney1(income);
             int ans2 = DriverAssignment.maxMoney2(income);
             if (ans1 != ans2) {

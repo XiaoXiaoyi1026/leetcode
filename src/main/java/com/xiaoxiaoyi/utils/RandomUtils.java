@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class RandomGenerate {
+public class RandomUtils {
 
     static final Random RANDOM;
 
@@ -14,7 +14,7 @@ public class RandomGenerate {
         RANDOM = new Random();
     }
 
-    private RandomGenerate() {
+    private RandomUtils() {
     }
 
     @NotNull

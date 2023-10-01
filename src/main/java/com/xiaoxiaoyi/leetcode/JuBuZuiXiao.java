@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,7 +17,7 @@ public class JuBuZuiXiao {
     public static void main(String[] args) {
         int[] input;
         for (int i = 0; i < 100; i++) {
-            input = RandomGenerate.array((int) (1 + Math.random() * 20), 50);
+            input = RandomUtils.array((int) (1 + Math.random() * 20), 50);
             System.out.println(Arrays.toString(input));
             System.out.println(find(input));
         }

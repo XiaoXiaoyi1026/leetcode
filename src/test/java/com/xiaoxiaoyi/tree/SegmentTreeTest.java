@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.tree;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +52,7 @@ public class SegmentTreeTest extends TestCase {
     }
 
     public void testBuild() {
-        int[] arr = RandomGenerate.array(10, 100, true);
+        int[] arr = RandomUtils.array(10, 100, true);
         SegmentTree tree = new SegmentTree(arr);
         tree.print();
     }
@@ -65,14 +65,14 @@ public class SegmentTreeTest extends TestCase {
         SegmentTree segmentTree;
         int testTreeQueryAnswer;
         int segmentTreeQueryAnswer;
-        Random random = RandomGenerate.getRandom();
+        Random random = RandomUtils.getRandom();
         int[] arr;
         int from;
         int to;
         int value;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            arr = RandomGenerate.array(length, maxValue);
+            arr = RandomUtils.array(length, maxValue);
             testTree = new TestTree(arr);
             segmentTree = new SegmentTree(arr);
             while (random.nextBoolean()) {
@@ -109,14 +109,14 @@ public class SegmentTreeTest extends TestCase {
         int maxValue = 20;
         TestTree testTree;
         SegmentTree segmentTree;
-        Random random = RandomGenerate.getRandom();
+        Random random = RandomUtils.getRandom();
         int[] arr;
         int from;
         int to;
         int value;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            arr = RandomGenerate.array(length, maxValue);
+            arr = RandomUtils.array(length, maxValue);
             testTree = new TestTree(arr);
             segmentTree = new SegmentTree(arr);
             while (random.nextFloat() < 0.8) {
@@ -147,10 +147,10 @@ public class SegmentTreeTest extends TestCase {
         int from;
         int to;
         int value;
-        Random random = RandomGenerate.getRandom();
+        Random random = RandomUtils.getRandom();
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            arr = RandomGenerate.array(length, maxValue);
+            arr = RandomUtils.array(length, maxValue);
             testTree = new TestTree(arr);
             segmentTree = new SegmentTree(arr);
             while (random.nextFloat() < 0.8) {
@@ -198,7 +198,7 @@ public class SegmentTreeTest extends TestCase {
         int maxValue = 20;
         TestTree testTree;
         SegmentTree segmentTree;
-        Random random = RandomGenerate.getRandom();
+        Random random = RandomUtils.getRandom();
         int[] arr;
         int from;
         int to;
@@ -206,7 +206,7 @@ public class SegmentTreeTest extends TestCase {
         int max2;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            arr = RandomGenerate.array(length, maxValue);
+            arr = RandomUtils.array(length, maxValue);
             testTree = new TestTree(arr);
             segmentTree = new SegmentTree(arr);
             from = random.nextInt(length);
@@ -233,7 +233,7 @@ public class SegmentTreeTest extends TestCase {
         int maxValue = 200;
         TestTree testTree;
         SegmentTree segmentTree;
-        Random random = RandomGenerate.getRandom();
+        Random random = RandomUtils.getRandom();
         int[] arr;
         int from;
         int to;
@@ -243,7 +243,7 @@ public class SegmentTreeTest extends TestCase {
         boolean testFailed = false;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            arr = RandomGenerate.array(length, maxValue);
+            arr = RandomUtils.array(length, maxValue);
             testTree = new TestTree(arr);
             segmentTree = new SegmentTree(arr);
             while (random.nextFloat() < 0.8) {
@@ -282,7 +282,7 @@ public class SegmentTreeTest extends TestCase {
         int maxValue = 200;
         TestTree testTree;
         SegmentTree segmentTree;
-        Random random = RandomGenerate.getRandom();
+        Random random = RandomUtils.getRandom();
         int[] arr;
         int from;
         int to;
@@ -292,7 +292,7 @@ public class SegmentTreeTest extends TestCase {
         boolean testFailed = false;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            arr = RandomGenerate.array(length, maxValue);
+            arr = RandomUtils.array(length, maxValue);
             testTree = new TestTree(arr);
             segmentTree = new SegmentTree(arr);
             while (random.nextFloat() < 0.8) {

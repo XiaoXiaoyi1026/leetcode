@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import junit.framework.TestCase;
 
 public class TargetSumTest extends TestCase {
@@ -13,7 +13,7 @@ public class TargetSumTest extends TestCase {
         int[] nums;
         System.out.println("测试开始");
         for (int i = 0; i < testTimes; i++) {
-            nums = RandomGenerate.array(length, max);
+            nums = RandomUtils.array(length, max);
             int ans1 = TargetSum.findTargetSumWays1(nums, target);
             int ans2 = TargetSum.findTargetSumWays2(nums, target);
             int ans3 = TargetSum.findTargetSumWays3(nums, target);

@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.other;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +20,7 @@ public class PartitionQuickSort {
     public static void main(String[] args) {
         int[] nums;
         for (int i = 0; i < 100; i++) {
-            nums = RandomGenerate.array((int) (1 + Math.random() * 20), 50);
+            nums = RandomUtils.array((int) (1 + Math.random() * 20), 50);
             System.out.println(Arrays.toString(nums));
             quickSort(nums);
             System.out.println(Arrays.toString(nums));

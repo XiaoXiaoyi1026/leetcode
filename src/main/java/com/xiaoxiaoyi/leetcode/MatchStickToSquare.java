@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 
 import java.util.Arrays;
 
@@ -197,7 +197,7 @@ public class MatchStickToSquare {
         int[] matchSticks;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            matchSticks = RandomGenerate.array(maxLength, maxValue, 1, true);
+            matchSticks = RandomUtils.array(maxLength, maxValue, 1, true);
             boolean res1 = makeSquare(matchSticks);
             boolean res2 = makeSquare2(matchSticks);
             boolean res3 = makeSquare3(matchSticks);

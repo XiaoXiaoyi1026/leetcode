@@ -1,7 +1,7 @@
 package com.xiaoxiaoyi.leetcode;
 
 import com.xiaoxiaoyi.utils.ArrayUtils;
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +21,7 @@ public class RadixSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = RandomGenerate.array(20, 50);
+        int[] arr = RandomUtils.array(20, 50);
         System.out.println(Arrays.toString(arr));
         radixSort(arr);
         System.out.println(Arrays.toString(arr));

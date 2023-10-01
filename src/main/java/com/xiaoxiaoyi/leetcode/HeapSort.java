@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public class HeapSort {
 
     public static void main(String[] args) {
         for (int i = 0; i < 100; i++) {
-            int[] arr = RandomGenerate.array((int) (1 + Math.random() * 20), 50);
+            int[] arr = RandomUtils.array((int) (1 + Math.random() * 20), 50);
             System.out.println(Arrays.toString(arr));
             sort(arr);
             System.out.println(Arrays.toString(arr));

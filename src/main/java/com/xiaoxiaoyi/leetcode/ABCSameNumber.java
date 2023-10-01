@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -176,7 +176,7 @@ public class ABCSameNumber {
         int ans2;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            stringABC = RandomGenerate.string(new char[]{'A', 'B', 'C'}, 24);
+            stringABC = RandomUtils.string(new char[]{'A', 'B', 'C'}, 24);
             ans1 = lessTimes(stringABC);
             ans2 = lessTimes2(stringABC);
             if (ans1 != ans2) {

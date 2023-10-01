@@ -1,12 +1,12 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import junit.framework.TestCase;
 
 public class LeftGRightBOrRightGLeftBTest extends TestCase {
 
     public void testMinimumNumberOfExchanges() {
-        String GBString = RandomGenerate.string(
+        String GBString = RandomUtils.string(
                 new char[]{'G', 'B'}, (int) (Math.random() * 20)
         );
         System.out.println(GBString);
@@ -15,7 +15,7 @@ public class LeftGRightBOrRightGLeftBTest extends TestCase {
 
     public void testAll() {
         for (int i = 0; i < 1000; i++) {
-            String GBString = RandomGenerate.string(
+            String GBString = RandomUtils.string(
                     new char[]{'G', 'B'}, (int) (Math.random() * 20)
             );
             int ans1 = LeftGRightBOrRightGLeftB.minimumNumberOfExchanges(GBString);

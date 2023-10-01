@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -65,7 +65,7 @@ public class MaxIncreasingSubarrayCanDeleteContinuousPartTest extends TestCase {
         int ans1, ans2;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            arr = RandomGenerate.set(maxSize, maxValue,  true);
+            arr = RandomUtils.set(maxSize, maxValue,  true);
             ans1 = stupid(arr);
             ans2 = MaxIncreasingSubarrayCanDeleteContinuousPart.maxLen(arr);
             if (ans1 != ans2) {

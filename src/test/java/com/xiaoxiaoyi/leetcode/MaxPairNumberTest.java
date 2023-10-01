@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import junit.framework.TestCase;
 
 import java.util.Arrays;
@@ -15,7 +15,7 @@ public class MaxPairNumberTest extends TestCase {
     public void testMaxPairNumber1() {
         int length = (int) (Math.random() * 10);
         int max = (int) (Math.random() * 30) + 20;
-        int[] arr = RandomGenerate.array(length, max);
+        int[] arr = RandomUtils.array(length, max);
         System.out.println(Arrays.toString(arr));
         int k = (int) (Math.random() * 20);
         System.out.println(k);
@@ -25,7 +25,7 @@ public class MaxPairNumberTest extends TestCase {
     public void testMaxPairNumber2() {
         int length = 5 + (int) (Math.random() * 10);
         int max = (int) (Math.random() * 30) + 20;
-        int[] arr = RandomGenerate.array(length, max);
+        int[] arr = RandomUtils.array(length, max);
         System.out.println(Arrays.toString(arr));
         int k = (int) (Math.random() * 20);
         System.out.println(k);
@@ -38,7 +38,7 @@ public class MaxPairNumberTest extends TestCase {
         for (int i = 0; i < testTimes; i++) {
             int length = 5 + (int) (Math.random() * 10);
             int max = (int) (Math.random() * 30) + 20;
-            int[] arr1 = RandomGenerate.array(length, max);
+            int[] arr1 = RandomUtils.array(length, max);
             int[] arr2 = new int[length];
             System.arraycopy(arr1, 0, arr2, 0, length);
             int k = (int) (Math.random() * 20);

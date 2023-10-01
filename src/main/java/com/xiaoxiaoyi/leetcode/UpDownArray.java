@@ -1,6 +1,6 @@
 package com.xiaoxiaoyi.leetcode;
 
-import com.xiaoxiaoyi.utils.RandomGenerate;
+import com.xiaoxiaoyi.utils.RandomUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -101,7 +101,7 @@ public class UpDownArray {
         int ans2;
         System.out.println("测试开始!!!");
         for (int i = 0; i < testTimes; i++) {
-            arr = RandomGenerate.array(length, max, true);
+            arr = RandomUtils.array(length, max, true);
             ans1 = upDownArray1(arr);
             ans2 = upDownArray2(arr);
             if (ans1 != ans2) {
