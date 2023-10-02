@@ -39,6 +39,10 @@ public class Heap<E> {
         }
     }
 
+    public Heap() {
+        this(16, null);
+    }
+
     private void swap(int node1, int node2) {
         E tmp = data[node1];
         data[node1] = data[node2];
@@ -115,5 +119,13 @@ public class Heap<E> {
     @Override
     public String toString() {
         return Arrays.toString(data);
+    }
+
+    public void poll() {
+        delete();
+    }
+
+    public void offer(E e) {
+        insert(e);
     }
 }
