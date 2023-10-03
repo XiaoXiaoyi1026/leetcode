@@ -47,10 +47,12 @@ public class CoverMax {
         Arrays.sort(segments, Comparator.comparingInt(s -> s[0]));
         int ans = 0;
         Heap<Integer> helpHeap = new Heap<>(segments.length);
+        // O(NlogN), 每个线段的结尾只会进一次和出一次堆
         for (int[] segment : segments) {
             while (!helpHeap.isEmpty() && helpHeap.peek() <= segment[0]) {
                 helpHeap.poll();
             }
+            // O(logN)
             helpHeap.insert(segment[1]);
             ans = Math.max(ans, helpHeap.size());
         }
