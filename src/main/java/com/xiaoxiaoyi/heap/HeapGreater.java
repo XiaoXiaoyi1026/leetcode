@@ -82,7 +82,7 @@ public class HeapGreater<E> extends Heap<E> {
      *
      * @param e 移除的元素
      */
-    void remove(E e) {
+    public void remove(E e) {
         if (contains(e)) {
             int index = indexMap.get(e);
             indexMap.remove(e);
