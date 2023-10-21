@@ -9,6 +9,8 @@ package com.xiaoxiaoyi.linkedlist;
  */
 public class SplitSingleLinkedList {
 
+    private SplitSingleLinkedList() {}
+
     public static Node<Integer> split(Node<Integer> head, int x) {
         Node<Integer> leftHead = null;
         Node<Integer> leftTail = null;

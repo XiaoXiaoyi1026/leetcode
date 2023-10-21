@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class LinkedListUtils {
 
+    private LinkedListUtils() {}
+
     public static String toSingleString(Node<Integer> head) {
         StringBuilder sb = new StringBuilder();
         while (head != null) {
