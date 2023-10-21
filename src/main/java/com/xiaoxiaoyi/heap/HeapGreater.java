@@ -1,19 +1,23 @@
 package com.xiaoxiaoyi.heap;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.*;
-import java.util.HashSet;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * 加强堆
+ * 加强堆, 无法插入相同元素
  */
 public class HeapGreater<E> extends Heap<E> {
 
     /**
      * 反向索引表
      */
-    final Map<E, Set<Integer>> indexMap;
+    final Map<E, Integer> indexMap;
+
+    /**
+     * 初始化容量
+     */
+    static final int INITIAL_CAPACITY = 10;
 
     /**
      * @param initialCapacity 初始化堆容量
@@ -24,37 +28,12 @@ public class HeapGreater<E> extends Heap<E> {
         indexMap = HashMap.newHashMap(initialCapacity);
     }
 
-    /**
-     * @param comparator 堆元素比较器
-     */
-    public HeapGreater(Comparator<E> comparator) {
-        this(INITIAL_CAPACITY, comparator);
-    }
-
-    /**
-     * @param data 原始数组
-     */
-    public HeapGreater(@NotNull E[] data) {
-        indexMap = new HashMap<>();
-        for (E e : data) {
-            insert(e);
-        }
-    }
-
     public HeapGreater(int initialCapacity) {
         this(initialCapacity, null);
     }
 
     public HeapGreater() {
         this(INITIAL_CAPACITY);
-    }
-
-    /**
-     * @param e 元素
-     * @return 元素出现的下标
-     */
-    public Set<Integer> indexOf(E e) {
-        return indexMap.get(e);
     }
 
     /**
@@ -67,73 +46,56 @@ public class HeapGreater<E> extends Heap<E> {
 
     @Override
     void swap(int index1, int index2) {
-        Set<Integer> indexSet1 = indexMap.get(data.get(index1));
-        Set<Integer> indexSet2 = indexMap.get(data.get(index2));
-        if (indexSet1 != indexSet2) {
-            indexSet1.remove(index1);
-            indexSet2.add(index1);
-            indexSet2.remove(index2);
-            indexSet1.add(index2);
-            super.swap(index1, index2);
-        }
-    }
-
-    @Override
-    public void insert(E e) {
-        Set<Integer> indexSet = indexMap.get(e);
-        if (indexSet == null) {
-            indexSet = new HashSet<>();
-        }
-        indexSet.add(size);
-        indexMap.put(e, indexSet);
-        super.insert(e);
-    }
-
-    @Override
-    public void offer(E e) {
-        insert(e);
-    }
-
-    @Override
-    public void add(E e) {
-        insert(e);
+        super.swap(index1, index2);
+        indexMap.put(data.get(index1), index1);
+        indexMap.put(data.get(index2), index2);
     }
 
     /**
-     * 移除堆上所有的元素e
+     * 插入非重复元素
+     *
+     * @param e 元素
+     * @return 插入是否成功
+     */
+    @Override
+    public boolean insert(E e) {
+        if (contains(e) || isFull()) {
+            return false;
+        }
+        indexMap.put(e, size);
+        super.insert(e);
+        return true;
+    }
+
+    /**
+     * 重新调整
+     *
+     * @param index 下标
+     */
+    void reAdjust(int index) {
+        heapInsert(index);
+        heapify(index);
+    }
+
+    /**
+     * 移除堆上的元素e
      *
      * @param e 移除的元素
      */
     void remove(E e) {
-        Set<Integer> indexSet = indexMap.get(e);
-        if (indexSet != null) {
-            for (int index : indexSet) {
-                swap(index, --size);
-                heapInsert(index);
-                heapify(index);
-            }
+        if (contains(e)) {
+            int index = indexMap.get(e);
             indexMap.remove(e);
+            swap(index, --size);
+            reAdjust(index);
         }
     }
 
     @Override
     public E delete() {
-        E e = super.delete();
-        indexMap.get(e).remove(size);
-        if (indexMap.get(e).isEmpty()) {
-            indexMap.remove(e);
-        }
-        return e;
-    }
-
-    @Override
-    public E remove() {
-        return delete();
-    }
-
-    @Override
-    public E poll() {
-        return delete();
+        E delete = super.delete();
+        indexMap.remove(delete);
+        return delete;
     }
 
 }

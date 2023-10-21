@@ -1,7 +1,5 @@
 package com.xiaoxiaoyi.heap;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -10,11 +8,6 @@ import java.util.List;
  * 堆数据结构实现
  */
 public class Heap<E> {
-
-    /**
-     * 默认初始容量
-     */
-    static final int INITIAL_CAPACITY = 16;
 
     /**
      * 数据
@@ -31,6 +24,8 @@ public class Heap<E> {
      */
     Comparator<E> comparator;
 
+    int capacity;
+
     /**
      * @param initialCapacity 堆容量
      * @param comparator      比较器
@@ -39,13 +34,7 @@ public class Heap<E> {
         this.comparator = comparator;
         data = new ArrayList<>(initialCapacity);
         size = 0;
-    }
-
-    /**
-     * @param comparator 比较器
-     */
-    public Heap(Comparator<E> comparator) {
-        this(INITIAL_CAPACITY, comparator);
+        capacity = initialCapacity;
     }
 
     /**
@@ -53,31 +42,6 @@ public class Heap<E> {
      */
     public Heap(int initialCapacity) {
         this(initialCapacity, null);
-    }
-
-    /**
-     * @param arr        原始数组
-     * @param comparator 比较器
-     */
-    public Heap(@NotNull E[] arr, Comparator<E> comparator) {
-        this.comparator = comparator;
-        for (E e : arr) {
-            insert(e);
-        }
-    }
-
-    /**
-     * @param arr 原始数组
-     */
-    public Heap(@NotNull E[] arr) {
-        this(arr, null);
-    }
-
-    /**
-     * 默认创建堆
-     */
-    public Heap() {
-        this(INITIAL_CAPACITY, null);
     }
 
     /**
@@ -148,6 +112,13 @@ public class Heap<E> {
     }
 
     /**
+     * @return 堆是否已满
+     */
+    public boolean isFull() {
+        return data.size() == capacity;
+    }
+
+    /**
      * @return 堆大小
      */
     public int size() {
@@ -178,22 +149,17 @@ public class Heap<E> {
      *
      * @param e 元素
      */
-    public void insert(E e) {
+    public boolean insert(E e) {
+        if (isFull()) {
+            return false;
+        }
         data.add(e);
         heapInsert(size++);
+        return true;
     }
 
-    /**
-     * 插入元素
-     *
-     * @param e 元素
-     */
-    public void offer(E e) {
-        insert(e);
-    }
-
-    public void add(E e) {
-        insert(e);
+    public boolean add(E e) {
+        return insert(e);
     }
 
     /**
