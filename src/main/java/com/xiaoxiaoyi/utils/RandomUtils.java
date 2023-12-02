@@ -199,4 +199,8 @@ public class RandomUtils {
     public static int nextInt(int bound) {
         return RANDOM.nextInt(bound);
     }
+
+    public static int nextInt(int from, int to) {
+        return from + RANDOM.nextInt(to - from + 1);
+    }
 }
