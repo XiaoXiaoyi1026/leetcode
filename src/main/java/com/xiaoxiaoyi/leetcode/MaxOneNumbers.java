@@ -1,7 +1,10 @@
 package com.xiaoxiaoyi.leetcode;
 
+import com.xiaoxiaoyi.utils.RandomUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 /**
  * 给定一个01数组, 一定要翻转一个非空区间, 翻转使得区间范围内0变为1, 1变为0
@@ -40,9 +43,10 @@ public class MaxOneNumbers {
         if (arr == null || arr.length == 0) {
             return 0;
         }
+        int n = arr.length;
         int ans = 0;
-        for (int start = 0; start < arr.length; start++) {
-            for (int end = start + 1; end <= arr.length; end++) {
+        for (int start = 0; start < n; start++) {
+            for (int end = start + 1; end <= n; end++) {
                 reverse(arr, start, end);
                 ans = Math.max(ans, countOne(arr));
                 reverse(arr, start, end); // 恢复数组状态, 下次循环可以使用上次的状态
@@ -80,7 +84,24 @@ public class MaxOneNumbers {
     }
 
     public static void main(String[] args) {
-        System.out.println(maxOneNumbers(new int[]{1, 0, 1, 1, 0}));
-        System.out.println(maxOneNumbers2(new int[]{1, 0, 1, 1, 0}));
+        int length = 100;
+        int testTimes = 10000;
+        int[] arr;
+        int ans1;
+        int ans2;
+        System.out.println("test begin");
+        for (int i = 0; i < testTimes; i++) {
+            arr = RandomUtils.array(length, 1, 0, true); // 生成01数组
+            ans1 = maxOneNumbers(arr);
+            ans2 = maxOneNumbers2(arr);
+            if (ans1 != ans2) {
+                System.out.println("Oops!");
+                System.out.println("ans1 = " + ans1);
+                System.out.println("ans2 = " + ans2);
+                System.out.println("arr = " + Arrays.toString(arr));
+                return;
+            }
+        }
+        System.out.println("test end");
     }
 }
