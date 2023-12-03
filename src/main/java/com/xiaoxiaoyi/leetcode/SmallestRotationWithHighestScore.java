@@ -1,7 +1,10 @@
 package com.xiaoxiaoyi.leetcode;
 
+import com.xiaoxiaoyi.utils.RandomUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 /**
  * 给定一个原始数组 arr，返回数组最大分数的最小左旋步数k。
@@ -66,10 +69,12 @@ public class SmallestRotationWithHighestScore {
      */
     public static int bestRotation(@NotNull int[] arr) {
         int bestScore = 0;
-        int bestK = arr.length;
+        int bestK = 0;
+        int curScore;
         for (int step = 0; step < arr.length; step++) {
-            if (score(rotation(arr, step)) > bestScore) {
-                bestScore = score(rotation(arr, step));
+            curScore = score(rotation(arr, step));
+            if (curScore > bestScore) {
+                bestScore = curScore;
                 bestK = step;
             }
         }
@@ -108,30 +113,43 @@ public class SmallestRotationWithHighestScore {
         }
         step %= n; // step大于n时，将step对n取余，保证step不超过n。
         int[] res = arr.clone();
-        int cur = 0; // 起始下标
-        int next; // 下一个下标
-        int out = res[cur]; // 当前弹出的数
-        int tmp; // 中间变量
-        do {
-            next = ((cur - step) + n) % n;
-            tmp = res[next];
-            res[next] = out;
-            out = tmp;
-            cur = next;
-        } while (cur != 0);
+        int cur = 0; // 起始下标// 当前弹出的数
+        int next;
+        int out;
+        int tmp;
+        for (int i = 0; i < step; i++) {
+            // 数组整体往左移动一位
+            out = res[0];
+            do {
+                next = ((cur - 1) + n) % n;
+                tmp = res[next];
+                res[next] = out;
+                out = tmp;
+                cur = next;
+            } while (cur != 0);
+        }
         return res;
     }
 
-    /**
-     * 测试
-     */
-    public static void test() {
-        System.out.println(bestRotation(new int[]{2, 3, 1, 4, 0}));
-        System.out.println(bestRotation2(new int[]{2, 3, 1, 4, 0}));
-    } // 结果应该是: 4
-
     public static void main(String[] args) {
-        test();
+        int length = 20;
+        int[] arr;
+        int testTimes = 10000;
+        int ans1;
+        int ans2;
+        System.out.println("test begin");
+        for (int i = 0; i < testTimes; i++) {
+            arr = RandomUtils.array(length, length, true);
+            ans1 = bestRotation(arr.clone());
+            ans2 = bestRotation2(arr.clone());
+            if (ans1 != ans2) {
+                System.out.println("Oops!");
+                System.out.println("ans1 = " + ans1);
+                System.out.println("ans2 = " + ans2);
+                System.out.println("arr = " + Arrays.toString(arr));
+                break;
+            }
+        }
+        System.out.println("test end");
     }
-
 }
